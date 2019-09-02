@@ -1,2 +1,2 @@
-# MovieMate
-Android app which gives rating to movies and TV shows.
+# Basic App
+Basic layout of app
