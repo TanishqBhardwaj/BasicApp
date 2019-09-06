@@ -1,2 +1,2 @@
 # Basic App
-Basic layout of app
+App which shows movie and TV shows rating.
