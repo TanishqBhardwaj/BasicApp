@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home">
+
+        </item>
+<item android:id="@+id/nav_Movies"
+    android:title="Movies">
+
+</item>
+        <item android:id="@+id/nav_TV"
+            android:title="TV">
+
+        </item>
+        <item android:id="@+id/nav_biopics"
+            android:title="Biopics">
+
+        </item>
+        <item android:id="@+id/nav_documentary"
+            android:title="Documentary Movies">
+
+        </item>
+
+    </group>
+<group android:checkableBehavior="single"
+    android:id="@+id/group2">
+    <item android:id="@+id/nav_settings"
+        android:title="Settings">
+
+    </item>
+    <item android:id="@+id/nav_aboutus"
+        android:title="About Us">
+
+    </item>
+
+</group>
+
+
+</menu>
