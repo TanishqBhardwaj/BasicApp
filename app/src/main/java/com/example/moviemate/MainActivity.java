@@ -3,9 +3,13 @@ package com.example.moviemate;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+
 import com.facebook.drawee.backends.pipeline.Fresco;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +29,17 @@ public class MainActivity extends AppCompatActivity {
     private MovieAdapter mMovieAdapter;
     private ArrayList<MovieItem> mMovieList;
 
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fresco.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true); // what does this mean
@@ -39,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         URL searchURL = buildUrl();
         new queryTask().execute(searchURL);
     }
+
+
+
+
+
+
 
     public class queryTask extends AsyncTask<URL, Void, String> {
 
