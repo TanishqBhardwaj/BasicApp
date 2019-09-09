@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/colorBackground">
 
         <TextView
+            android:textColor="@color/colorhead"
+
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,6 +28,7 @@
             fresco:layout_constraintTop_toBottomOf="@+id/image_view" />
 
         <TextView
+            android:textColor="@color/colormatter"
             android:id="@+id/text_view_popularity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
