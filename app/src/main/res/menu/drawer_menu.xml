@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        //items inside remain selected when we select them
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home"/>
+
+        <item
+            android:id="@+id/nav_movies"
+            android:icon="@drawable/ic_movie"
+            android:title="Movies"/>
+
+        <item
+            android:id="@+id/nav_TV_shows"
+            android:icon="@drawable/ic_tv_show"
+            android:title="TV Shows"/>
+
+    </group>
+
+    //items outside does not remain selected when we select them
+</menu>
