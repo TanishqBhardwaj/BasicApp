@@ -4,27 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginLeft="8dp">
+    android:layout_marginTop="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@android:color/darker_gray">
+        android:background="#4d4d4d">
 
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="Title:"
             android:textSize="20sp"
+            android:textColor="@android:color/white"
             fresco:layout_constraintBottom_toTopOf="@+id/text_view_popularity"
             fresco:layout_constraintStart_toStartOf="parent"
             fresco:layout_constraintTop_toBottomOf="@+id/image_view" />
@@ -33,8 +30,8 @@
             android:id="@+id/text_view_popularity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="Popularity: "
+            android:textColor="@android:color/white"
             android:textSize="20sp"
             fresco:layout_constraintBottom_toBottomOf="parent"
             fresco:layout_constraintStart_toStartOf="parent" />
@@ -42,13 +39,12 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="400dp"
+            fresco:actualImageScaleType="none"
             fresco:layout_constraintEnd_toEndOf="parent"
             fresco:layout_constraintStart_toStartOf="parent"
             fresco:layout_constraintTop_toTopOf="parent"
+            fresco:roundedCornerRadius="4dp"
             fresco:placeholderImage="@mipmap/ic_launcher" />
 
 

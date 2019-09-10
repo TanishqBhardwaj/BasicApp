@@ -10,9 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.squareup.picasso.Picasso;
-
-import java.net.URI;
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -41,7 +38,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String imageUrl = movieItem.getImageUrl();
         String title = movieItem.getTitle();
         int popularity = movieItem.getPopularity();
-
+//
+//        PointF focusPoint = new PointF(0.5f, 0.5f);
+//        holder.mImageView
+//                .getHierarchy()
+//                .setActualImageFocusPoint(focusPoint);
         holder.mImageView.setImageURI(Uri.parse(imageUrl));
         Log.d("Image url",imageUrl);
         holder.mTextViewTitle.setText(title);
