@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.squareup.picasso.Picasso;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -41,11 +42,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String title = movieItem.getTitle();
         int popularity = movieItem.getPopularity();
 
-
+        holder.mImageView.setImageURI(Uri.parse(imageUrl));
         Log.d("Image url",imageUrl);
         holder.mTextViewTitle.setText(title);
         holder.mTextViewPopularity.setText("Popularity: " + popularity);
-        Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
+//        Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
     }
 
     @Override
