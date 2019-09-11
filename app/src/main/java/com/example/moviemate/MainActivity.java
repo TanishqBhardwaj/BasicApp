@@ -1,5 +1,6 @@
 package com.example.moviemate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,8 +15,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     final static String apiUrl = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
@@ -51,10 +56,35 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // what does this mean
         mMovieList = new ArrayList<>();
 
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         setUpToolBar();
         URL searchURL = buildUrl();
         new queryTask().execute(searchURL);
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+                break;
+
+            case R.id.nav_movies:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoviesFragment()).commit();
+                break;
+            case R.id.nav_TV_shows:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TvFragment()).commit();
+                break;
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+
+        return true;
+    }
+
 
     private void setUpToolBar() {
         drawerLayout = findViewById(R.id.drawer_layout);
