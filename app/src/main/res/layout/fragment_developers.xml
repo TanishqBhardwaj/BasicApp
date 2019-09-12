@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/colorBackground"
+android:orientation="vertical">
+
+<ImageView
+    android:id="@+id/SakshiImage"
+    android:layout_width="170dp"
+    android:layout_height="170dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="24dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/intro"
+    app:srcCompat="@drawable/sakshi" />
+
+<ImageView
+    android:id="@+id/TanishqImage"
+    android:layout_width="170dp"
+    android:layout_height="170dp"
+
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="16dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/intro"
+    app:srcCompat="@drawable/sakshi" />
+
+<TextView
+    android:id="@+id/SakshiName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="43dp"
+    android:layout_marginTop="4dp"
+    android:text="SAKSHI YADAV"
+    android:textColor="@color/colorhead"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/SakshiImage" />
+
+<TextView
+    android:id="@+id/TanishqName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="31dp"
+    android:text="Tanishq Bharadwaj"
+    android:textColor="@color/colorhead"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/TanishqImage" />
+
+<TextView
+    android:id="@+id/intro"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="64dp"
+    android:text="Forward-thinking developers offering near about one month of experience building, integrating, testing, and supporting Android applications for mobile and tablet devices on the Android platform seeks a position in SOFTWARE INCUBATORS of AKGEC.
+
+"
+    android:textColor="@color/colorhead"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<ImageView
+    android:id="@+id/insta1"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="24dp"
+    app:layout_constraintEnd_toStartOf="@+id/facebook1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/SakshiName"
+    app:srcCompat="@drawable/insta" />
+
+<ImageView
+    android:id="@+id/facebook1"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+
+    android:layout_marginStart="80dp"
+
+    android:layout_marginTop="24dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/SakshiName"
+    app:srcCompat="@drawable/facebook" />
+
+
+<ImageView
+    android:id="@+id/gmail1"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="24dp"
+    app:layout_constraintStart_toEndOf="@+id/facebook1"
+    app:layout_constraintTop_toBottomOf="@+id/SakshiName"
+    app:srcCompat="@drawable/gmail" />
+
+
+<ImageView
+    android:id="@+id/insta2"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="24dp"
+    app:layout_constraintEnd_toStartOf="@+id/facebook2"
+    app:layout_constraintTop_toBottomOf="@+id/TanishqName"
+    app:srcCompat="@drawable/insta2" />
+
+<ImageView
+    android:id="@+id/facebook2"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+
+    android:layout_marginStart="303dp"
+    android:layout_marginTop="376dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/facebook2" />
+
+<ImageView
+    android:id="@+id/gmail2"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="24dp"
+    app:layout_constraintStart_toEndOf="@+id/facebook2"
+    app:layout_constraintTop_toBottomOf="@+id/TanishqName"
+    app:srcCompat="@drawable/gmail2" />
+
+
+<TextView
+    android:id="@+id/core2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="448dp"
+    android:text="CORE QUALIFICATIONS"
+    android:textColor="@color/colorhead"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.498"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    android:id="@+id/corematter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="492dp"
+    android:text="\nCreated 1 fully functional applications for Android devices.\nKnown for writing efficient, maintainable, and reusable code.\nProficient in design, data structures, problem-solving, and debugging.\nExpert in the interaction between various devices and versions of Android."
+    android:textColor="@color/colorhead"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

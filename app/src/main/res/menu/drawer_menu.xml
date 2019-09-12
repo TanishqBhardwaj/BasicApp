@@ -23,5 +23,20 @@
 
     </group>
 
+    <item android:title="Information">
+        <menu>
+
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_people_black_24dp"
+                android:title="About Us" />
+            <item
+                android:id="@+id/nav_dev"
+                android:icon="@drawable/ic_android"
+                android:title="DEVELOPERS" />
+        </menu>
+
+    </item>
+
     //items outside does not remain selected when we select them
 </menu>

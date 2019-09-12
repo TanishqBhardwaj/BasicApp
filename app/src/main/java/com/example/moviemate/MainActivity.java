@@ -3,6 +3,7 @@ package com.example.moviemate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,6 +17,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +38,7 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
     final static String apiUrl = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
@@ -50,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         Fresco.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+
+
+
+
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true); // what does this mean
@@ -76,7 +85,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_TV_shows:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TvFragment()).commit();
+            case R.id.nav_about:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new DevelopersAbout()).commit();
+                Toast.makeText(this, "ABOUT US", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_dev:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new DevelopersFragment()).commit();
+                Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_SHORT).show();
+                break;
+
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);
