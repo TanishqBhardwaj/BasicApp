@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
+
 //    ViewPager viewPager;
 //    ViewPagerAdapter viewPagerAdapter;
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         Fresco.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+
 
 
 
@@ -72,6 +75,79 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         URL searchURL = buildUrl();
         new queryTask().execute(searchURL);
     }
+    public void SakshiInstaClick(View view)
+    {
+        openUrl1("https://www.instagram.com/sakshi_yadav_77/");
+    }
+
+
+    private void openUrl1(String url) {
+        Uri uri=Uri.parse(url);
+        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(launchWeb);
+    }
+
+    public void SakshiFacebookClick(View view)
+    {
+        openUrl2("https://www.facebook.com/sakshi.yadav.140");
+    }
+
+
+    private void openUrl2(String url) {
+        Uri uri=Uri.parse(url);
+        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(launchWeb);
+    }
+
+    public void SakshiGmailClick(View view)
+    {
+        openUrl3("https://www.gmail.com");
+    }
+
+
+    private void openUrl3(String url) {
+        Uri uri=Uri.parse(url);
+        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(launchWeb);
+    }
+
+
+    public void TanishqInstaClick(View view)
+    {
+        openUrl4("https://www.instagram.com/tanishq_bhardwaj_9/");
+    }
+
+
+    private void openUrl4(String url) {
+        Uri uri=Uri.parse(url);
+        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(launchWeb);
+    }
+
+    public void TanishqFacebookClick(View view)
+    {
+        openUrl5("https://www.facebook.com/sakshi.yadav.140");
+    }
+
+
+    private void openUrl5(String url) {
+        Uri uri=Uri.parse(url);
+        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(launchWeb);
+    }
+
+    public void TanishqGmailClick(View view)
+    {
+        openUrl6("https://mail.google.com/mail/u/0/#inbox");
+    }
+
+
+    private void openUrl6(String url) {
+        Uri uri=Uri.parse(url);
+        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        startActivity(launchWeb);
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -87,11 +163,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TvFragment()).commit();
             case R.id.nav_about:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new DevelopersAbout()).commit();
-                Toast.makeText(this, "ABOUT US", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "ABOUT US", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_dev:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new DevelopersFragment()).commit();
-                Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_LONG).show();
                 break;
 
 

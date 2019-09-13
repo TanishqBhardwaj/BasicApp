@@ -9,6 +9,7 @@ android:orientation="vertical">
 
 <ImageView
     android:id="@+id/SakshiImage"
+
     android:layout_width="170dp"
     android:layout_height="170dp"
     android:layout_marginStart="16dp"
@@ -68,7 +69,7 @@ android:orientation="vertical">
     android:id="@+id/insta1"
     android:layout_width="35dp"
     android:layout_height="35dp"
-
+    android:onClick="SakshiInstaClick"
     android:layout_marginTop="24dp"
     android:layout_marginEnd="24dp"
     app:layout_constraintEnd_toStartOf="@+id/facebook1"
@@ -80,7 +81,7 @@ android:orientation="vertical">
     android:id="@+id/facebook1"
     android:layout_width="35dp"
     android:layout_height="35dp"
-
+    android:onClick="SakshiFacebookClick"
     android:layout_marginStart="80dp"
 
     android:layout_marginTop="24dp"
@@ -93,7 +94,7 @@ android:orientation="vertical">
     android:id="@+id/gmail1"
     android:layout_width="40dp"
     android:layout_height="40dp"
-
+    android:onClick="SakshGmailClick"
     android:layout_marginStart="24dp"
     android:layout_marginTop="24dp"
     app:layout_constraintStart_toEndOf="@+id/facebook1"
@@ -105,7 +106,7 @@ android:orientation="vertical">
     android:id="@+id/insta2"
     android:layout_width="35dp"
     android:layout_height="35dp"
-
+    android:onClick="TanishqInstaClick"
     android:layout_marginTop="24dp"
     android:layout_marginEnd="24dp"
     app:layout_constraintEnd_toStartOf="@+id/facebook2"
@@ -116,7 +117,7 @@ android:orientation="vertical">
     android:id="@+id/facebook2"
     android:layout_width="35dp"
     android:layout_height="35dp"
-
+    android:onClick="TanishqFacebookClick"
     android:layout_marginStart="303dp"
     android:layout_marginTop="376dp"
     app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +128,7 @@ android:orientation="vertical">
     android:id="@+id/gmail2"
     android:layout_width="40dp"
     android:layout_height="40dp"
-
+    android:onClick="TanishqGmailClick"
     android:layout_marginStart="24dp"
     android:layout_marginTop="24dp"
     app:layout_constraintStart_toEndOf="@+id/facebook2"
