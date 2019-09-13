@@ -7,19 +7,80 @@
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="333dp"
-        android:text="ABOUT US"
+        android:id="@+id/mmhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="64dp"
+        android:text="MOVIE MATE:THE ULTIMATE DESTINATION FOR MOVIE and TV SHOWS ratings"
         android:textColor="@color/colorhead"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/mmMatter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="If you would like to experience the best of online ratings of movies and TV shows for men, women and kids all over the globe, you are at the right place. Movie Mate is the ultimate destination for ratings and review of movies TV shows , being host to a wide array of merchandise including movies and TV shows and more. It is time to redefine your choice statement with our treasure-trove of trendy stock. Our online application brings you the latest in romantic, thriller, action ,comedy story line ratings in the house. You can search at Movie Mate from the comfort of your home and get your ratings in seconds."
+        android:textColor="@color/colorhead"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mmhead" />
+
+    <TextView
+        android:id="@+id/licencehead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:text="Version and Effective Date of the Privacy Policy"
+        android:textColor="@color/colorhead"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mmMatter" />
+
+    <TextView
+        android:id="@+id/licenceMatter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:text="Effective Date: [September 29, 2019]
+
+Date of latest update and issuance: [September 29, 2019] (replacing the former version)"
+        android:textColor="@color/colorhead"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/licencehead" />
+
+    <TextView
+        android:id="@+id/gdprhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:text="Information Regarding Your Data Protection Rights Under General Data Protection Regulation (GDPR)"
+        android:textColor="@color/colorhead"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/licenceMatter" />
+
+    <TextView
+        android:id="@+id/gdprMatter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:text="We need to perform a contract with you, such as when you create a Policy with us\nYou have given us permission to do so\nThe processing is in our legitimate interests and it's not overridden by your rights\nFor payment processing purposes\nTo comply with the law"
+        android:textColor="@color/colorhead"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gdprhead" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
