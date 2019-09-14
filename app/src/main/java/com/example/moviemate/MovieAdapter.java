@@ -47,11 +47,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String imageUrl = movieItem.getImageUrl();
         String title = movieItem.getTitle();
         int popularity = movieItem.getPopularity();
-//
-//        PointF focusPoint = new PointF(0.5f, 0.5f);
-//        holder.mImageView
-//                .getHierarchy()
-//                .setActualImageFocusPoint(focusPoint);
+
         holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
         holder.mTextViewTitle.setText(title);
         holder.mTextViewPopularity.setText("Popularity: " + popularity);

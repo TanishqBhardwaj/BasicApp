@@ -3,32 +3,27 @@ package com.example.moviemate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -38,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
-
 
     final static String EXTRA_IMAGE = "imageUrl";
     final static String EXTRA_TITLE = "title";
@@ -52,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
-//    ViewPager viewPager;
-//    ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,76 +65,69 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         URL searchURL = buildUrl();
         new queryTask().execute(searchURL);
     }
-    public void SakshiInstaClick(View view)
-    {
+
+    public void sakshiInstaClick(View view) {
         openUrl1("https://www.instagram.com/sakshi_yadav_77/");
     }
 
 
     private void openUrl1(String url) {
-        Uri uri=Uri.parse(url);
-        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);
     }
 
-    public void SakshiFacebookClick(View view)
-    {
+    public void sakshiFacebookClick(View view) {
         openUrl2("https://www.facebook.com/sakshi.yadav.140");
     }
 
-
     private void openUrl2(String url) {
-        Uri uri=Uri.parse(url);
-        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);
     }
 
-    public void SakshiGmailClick(View view)
-    {
+    public void sakshiGmailClick(View view) {
         openUrl3("https://www.gmail.com");
     }
 
 
     private void openUrl3(String url) {
-        Uri uri=Uri.parse(url);
-        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);
     }
 
 
-    public void TanishqInstaClick(View view)
-    {
+    public void tanishqInstaClick(View view) {
         openUrl4("https://www.instagram.com/tanishq_bhardwaj_9/");
     }
 
 
     private void openUrl4(String url) {
-        Uri uri=Uri.parse(url);
-        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);
     }
 
-    public void TanishqFacebookClick(View view)
-    {
+    public void tanishqFacebookClick(View view) {
         openUrl5("https://www.facebook.com/sakshi.yadav.140");
     }
 
 
     private void openUrl5(String url) {
-        Uri uri=Uri.parse(url);
-        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);
     }
 
-    public void TanishqGmailClick(View view)
-    {
+    public void tanishqGmailClick(View view) {
         openUrl6("https://mail.google.com/mail/u/0/#inbox");
     }
 
-
     private void openUrl6(String url) {
-        Uri uri=Uri.parse(url);
-        Intent launchWeb=new Intent(Intent.ACTION_VIEW,uri);
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);
     }
 
@@ -151,31 +136,30 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
 
             case R.id.nav_movies:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoviesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MoviesFragment()).commit();
                 break;
+
             case R.id.nav_TV_shows:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TvFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TvFragment()).commit();
+                break;
+
             case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new DevelopersAbout()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DevelopersAbout()).commit();
                 Toast.makeText(this, "ABOUT US", Toast.LENGTH_LONG).show();
                 break;
+
             case R.id.nav_dev:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new DevelopersFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DevelopersFragment()).commit();
                 Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_LONG).show();
                 break;
-
-
         }
         drawerLayout.closeDrawer(GravityCompat.START);
-
-
         return true;
     }
-
 
     private void setUpToolBar() {
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -185,18 +169,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
                 , R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-//
-//        viewPager = findViewById(R.id.pager);
-//        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        viewPager.setAdapter(viewPagerAdapter);
     }
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -219,12 +198,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
-            URL searchURL  = urls[0]; // what does this mean
+            URL searchURL = urls[0]; // what does this mean
             String searchResults = null;
             try {
                 searchResults = getResponseFromHttpUrl(searchURL);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();//what does this mean
             }
             return searchResults;
@@ -233,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         //this function works in main thread
         @Override
         protected void onPostExecute(String s) {
-            if(s!=null && !s.equals("")) {
+            if (s != null && !s.equals("")) {
                 try {
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
@@ -248,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");
 
-            for(int i=0; i<jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
@@ -267,8 +245,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         URL url = null;
         try {
             url = new URL(builtUri.toString());
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return url;
@@ -284,12 +261,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
             boolean hasInput = scanner.hasNext();
             if (hasInput) {
                 return scanner.next();
-            }
-            else {
+            } else {
                 return null;
             }
-        }
-        finally {
+        } finally {
             urlConnection.disconnect();
         }
     }
