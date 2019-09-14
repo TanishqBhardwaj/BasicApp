@@ -9,7 +9,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp"
         android:background="#4d4d4d">
 
@@ -46,7 +45,6 @@
             fresco:layout_constraintTop_toTopOf="parent"
             fresco:roundedCornerRadius="4dp"
             fresco:placeholderImage="@mipmap/ic_launcher" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

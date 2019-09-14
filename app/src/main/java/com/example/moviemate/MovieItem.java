@@ -1,3 +1,5 @@
+//This class is made for making Getters for values of API
+
 package com.example.moviemate;
 
 public class MovieItem {
