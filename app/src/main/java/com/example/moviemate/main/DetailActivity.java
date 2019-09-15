@@ -1,4 +1,4 @@
-package com.example.moviemate;
+package com.example.moviemate.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.moviemate.R;
+import com.example.moviemate.main.MainActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class DetailActivity extends AppCompatActivity {

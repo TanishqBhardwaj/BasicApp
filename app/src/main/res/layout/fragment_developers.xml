@@ -9,7 +9,6 @@
 
     <ImageView
         android:id="@+id/SakshiImage"
-
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_marginStart="16dp"

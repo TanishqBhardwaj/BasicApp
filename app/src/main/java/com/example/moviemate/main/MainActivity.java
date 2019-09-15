@@ -1,4 +1,4 @@
-package com.example.moviemate;
+package com.example.moviemate.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -8,7 +8,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,13 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.moviemate.info.DevelopersAbout;
+import com.example.moviemate.info.DevelopersFragment;
+import com.example.moviemate.home.HomeFragment;
+import com.example.moviemate.R;
+import com.example.moviemate.tv.TvFragment;
+import com.example.moviemate.movie.MoviesFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.navigation.NavigationView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -32,15 +35,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MovieAdapterMain.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
 
-    final static String EXTRA_IMAGE = "imageUrl";
-    final static String EXTRA_TITLE = "title";
-    final static String EXTRA_POPULARITY = "popularity";
+    public final static String EXTRA_IMAGE = "imageUrl";
+    public final static String EXTRA_TITLE = "title";
+    public final static String EXTRA_POPULARITY = "popularity";
 
-    final static String API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+    final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
-    private MovieAdapter mMovieAdapter;
+    private MovieAdapterMain mMovieAdapterMain;
     private ArrayList<MovieItem> mMovieList;
 
     DrawerLayout drawerLayout;
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // it sets the layout of recycler view as linear
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)); // it sets the layout of recycler view as linear
         mMovieList = new ArrayList<>();
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
 
         setUpToolBar();
         URL searchURL = buildUrl();
-        new queryTask().execute(searchURL);
+        new MainActivity.queryTask().execute(searchURL);
     }
 
     public void sakshiInstaClick(View view) {
@@ -233,15 +236,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
                 int popularity = result.getInt("popularity");
                 mMovieList.add(new MovieItem(imageUrl, title, popularity));
             }
-            mMovieAdapter = new MovieAdapter(MainActivity.this, mMovieList);
-            mRecyclerView.setAdapter(mMovieAdapter);
-            mMovieAdapter.setOnItemClickListener(MainActivity.this);
+            mMovieAdapterMain = new MovieAdapterMain(MainActivity.this, mMovieList);
+            mRecyclerView.setAdapter(mMovieAdapterMain);
+            mMovieAdapterMain.setOnItemClickListener(MainActivity.this);
         }
     }
 
     //this function converts the API url into formatted url
     public static URL buildUrl() {
-        Uri builtUri = Uri.parse(API_URL);
+        Uri builtUri = Uri.parse(API_URL_POPULAR);
         URL url = null;
         try {
             url = new URL(builtUri.toString());

@@ -1,4 +1,4 @@
-package com.example.moviemate;
+package com.example.moviemate.movie;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.moviemate.main.MovieItem;
+import com.example.moviemate.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,14 +24,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MoviesFragment extends Fragment {
+public class MoviesFragment extends Fragment{
 
     View v;
     private RecyclerView mRecyclerView;
     private ArrayList<MovieItem> mMovieList;
     public MovieAdapter mMovieAdapter;
 
-    final static String API_URL = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+    final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
 
 
     @Nullable
@@ -39,7 +41,7 @@ public class MoviesFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_movies, container, false);
         mRecyclerView = v.findViewById(R.id.recycler_view_movie);
         mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext())); // it sets the layout of recycler view as linear
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)); // it sets the layout of recycler view as linear
         mMovieList = new ArrayList<>();
         return v;
     }
@@ -51,6 +53,11 @@ public class MoviesFragment extends Fragment {
         URL searchURL = buildUrl();
         new MoviesFragment.queryTask().execute(searchURL);
     }
+
+//    @Override
+//    public void onItemClick(int position) {
+//
+//    }
 
     public class queryTask extends AsyncTask<URL, Void, String> {
 
@@ -94,12 +101,13 @@ public class MoviesFragment extends Fragment {
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerView.setAdapter(mMovieAdapter);
+//            mMovieAdapter.setOnItemClickListener();
         }
     }
 
     //this function converts the API url into formatted url
     public static URL buildUrl() {
-        Uri builtUri = Uri.parse(API_URL);
+        Uri builtUri = Uri.parse(API_URL_POPULAR);
         URL url = null;
         try {
             url = new URL(builtUri.toString());

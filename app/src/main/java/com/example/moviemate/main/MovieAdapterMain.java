@@ -1,4 +1,4 @@
-package com.example.moviemate;
+package com.example.moviemate.main;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.moviemate.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieAdapterMain extends RecyclerView.Adapter<MovieAdapterMain.MovieViewHolderMain> {
 
     private Context mContext;
     private ArrayList<MovieItem> mMovieList;
@@ -25,23 +26,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         mListener = listener;
     }
 
-    public MovieAdapter(Context context, ArrayList<MovieItem> movieList) {
+    public MovieAdapterMain(Context context, ArrayList<MovieItem> movieList) {
         mContext = context;
         mMovieList = movieList;
     }
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieViewHolderMain onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         //this line links the card view XML file with the object of View for accessing properties of XML file
         View v = LayoutInflater.from(mContext).inflate(R.layout.card_view, parent, false);
-        return new MovieViewHolder(v);
+        return new MovieViewHolderMain(v);
     }
 
     //this function actually sets values from API to XML file
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieViewHolderMain holder, int position) {
         MovieItem movieItem = mMovieList.get(position);
 
         String imageUrl = movieItem.getImageUrl();
@@ -59,13 +60,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     //this class holds the Views of XML file
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolderMain extends RecyclerView.ViewHolder {
 
         public SimpleDraweeView mImageView;
         public TextView mTextViewTitle;
         public TextView mTextViewPopularity;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        public MovieViewHolderMain(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view);
             mTextViewTitle = itemView.findViewById(R.id.text_view_title);
