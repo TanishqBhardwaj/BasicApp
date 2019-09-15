@@ -233,7 +233,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
                 int popularity = result.getInt("popularity");
                 mMovieList.add(new MovieItem(imageUrl, title, popularity));
             }
-            mMovieAdapter = new MovieAdapter(MainActivity.this, mMovieList);
+            mMovieAdapter = new MovieAdapter(MainActivity.this , mMovieList);
+
             mRecyclerView.setAdapter(mMovieAdapter);
             mMovieAdapter.setOnItemClickListener(MainActivity.this);
         }
