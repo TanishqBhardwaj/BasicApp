@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import com.example.moviemate.R;
 import com.example.moviemate.tv.TvFragment;
 import com.example.moviemate.movie.MoviesFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,12 +51,19 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
+
+        bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+
+
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
@@ -68,6 +77,28 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
         URL searchURL = buildUrl();
         new MainActivity.queryTask().execute(searchURL);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment= null;
+            switch(item.getItemId()){
+                case R.id.nav_home:
+                    selectedFragment=new HomeFragment();
+                    break;
+                case R.id.nav_movies:
+                    selectedFragment=new MoviesFragment();
+                    break;
+                case R.id.nav_TV_shows:
+                    selectedFragment=new TvFragment();
+                    break;
+
+
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+       return true;
+        }
+    };
 
     public void sakshiInstaClick(View view) {
         openUrl1("https://www.instagram.com/sakshi_yadav_77/");
