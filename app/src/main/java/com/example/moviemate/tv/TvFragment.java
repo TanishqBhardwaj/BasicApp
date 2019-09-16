@@ -27,11 +27,12 @@ import java.util.Scanner;
 public class TvFragment extends Fragment{
 
     View v;
-    private RecyclerView mRecyclerView;
-    private ArrayList<TvItem> mTvList;
-    public TvAdapter mTvAdapter;
+    private RecyclerView mRecyclerViewPopular;
+    private RecyclerView mRecyclerViewTopRated;
+    private TvAdapter mTvAdapter;
 
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/tv/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+    final static String API_URL_TOP_RATED = "https://api.themoviedb.org/3/tv/top_rated?api_key=b8f745c2d43033fd65ce3af63180c3c3";
 
 
     @Nullable
@@ -39,10 +40,18 @@ public class TvFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_tv, container, false);
-        mRecyclerView = v.findViewById(R.id.recycler_view_tv);
-        mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)); // it sets the layout of recycler view as linear
-        mTvList = new ArrayList<>();
+        mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_tv);
+        // it fixes the size of recycler view, which is responsible for better performance
+        mRecyclerViewPopular.setHasFixedSize(true);
+        mRecyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+        mRecyclerViewTopRated = v.findViewById(R.id.recycler_view_top_rated_tv);
+        // it fixes the size of recycler view, which is responsible for better performance
+        mRecyclerViewTopRated.setHasFixedSize(true);
+        mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
         return v;
     }
 
@@ -50,8 +59,10 @@ public class TvFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        URL searchURL = buildUrl();
-        new TvFragment.queryTask().execute(searchURL);
+        URL searchURLPopular = buildUrlPopular();
+        URL searchURLTopRated = buildUrlTopRated();
+        new TvFragment.queryTaskPopular().execute(searchURLPopular);
+        new TvFragment.queryTaskTopRated().execute(searchURLTopRated);
     }
 
 //    @Override
@@ -59,15 +70,16 @@ public class TvFragment extends Fragment{
 //
 //    }
 
-    public class queryTask extends AsyncTask<URL, Void, String> {
+    public class queryTaskPopular extends AsyncTask<URL, Void, String> {
 
+        private ArrayList<TvItem> mTvList = new ArrayList<>();
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
-            URL searchURL = urls[0]; // what does this mean
+            URL searchURLPopular = urls[0]; // what does this mean
             String searchResults = null;
             try {
-                searchResults = getResponseFromHttpUrl(searchURL);
+                searchResults = getResponseFromHttpUrl(searchURLPopular);
             } catch (IOException e) {
                 e.printStackTrace();//what does this mean
             }
@@ -100,14 +112,72 @@ public class TvFragment extends Fragment{
                 mTvList.add(new TvItem(imageUrl, name, popularity));
             }
             mTvAdapter = new TvAdapter(getContext(), mTvList);
-            mRecyclerView.setAdapter(mTvAdapter);
+            mRecyclerViewPopular.setAdapter(mTvAdapter);
+//            mMovieAdapter.setOnItemClickListener();
+        }
+    }
+
+    public class queryTaskTopRated extends AsyncTask<URL, Void, String> {
+        private ArrayList<TvItem> mTvList = new ArrayList<>();
+
+        //this function works in background thread
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL searchURLTopRated = urls[0]; // what does this mean
+            String searchResults = null;
+            try {
+                searchResults = getResponseFromHttpUrl(searchURLTopRated);
+            } catch (IOException e) {
+                e.printStackTrace();//what does this mean
+            }
+            return searchResults;
+        }
+
+        //this function works in main thread
+        @Override
+        protected void onPostExecute(String s) {
+            if (s != null && !s.equals("")) {
+                try {
+                    JSONObject ob = new JSONObject(s);
+                    onResponse(ob);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //this function is made to fetch values from API using JSON
+        public void onResponse(JSONObject response) throws JSONException {
+            String initialImageUrl = "http://image.tmdb.org/t/p/original";
+            JSONArray jsonArray = response.getJSONArray("results");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject result = jsonArray.getJSONObject(i);
+                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
+                String name = result.getString("name");
+                int popularity = result.getInt("popularity");
+                mTvList.add(new TvItem(imageUrl, name, popularity));
+            }
+            mTvAdapter = new TvAdapter(getContext(), mTvList);
+            mRecyclerViewTopRated.setAdapter(mTvAdapter);
 //            mMovieAdapter.setOnItemClickListener();
         }
     }
 
     //this function converts the API url into formatted url
-    public static URL buildUrl() {
+    public static URL buildUrlPopular() {
         Uri builtUri = Uri.parse(API_URL_POPULAR);
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildUrlTopRated() {
+        Uri builtUri = Uri.parse(API_URL_TOP_RATED);
         URL url = null;
         try {
             url = new URL(builtUri.toString());
