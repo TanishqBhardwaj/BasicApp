@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
     private RecyclerView mRecyclerView;
     private MovieAdapterMain mMovieAdapterMain;
     private ArrayList<MovieItem> mMovieList;
+    NavigationView navigationView;
 
     DrawerLayout drawerLayout;
     Toolbar toolbar;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)); // it sets the layout of recycler view as linear
         mMovieList = new ArrayList<>();
 
-        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         setUpToolBar();
@@ -139,24 +140,24 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new HomeFragment()).commit();
                 break;
 
             case R.id.nav_movies:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MoviesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new MoviesFragment()).commit();
                 break;
 
             case R.id.nav_TV_shows:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TvFragment()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new TvFragment()).commit();
                 break;
 
             case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DevelopersAbout()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new DevelopersAbout()).commit();
                 Toast.makeText(this, "ABOUT US", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_dev:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DevelopersFragment()).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new DevelopersFragment()).commit();
                 Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -181,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
         } else {
             super.onBackPressed();
         }
+
+
     }
 
     //Formation of intent on clicking images

@@ -36,7 +36,7 @@ public class MovieAdapterMain extends RecyclerView.Adapter<MovieAdapterMain.Movi
     public MovieViewHolderMain onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         //this line links the card view XML file with the object of View for accessing properties of XML file
-        View v = LayoutInflater.from(mContext).inflate(R.layout.card_view, parent, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.card_view_main, parent, false);
         return new MovieViewHolderMain(v);
     }
 

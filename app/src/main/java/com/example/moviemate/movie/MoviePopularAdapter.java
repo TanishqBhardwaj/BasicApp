@@ -13,7 +13,7 @@ import com.example.moviemate.main.MovieItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MoviePopularAdapter extends RecyclerView.Adapter<MoviePopularAdapter.MovieViewHolder> {
 
     private Context mContext;
     private ArrayList<MovieItem> mMovieList;
@@ -27,7 +27,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 //        mListener = listener;
 //    }
 
-    public MovieAdapter(Context context, ArrayList<MovieItem> movieList) {
+    public MoviePopularAdapter(Context context, ArrayList<MovieItem> movieList) {
         mContext = context;
         mMovieList = movieList;
     }
@@ -66,14 +66,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public SimpleDraweeView mImageView;
         public TextView mTextViewTitle;
         public TextView mTextViewPopularity;
-        public TextView mTextViewRecyclerTitle;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view_movie);
             mTextViewTitle = itemView.findViewById(R.id.text_view_title_movie);
             mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity_movie);
-            mTextViewRecyclerTitle = itemView.findViewById(R.id.recycler_view_title);
 
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //
