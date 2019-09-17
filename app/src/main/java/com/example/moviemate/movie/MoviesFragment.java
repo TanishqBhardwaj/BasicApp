@@ -29,11 +29,10 @@ public class MoviesFragment extends Fragment{
     View v;
     private RecyclerView mRecyclerViewPopular;
     private RecyclerView mRecyclerViewTopRated;
-    private MoviePopularAdapter mMovieAdapter;
+    private MovieAdapter mMovieAdapter;
 
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated?api_key=b8f745c2d43033fd65ce3af63180c3c3";
-
 
     @Nullable
     @Override
@@ -111,7 +110,7 @@ public class MoviesFragment extends Fragment{
                 int popularity = result.getInt("popularity");
                 mMovieList.add(new MovieItem(imageUrl, title, popularity));
             }
-            mMovieAdapter = new MoviePopularAdapter(getContext(), mMovieList);
+            mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewPopular.setAdapter(mMovieAdapter);
 //            mMovieAdapter.setOnItemClickListener();
         }
@@ -158,7 +157,7 @@ public class MoviesFragment extends Fragment{
                 int popularity = result.getInt("popularity");
                 mMovieList.add(new MovieItem(imageUrl, title, popularity));
             }
-            mMovieAdapter = new MoviePopularAdapter(getContext(), mMovieList);
+            mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewTopRated.setAdapter(mMovieAdapter);
 //            mMovieAdapter.setOnItemClickListener();
         }
