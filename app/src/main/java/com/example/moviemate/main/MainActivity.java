@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.example.moviemate.info.DevelopersAbout;
 import com.example.moviemate.info.DevelopersFragment;
 import com.example.moviemate.home.HomeFragment;
@@ -35,7 +34,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapterMain.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener {
+//public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapterMain.OnItemClickListener
+        , NavigationView.OnNavigationItemSelectedListener {
 
     public final static String EXTRA_IMAGE = "imageUrl";
     public final static String EXTRA_TITLE = "title";
@@ -57,23 +58,27 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
 
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)); // it sets the layout of recycler view as linear
-        mMovieList = new ArrayList<>();
+        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,
+                new HomeFragment()).commit();
 
+//        mRecyclerView = findViewById(R.id.recycler_view_home);
+//        mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//        // it sets the layout of recycler view as linear
+////        mMovieList = new ArrayList<>();
+//
         navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
         setUpToolBar();
-        URL searchURL = buildUrl();
-        new MainActivity.queryTask().execute(searchURL);
+//        URL searchURL = buildUrl();
+//        new MainActivity.queryTask().execute(searchURL);
+
     }
 
     public void sakshiInstaClick(View view) {
         openUrl1("https://www.instagram.com/sakshi_yadav_77/");
     }
-
 
     private void openUrl1(String url) {
         Uri uri = Uri.parse(url);
@@ -135,29 +140,33 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
         startActivity(launchWeb);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new HomeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new HomeFragment()).commit();
                 break;
 
             case R.id.nav_movies:
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new MoviesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new MoviesFragment()).commit();
                 break;
 
             case R.id.nav_TV_shows:
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new TvFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new TvFragment()).commit();
                 break;
 
             case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new DevelopersAbout()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new DevelopersAbout()).commit();
                 Toast.makeText(this, "ABOUT US", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_dev:
-                getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container, new DevelopersFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new DevelopersFragment()).commit();
                 Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -186,7 +195,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
 
     }
 
-    //Formation of intent on clicking images
+
+//    Formation of intent on clicking images
     @Override
     public void onItemClick(int position) {
         Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class); //what does this mean
@@ -199,80 +209,79 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
         startActivity(detailIntent);
     }
 
-    public class queryTask extends AsyncTask<URL, Void, String> {
-
-        //this function works in background thread
-        @Override
-        protected String doInBackground(URL... urls) {
-            URL searchURL = urls[0]; // what does this mean
-            String searchResults = null;
-            try {
-                searchResults = getResponseFromHttpUrl(searchURL);
-            } catch (IOException e) {
-                e.printStackTrace();//what does this mean
-            }
-            return searchResults;
-        }
-
-        //this function works in main thread
-        @Override
-        protected void onPostExecute(String s) {
-            if (s != null && !s.equals("")) {
-                try {
-                    JSONObject ob = new JSONObject(s);
-                    onResponse(ob);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        //this function is made to fetch values from API using JSON
-        public void onResponse(JSONObject response) throws JSONException {
-            String initialImageUrl = "http://image.tmdb.org/t/p/original";
-            JSONArray jsonArray = response.getJSONArray("results");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject result = jsonArray.getJSONObject(i);
-                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String title = result.getString("title");
-                int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
-            }
-            mMovieAdapterMain = new MovieAdapterMain(MainActivity.this, mMovieList);
-            mRecyclerView.setAdapter(mMovieAdapterMain);
-            mMovieAdapterMain.setOnItemClickListener(MainActivity.this);
-        }
-    }
-
-    //this function converts the API url into formatted url
-    public static URL buildUrl() {
-        Uri builtUri = Uri.parse(API_URL_POPULAR);
-        URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return url;
-    }
-
-    //this function is responsible for getting response from API
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();//what does this mean
-        try {
-            InputStream in = urlConnection.getInputStream();
-            Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");//what does this Delimiter mean
-            boolean hasInput = scanner.hasNext();
-            if (hasInput) {
-                return scanner.next();
-            } else {
-                return null;
-            }
-        } finally {
-            urlConnection.disconnect();
-        }
-    }
-
+//    public class queryTask extends AsyncTask<URL, Void, String> {
+//
+//        //this function works in background thread
+//        @Override
+//        protected String doInBackground(URL... urls) {
+//            URL searchURL = urls[0]; // what does this mean
+//            String searchResults = null;
+//            try {
+//                searchResults = getResponseFromHttpUrl(searchURL);
+//            } catch (IOException e) {
+//                e.printStackTrace();//what does this mean
+//            }
+//            return searchResults;
+//        }
+//
+//        //this function works in main thread
+//        @Override
+//        protected void onPostExecute(String s) {
+//            if (s != null && !s.equals("")) {
+//                try {
+//                    JSONObject ob = new JSONObject(s);
+//                    onResponse(ob);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//        //this function is made to fetch values from API using JSON
+//        public void onResponse(JSONObject response) throws JSONException {
+//            String initialImageUrl = "http://image.tmdb.org/t/p/original";
+//            JSONArray jsonArray = response.getJSONArray("results");
+//
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject result = jsonArray.getJSONObject(i);
+//                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
+//                String title = result.getString("title");
+//                int popularity = result.getInt("popularity");
+//                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+//            }
+//            mMovieAdapterMain = new MovieAdapterMain(MainActivity.this, mMovieList);
+//            mRecyclerView.setAdapter(mMovieAdapterMain);
+//            mMovieAdapterMain.setOnItemClickListener(MainActivity.this);
+//        }
+//    }
+//
+//    //this function converts the API url into formatted url
+//    public static URL buildUrl() {
+//        Uri builtUri = Uri.parse(API_URL_POPULAR);
+//        URL url = null;
+//        try {
+//            url = new URL(builtUri.toString());
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//        return url;
+//    }
+//
+//    //this function is responsible for getting response from API
+//    public static String getResponseFromHttpUrl(URL url) throws IOException {
+//        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();//what does this mean
+//        try {
+//            InputStream in = urlConnection.getInputStream();
+//            Scanner scanner = new Scanner(in);
+//            scanner.useDelimiter("\\A");//what does this Delimiter mean
+//            boolean hasInput = scanner.hasNext();
+//            if (hasInput) {
+//                return scanner.next();
+//            } else {
+//                return null;
+//            }
+//        } finally {
+//            urlConnection.disconnect();
+//        }
+//    }
 }
