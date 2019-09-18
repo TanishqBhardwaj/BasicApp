@@ -1,4 +1,4 @@
-package com.example.moviemate.main;
+package com.example.moviemate.home;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,10 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviemate.R;
+import com.example.moviemate.main.MovieItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
-public class MovieAdapterMain extends RecyclerView.Adapter<MovieAdapterMain.MovieViewHolderMain> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolderMain> {
 
     private Context mContext;
     private ArrayList<MovieItem> mMovieList;
@@ -26,7 +27,7 @@ public class MovieAdapterMain extends RecyclerView.Adapter<MovieAdapterMain.Movi
         mListener = listener;
     }
 
-    public MovieAdapterMain(Context context, ArrayList<MovieItem> movieList) {
+    public HomeAdapter(Context context, ArrayList<MovieItem> movieList) {
         mContext = context;
         mMovieList = movieList;
     }

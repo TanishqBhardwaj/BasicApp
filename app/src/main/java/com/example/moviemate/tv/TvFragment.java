@@ -1,5 +1,6 @@
 package com.example.moviemate.tv;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.moviemate.main.DetailActivity;
 import com.example.moviemate.main.MovieItem;
 import com.example.moviemate.R;
 import org.json.JSONArray;
@@ -24,7 +27,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TvFragment extends Fragment{
+public class TvFragment extends Fragment implements TvAdapter.OnItemClickListener {
+
+    public final static String EXTRA_IMAGE = "imageUrl";
+    public final static String EXTRA_NAME = "name";
+    public final static String EXTRA_POPULARITY = "popularity";
 
     View v;
     private RecyclerView mRecyclerViewPopular;
@@ -65,10 +72,17 @@ public class TvFragment extends Fragment{
         new TvFragment.queryTaskTopRated().execute(searchURLTopRated);
     }
 
-//    @Override
-//    public void onItemClick(int position) {
-//
-//    }
+    @Override
+    public void onItemClick(int position, ArrayList<TvItem> tvItemArrayList) {
+        Intent detailIntent = new Intent(getActivity(), TvDetailActivity.class); //what does this mean
+        TvItem clickedItem = tvItemArrayList.get(position);
+
+        detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
+        detailIntent.putExtra(EXTRA_NAME, clickedItem.getName());
+        detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
+
+        startActivity(detailIntent);
+    }
 
     public class queryTaskPopular extends AsyncTask<URL, Void, String> {
 
@@ -113,7 +127,7 @@ public class TvFragment extends Fragment{
             }
             mTvAdapter = new TvAdapter(getContext(), mTvList);
             mRecyclerViewPopular.setAdapter(mTvAdapter);
-//            mMovieAdapter.setOnItemClickListener();
+            mTvAdapter.setOnItemClickListener(TvFragment.this);
         }
     }
 
@@ -160,7 +174,7 @@ public class TvFragment extends Fragment{
             }
             mTvAdapter = new TvAdapter(getContext(), mTvList);
             mRecyclerViewTopRated.setAdapter(mTvAdapter);
-//            mMovieAdapter.setOnItemClickListener();
+            mTvAdapter.setOnItemClickListener(TvFragment.this);
         }
     }
 

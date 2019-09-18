@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,31 +22,11 @@ import com.example.moviemate.tv.TvFragment;
 import com.example.moviemate.movie.MoviesFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.navigation.NavigationView;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-//public class MainActivity extends AppCompatActivity {
-public class MainActivity extends AppCompatActivity implements MovieAdapterMain.OnItemClickListener
-        , NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public final static String EXTRA_IMAGE = "imageUrl";
-    public final static String EXTRA_TITLE = "title";
-    public final static String EXTRA_POPULARITY = "popularity";
-
-    final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
-    private RecyclerView mRecyclerView;
-    private MovieAdapterMain mMovieAdapterMain;
-    private ArrayList<MovieItem> mMovieList;
     NavigationView navigationView;
-
+    Fragment fragment;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -58,22 +37,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_container,
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame,
                 new HomeFragment()).commit();
 
-//        mRecyclerView = findViewById(R.id.recycler_view_home);
-//        mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//        // it sets the layout of recycler view as linear
-////        mMovieList = new ArrayList<>();
-//
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
         setUpToolBar();
-//        URL searchURL = buildUrl();
-//        new MainActivity.queryTask().execute(searchURL);
-
     }
 
     public void sakshiInstaClick(View view) {
@@ -144,32 +114,29 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new HomeFragment()).commit();
+                fragment = new HomeFragment();
                 break;
 
             case R.id.nav_movies:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MoviesFragment()).commit();
+                fragment = new MoviesFragment();
                 break;
 
             case R.id.nav_TV_shows:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new TvFragment()).commit();
+                fragment = new TvFragment();
                 break;
 
             case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new DevelopersAbout()).commit();
+                fragment = new DevelopersAbout();
                 Toast.makeText(this, "ABOUT US", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.nav_dev:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new DevelopersFragment()).commit();
+                fragment = new DevelopersFragment();
                 Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_LONG).show();
                 break;
         }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, fragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -186,102 +153,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterMain.
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+
+        MenuItem menuItem = navigationView.getMenu().getItem(0);
+        if(fragment instanceof HomeFragment) {
             super.onBackPressed();
         }
-
-
+        else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, new HomeFragment()).commit();
+            navigationView.setCheckedItem(menuItem.getItemId());
+        }
     }
-
-
-//    Formation of intent on clicking images
-    @Override
-    public void onItemClick(int position) {
-        Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class); //what does this mean
-        MovieItem clickedItem = mMovieList.get(position);
-
-        detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
-        detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
-        detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
-
-        startActivity(detailIntent);
-    }
-
-//    public class queryTask extends AsyncTask<URL, Void, String> {
-//
-//        //this function works in background thread
-//        @Override
-//        protected String doInBackground(URL... urls) {
-//            URL searchURL = urls[0]; // what does this mean
-//            String searchResults = null;
-//            try {
-//                searchResults = getResponseFromHttpUrl(searchURL);
-//            } catch (IOException e) {
-//                e.printStackTrace();//what does this mean
-//            }
-//            return searchResults;
-//        }
-//
-//        //this function works in main thread
-//        @Override
-//        protected void onPostExecute(String s) {
-//            if (s != null && !s.equals("")) {
-//                try {
-//                    JSONObject ob = new JSONObject(s);
-//                    onResponse(ob);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        //this function is made to fetch values from API using JSON
-//        public void onResponse(JSONObject response) throws JSONException {
-//            String initialImageUrl = "http://image.tmdb.org/t/p/original";
-//            JSONArray jsonArray = response.getJSONArray("results");
-//
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject result = jsonArray.getJSONObject(i);
-//                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-//                String title = result.getString("title");
-//                int popularity = result.getInt("popularity");
-//                mMovieList.add(new MovieItem(imageUrl, title, popularity));
-//            }
-//            mMovieAdapterMain = new MovieAdapterMain(MainActivity.this, mMovieList);
-//            mRecyclerView.setAdapter(mMovieAdapterMain);
-//            mMovieAdapterMain.setOnItemClickListener(MainActivity.this);
-//        }
-//    }
-//
-//    //this function converts the API url into formatted url
-//    public static URL buildUrl() {
-//        Uri builtUri = Uri.parse(API_URL_POPULAR);
-//        URL url = null;
-//        try {
-//            url = new URL(builtUri.toString());
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//        return url;
-//    }
-//
-//    //this function is responsible for getting response from API
-//    public static String getResponseFromHttpUrl(URL url) throws IOException {
-//        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();//what does this mean
-//        try {
-//            InputStream in = urlConnection.getInputStream();
-//            Scanner scanner = new Scanner(in);
-//            scanner.useDelimiter("\\A");//what does this Delimiter mean
-//            boolean hasInput = scanner.hasNext();
-//            if (hasInput) {
-//                return scanner.next();
-//            } else {
-//                return null;
-//            }
-//        } finally {
-//            urlConnection.disconnect();
-//        }
-//    }
 }

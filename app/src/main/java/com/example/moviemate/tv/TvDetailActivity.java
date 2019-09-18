@@ -1,4 +1,5 @@
-package com.example.moviemate.main;
+package com.example.moviemate.tv;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -12,7 +13,7 @@ import com.example.moviemate.home.HomeFragment;
 import com.example.moviemate.main.MainActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
-public class DetailActivity extends AppCompatActivity {
+public class TvDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +22,9 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
-        String imageUrl = intent.getStringExtra(HomeFragment.EXTRA_IMAGE);
-        String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
-        int popularity = intent.getIntExtra(HomeFragment.EXTRA_POPULARITY,0);
+        String imageUrl = intent.getStringExtra(TvFragment.EXTRA_IMAGE);
+        String title = intent.getStringExtra(TvFragment.EXTRA_NAME);
+        int popularity = intent.getIntExtra(TvFragment.EXTRA_POPULARITY,0);
 
         ImageView imageView = findViewById(R.id.image_view_detail);
         TextView textViewTitle = findViewById(R.id.text_view_title_detail);
@@ -34,3 +35,4 @@ public class DetailActivity extends AppCompatActivity {
         textViewPopularity.setText("Popularity : " + popularity);
     }
 }
+

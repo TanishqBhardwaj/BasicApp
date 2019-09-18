@@ -1,5 +1,6 @@
 package com.example.moviemate.movie;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.moviemate.main.DetailActivity;
 import com.example.moviemate.main.MovieItem;
 import com.example.moviemate.R;
 import org.json.JSONArray;
@@ -24,12 +26,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MoviesFragment extends Fragment{
+public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClickListener {
 
-    View v;
+    public final static String EXTRA_IMAGE = "imageUrl";
+    public final static String EXTRA_TITLE = "title";
+    public final static String EXTRA_POPULARITY = "popularity";
+
     private RecyclerView mRecyclerViewPopular;
     private RecyclerView mRecyclerViewTopRated;
     private MovieAdapter mMovieAdapter;
+
+    View v;
 
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated?api_key=b8f745c2d43033fd65ce3af63180c3c3";
@@ -50,7 +57,6 @@ public class MoviesFragment extends Fragment{
         mRecyclerViewTopRated.setHasFixedSize(true);
         mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
-
         return v;
     }
 
@@ -59,19 +65,29 @@ public class MoviesFragment extends Fragment{
         super.onCreate(savedInstanceState);
 
         URL searchURLPopular = buildUrlPopular();
-        URL searchURLTopRated = buildUrlTopRated();
         new MoviesFragment.queryTaskPopular().execute(searchURLPopular);
+
+        URL searchURLTopRated = buildUrlTopRated();
         new MoviesFragment.queryTaskTopRated().execute(searchURLTopRated);
     }
 
-//    @Override
-//    public void onItemClick(int position) {
-//
-//    }
+    //Formation of intent on clicking images
+    @Override
+    public void onItemClick(int position, ArrayList<MovieItem> movieItemArrayList) {
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class); //what does this mean
+        MovieItem clickedItem = movieItemArrayList.get(position);
 
-    public class queryTaskPopular extends AsyncTask<URL, Void, String> {
+        detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
+        detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
+        detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
+
+        startActivity(detailIntent);
+    }
+
+    public class queryTaskPopular extends AsyncTask<URL, Void, String>{
 
         private ArrayList<MovieItem> mMovieList = new ArrayList<>();
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -112,11 +128,11 @@ public class MoviesFragment extends Fragment{
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewPopular.setAdapter(mMovieAdapter);
-//            mMovieAdapter.setOnItemClickListener();
+            mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
         }
     }
 
-    public class queryTaskTopRated extends AsyncTask<URL, Void, String> {
+    public class queryTaskTopRated extends AsyncTask<URL, Void, String>{
         private ArrayList<MovieItem> mMovieList = new ArrayList<>();
 
         //this function works in background thread
@@ -159,7 +175,7 @@ public class MoviesFragment extends Fragment{
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewTopRated.setAdapter(mMovieAdapter);
-//            mMovieAdapter.setOnItemClickListener();
+            mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
         }
     }
 

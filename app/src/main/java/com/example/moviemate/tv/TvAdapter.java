@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviemate.R;
 import com.example.moviemate.main.MovieItem;
+import com.example.moviemate.movie.MovieAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
@@ -17,7 +18,15 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
 
     private Context mContext;
     private ArrayList<TvItem> mTvList;
+    private TvAdapter.OnItemClickListener mListener;
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, ArrayList<TvItem> tvItemArrayList);
+    }
+
+    public void setOnItemClickListener(TvAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public TvAdapter(Context context, ArrayList<TvItem> tvList) {
         mContext = context;
@@ -60,6 +69,19 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
             mImageView = itemView.findViewById(R.id.image_view_tv);
             mTextViewName = itemView.findViewById(R.id.text_view_name_tv);
             mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity_tv);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if(mListener != null) {
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            mListener.onItemClick(position, mTvList);
+                        }
+                    }
+                }
+            });
 
         }
     }

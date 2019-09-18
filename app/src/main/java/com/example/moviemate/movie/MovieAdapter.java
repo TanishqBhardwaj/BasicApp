@@ -17,15 +17,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private Context mContext;
     private ArrayList<MovieItem> mMovieList;
-//    private OnItemClickListener mListener;
+    private OnItemClickListener mListener;
 
-//    public interface OnItemClickListener {
-//        void onItemClick(int position);
-//    }
-//
-//    public void setOnItemClickListener(OnItemClickListener listener) {
-//        mListener = listener;
-//    }
+    public interface OnItemClickListener {
+        void onItemClick(int position, ArrayList<MovieItem> movieItemArrayList);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public MovieAdapter(Context context, ArrayList<MovieItem> movieList) {
         mContext = context;
@@ -73,18 +73,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             mTextViewTitle = itemView.findViewById(R.id.text_view_title_movie);
             mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity_movie);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    if(mListener != null) {
-//                        int position = getAdapterPosition();
-//                        if(position != RecyclerView.NO_POSITION) {
-//                            mListener.onItemClick(position);
-//                        }
-//                    }
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if(mListener != null) {
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            mListener.onItemClick(position, mMovieList);
+                        }
+                    }
+                }
+            });
         }
     }
 }
