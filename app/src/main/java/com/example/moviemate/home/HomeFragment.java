@@ -35,6 +35,9 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     public final static String EXTRA_IMAGE = "imageUrl";
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_POPULARITY = "popularity";
+    public final static String EXTRA_OVERVIEW = "overView";
+    public final static String EXTRA_RELEASE_DATE = "releasedate";
+    public final static String EXTRA_ADULT = "adult";
 
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
@@ -115,7 +118,10 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                String overView= result.getString("overview");
+                String adult = result.getString("adult");
+                String releaseDate = result.getString("releade_date");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity,overView,adult,releaseDate));
             }
             mHomeAdapter = new HomeAdapter(getContext(), mMovieList);
             mRecyclerView.setAdapter(mHomeAdapter);

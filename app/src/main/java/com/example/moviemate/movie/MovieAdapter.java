@@ -66,12 +66,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public SimpleDraweeView mImageView;
         public TextView mTextViewTitle;
         public TextView mTextViewPopularity;
+        public TextView mTextViewOverView;
+        public TextView mTextViewAdult;
+        public TextView mTextViewReleaseDate;
+
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view_movie);
             mTextViewTitle = itemView.findViewById(R.id.text_view_title_movie);
             mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity_movie);
+            mTextViewOverView = itemView.findViewById(R.id.text_view_over_view_detail);
+            mTextViewAdult = itemView.findViewById(R.id.text_view_adult_detail_movie);
+            mTextViewReleaseDate = itemView.findViewById(R.id.text_view_release_date_detail);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
 

@@ -124,7 +124,10 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                String overView= result.getString("overview");
+                String adult = result.getString("adult");
+                String releaseDate = result.getString("releade_date");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity,overView,adult,releaseDate));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewPopular.setAdapter(mMovieAdapter);
@@ -171,7 +174,10 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                String overView= result.getString("overview");
+                String adult = result.getString("adult");
+                String releaseDate = result.getString("releade_date");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity,overView,adult,releaseDate));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewTopRated.setAdapter(mMovieAdapter);

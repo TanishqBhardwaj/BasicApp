@@ -12,7 +12,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.MainActivity">
+        tools:context=".main.MainActivity"
+        android:id="@+id/loadingPanel"
+
+       >
+
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -24,6 +29,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+
+
+
         <FrameLayout
             android:id="@+id/fragment_frame"
             android:layout_width="match_parent"
@@ -31,7 +39,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+
+
+        </FrameLayout>
 
 <!--        <FrameLayout-->
 <!--            android:id="@+id/fragment_container"-->

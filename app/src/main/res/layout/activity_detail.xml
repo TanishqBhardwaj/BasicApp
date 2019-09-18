@@ -37,5 +37,36 @@
         android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_title_detail" />
+    <TextView
+        android:id="@+id/text_view_over_view_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overview : "
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_popularity_detail" />
+    <TextView
+        android:id="@+id/text_view_adult_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adult : "
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_over_view_detail" />
+    <TextView
+        android:id="@+id/text_view_release_date_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Release Date : "
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_adult_detail" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
