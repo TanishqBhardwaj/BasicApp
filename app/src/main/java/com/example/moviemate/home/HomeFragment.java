@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_POPULARITY = "popularity";
 
-    final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+    final static String API_URL_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
     private ArrayList<MovieItem> mMovieList;
     public HomeAdapter mHomeAdapter;
@@ -129,13 +129,19 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
+            String title;
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String title = result.getString("title");
+                if(result.getString("media_type").equals("movie")) {
+                    title = result.getString("title");
+                }
+                else {
+                    title = result.getString("name");
+                }
                 int popularity = result.getInt("popularity");
                 mMovieList.add(new MovieItem(imageUrl, title, popularity));
             }
@@ -151,7 +157,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         URL url = null;
         try {
 //            url = new URL(builtUri.toString());
-            url = new URL(API_URL_POPULAR);
+            url = new URL(API_URL_TRENDING);
         } catch (MalformedURLException e) {
             e.printStackTrace(); // prints class name and error line of Throwable object
         }

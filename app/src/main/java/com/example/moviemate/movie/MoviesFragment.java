@@ -36,6 +36,10 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_POPULARITY = "popularity";
 
+
+    private RecyclerView mRecyclerViewLatest;
+    private RecyclerView mRecyclerViewUpcoming;
+    private RecyclerView mRecyclerViewNowPlaying;
     private RecyclerView mRecyclerViewPopular;
     private RecyclerView mRecyclerViewTopRated;
     private MovieAdapter mMovieAdapter;
@@ -45,6 +49,10 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+    final static String API_URL_NOW_PLAYING = "https://api.themoviedb.org/3/movie/now_playing?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+
+
+
 
     @Nullable
     @Override
@@ -63,6 +71,23 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         mRecyclerViewTopRated.setHasFixedSize(true);
         mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+
+        mRecyclerViewUpcoming = v.findViewById(R.id.recycler_view_upcoming_movie);
+        // it fixes the size of recycler view, which is responsible for better performance
+        mRecyclerViewUpcoming.setHasFixedSize(true);
+        mRecyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+
+
+        mRecyclerViewNowPlaying = v.findViewById(R.id.recycler_view_now_playing_movie);
+        // it fixes the size of recycler view, which is responsible for better performance
+        mRecyclerViewNowPlaying.setHasFixedSize(true);
+        mRecyclerViewNowPlaying.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+
+
+
         setHasOptionsMenu(true);
         return v;
     }
@@ -96,6 +121,13 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         URL searchURLTopRated = buildUrlTopRated();
         new MoviesFragment.queryTaskTopRated().execute(searchURLTopRated);
+
+        URL searchURLUpcoming = buildUrlUpcoming();
+        new MoviesFragment.queryTaskUpcoming().execute(searchURLUpcoming);
+
+
+        URL searchURLNowPlaying = buildUrlNowPlaying();
+        new MoviesFragment.queryTaskNowPlaying().execute(searchURLNowPlaying);
     }
 
     //Formation of intent on clicking images
@@ -206,6 +238,136 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         }
     }
 
+
+
+
+
+
+
+
+
+
+    public class queryTaskUpcoming extends AsyncTask<URL, Void, String>{
+
+        private ArrayList<MovieItem> mMovieList = new ArrayList<>();
+
+        //this function works in background thread
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL searchURLUpcoming = urls[0]; // what does this mean
+            String searchResults = null;
+            try {
+                searchResults = getResponseFromHttpUrl(searchURLUpcoming);
+            } catch (IOException e) {
+                e.printStackTrace();//what does this mean
+            }
+            return searchResults;
+        }
+
+        //this function works in main thread
+        @Override
+        protected void onPostExecute(String s) {
+            if (s != null && !s.equals("")) {
+                try {
+                    JSONObject ob = new JSONObject(s);
+                    onResponse(ob);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //this function is made to fetch values from API using JSON
+        public void onResponse(JSONObject response) throws JSONException {
+            String initialImageUrl = "http://image.tmdb.org/t/p/original";
+            JSONArray jsonArray = response.getJSONArray("results");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject result = jsonArray.getJSONObject(i);
+                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
+                String title = result.getString("title");
+                int popularity = result.getInt("popularity");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+            }
+            mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
+            mRecyclerViewUpcoming.setAdapter(mMovieAdapter);
+            mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
+        }
+    }
+
+
+
+
+
+
+
+
+
+    public class queryTaskNowPlaying extends AsyncTask<URL, Void, String>{
+
+        private ArrayList<MovieItem> mMovieList = new ArrayList<>();
+
+        //this function works in background thread
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL searchURLNowPlaying = urls[0]; // what does this mean
+            String searchResults = null;
+            try {
+                searchResults = getResponseFromHttpUrl(searchURLNowPlaying);
+            } catch (IOException e) {
+                e.printStackTrace();//what does this mean
+            }
+            return searchResults;
+        }
+
+        //this function works in main thread
+        @Override
+        protected void onPostExecute(String s) {
+            if (s != null && !s.equals("")) {
+                try {
+                    JSONObject ob = new JSONObject(s);
+                    onResponse(ob);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //this function is made to fetch values from API using JSON
+        public void onResponse(JSONObject response) throws JSONException {
+            String initialImageUrl = "http://image.tmdb.org/t/p/original";
+            JSONArray jsonArray = response.getJSONArray("results");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject result = jsonArray.getJSONObject(i);
+                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
+                String title = result.getString("title");
+                int popularity = result.getInt("popularity");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+            }
+            mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
+            mRecyclerViewNowPlaying.setAdapter(mMovieAdapter);
+            mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //this function converts the API url into formatted url
     public static URL buildUrlPopular() {
         Uri builtUri = Uri.parse(API_URL_POPULAR);
@@ -228,6 +390,35 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         }
         return url;
     }
+
+
+
+    public static URL buildUrlUpcoming() {
+        Uri builtUri = Uri.parse(API_URL_NOW_PLAYING);
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+
+
+    public static URL buildUrlNowPlaying() {
+        Uri builtUri = Uri.parse(API_URL_NOW_PLAYING);
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+
+
 
     //this function is responsible for getting response from API
     public static String getResponseFromHttpUrl(URL url) throws IOException {
