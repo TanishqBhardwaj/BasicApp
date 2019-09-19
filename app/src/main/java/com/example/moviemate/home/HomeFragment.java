@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -47,19 +51,26 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         URL searchURL = buildUrl();
-        new HomeFragment.queryTask().execute(searchURL);
+        new queryTask().execute(searchURL);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_home, container, false);
+
         mRecyclerView = v.findViewById(R.id.recycler_view_home);
+
         mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         // it sets the layout of recycler view as linear
         mMovieList = new ArrayList<>();
+
+
+
 
         setHasOptionsMenu(true);
 

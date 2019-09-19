@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.moviemate.info.DevelopersAbout;
 import com.example.moviemate.info.DevelopersFragment;
@@ -30,11 +33,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
+
+    private ProgressBar mProgressBar;
+    private int mProgressStatus=0;
+    private Handler mHandler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
+        mProgressBar=findViewById(R.id.progressbar);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (mProgressStatus < 100) {
+                    mProgressStatus+=3;
+                    SystemClock.sleep(50);
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgressBar.setProgress(mProgressStatus);
+
+                        }
+                    });
+                }
+
+
+            }
+
+
+        }).start();
+
+
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame,
                 new HomeFragment()).commit();  //replaces fragment frame with home fragment

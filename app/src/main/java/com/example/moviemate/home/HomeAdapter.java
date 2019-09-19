@@ -15,6 +15,7 @@ import com.example.moviemate.main.MovieItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
+
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolderMain> implements Filterable {
 
     private Context mContext;
