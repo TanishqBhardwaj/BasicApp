@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame,
-                new HomeFragment()).commit();
+                new HomeFragment()).commit();  //replaces fragment frame with home fragment
 
         navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(MainActivity.this);
+        navigationView.setNavigationItemSelectedListener(MainActivity.this); //it will trigger the items click on navigation view
 
         setUpToolBar();
     }
@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void openUrl2(String url) {
-        Uri uri = Uri.parse(url);
+        Uri uri = Uri.parse(url);//converts it into URI
         Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(launchWeb);
+        startActivity(launchWeb);//it launches intent
     }
 
     public void sakshiGmailClick(View view) {
@@ -145,21 +145,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, toolbar
-                , R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                , R.string.navigation_drawer_open, R.string.navigation_drawer_close);//it ties together drawer layout and toolbar
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+        actionBarDrawerToggle.syncState();//setting up hamburger icon
     }
 
     @Override
     public void onBackPressed() {
 
-        MenuItem menuItem = navigationView.getMenu().getItem(0);
+        MenuItem menuItem = navigationView.getMenu().getItem(0);//accessing 1st menu item
         if(fragment instanceof HomeFragment) {
             super.onBackPressed();
         }
         else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, new HomeFragment()).commit();
-            navigationView.setCheckedItem(menuItem.getItemId());
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, new HomeFragment()).commit();//on back press it directs to home fragment
+            navigationView.setCheckedItem(menuItem.getItemId()); // changes the selected item of navigation drawer on back
         }
     }
 }

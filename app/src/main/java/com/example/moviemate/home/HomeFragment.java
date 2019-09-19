@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         startActivity(detailIntent);
     }
 
-    public class queryTask extends AsyncTask<URL, Void, String> {
+    public class queryTask extends AsyncTask<URL, Void, String> { //<params, progress, result>
 
         //this function works in background thread
         @Override
@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
-            JSONArray jsonArray = response.getJSONArray("results");
+            JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
@@ -147,12 +147,13 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
     //this function converts the API url into formatted url
     public static URL buildUrl() {
-        Uri builtUri = Uri.parse(API_URL_POPULAR);
+//        Uri builtUri = Uri.parse(API_URL_POPULAR); //why do we convert string to URI
         URL url = null;
         try {
-            url = new URL(builtUri.toString());
+//            url = new URL(builtUri.toString());
+            url = new URL(API_URL_POPULAR);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // prints class name and error line of Throwable object
         }
         return url;
     }

@@ -19,7 +19,7 @@
         android:background="#262626"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
-        android:text="Popular TV Shows"
+        android:text="Popular"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         android:background="#262626"
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
-        android:text="Top Rated TV Shows"
+        android:text="Top Rated"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +54,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_top_rated_tv" />
+    <TextView
+        android:id="@+id/text_airing_today_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#262626"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:text="Airing Today"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_top_rated_tv"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_airing_today_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#262626"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_airing_today_tv" />
+    <TextView
+        android:id="@+id/text_latest_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#262626"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:text="Latest TV Shows"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_airing_today_tv"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_latest_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#262626"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_latest_tv" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
