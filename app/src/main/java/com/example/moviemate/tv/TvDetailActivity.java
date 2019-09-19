@@ -1,16 +1,12 @@
 package com.example.moviemate.tv;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.moviemate.R;
-import com.example.moviemate.home.HomeFragment;
-import com.example.moviemate.main.MainActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class TvDetailActivity extends AppCompatActivity {

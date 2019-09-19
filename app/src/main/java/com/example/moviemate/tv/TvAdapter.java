@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviemate.R;
-import com.example.moviemate.main.MovieItem;
-import com.example.moviemate.movie.MovieAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
@@ -18,13 +16,13 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
 
     private Context mContext;
     private ArrayList<TvItem> mTvList;
-    private TvAdapter.OnItemClickListener mListener;
+    private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
         void onItemClick(int position, ArrayList<TvItem> tvItemArrayList);
     }
 
-    public void setOnItemClickListener(TvAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
@@ -82,7 +80,6 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
                     }
                 }
             });
-
         }
     }
 }

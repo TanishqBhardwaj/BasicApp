@@ -7,16 +7,13 @@ public class TvItem {
     private String mName;
     private int mPopularity;
 
-
     public TvItem(String imageUrl, String name, int popularity) {
         mImageUrl = imageUrl;
         mName = name;
         mPopularity = popularity;
     }
 
-    public String getImageUrl() {
-        return mImageUrl;
-    }
+    public String getImageUrl() { return mImageUrl; }
 
     public String getName() {
         return mName;

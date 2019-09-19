@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +15,48 @@ import com.example.moviemate.main.MovieItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolderMain> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolderMain> implements Filterable {
 
     private Context mContext;
     private ArrayList<MovieItem> mMovieList;
+    private ArrayList<MovieItem> mMovieListFull;
     private OnItemClickListener mListener;
+
+    @Override
+    public Filter getFilter() {
+        return movieFilter;
+    }
+
+    private Filter movieFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<MovieItem> filteredList = new ArrayList<>();
+
+            if(charSequence == null || charSequence.length() == 0) {
+                filteredList.addAll(mMovieListFull);
+            }
+            else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                for(MovieItem movieItem : mMovieListFull) {
+                    if(movieItem.getTitle().toLowerCase().startsWith(filterPattern)) {
+                        filteredList.add(movieItem);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            mMovieList.clear();
+            mMovieList.addAll((ArrayList) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -30,6 +69,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
     public HomeAdapter(Context context, ArrayList<MovieItem> movieList) {
         mContext = context;
         mMovieList = movieList;
+        mMovieListFull = new ArrayList<>(movieList);
     }
 
     @NonNull

@@ -5,20 +5,20 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviemate.R;
 import com.example.moviemate.main.DetailActivity;
 import com.example.moviemate.main.MovieItem;
-import com.google.android.material.navigation.NavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,9 +38,9 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
-    private HomeAdapter mHomeAdapter;
     private ArrayList<MovieItem> mMovieList;
-
+    public HomeAdapter mHomeAdapter;
+    SearchView searchView;
     View v;
 
     @Override
@@ -61,7 +61,29 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         // it sets the layout of recycler view as linear
         mMovieList = new ArrayList<>();
 
+        setHasOptionsMenu(true);
+
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        super.onCreateOptionsMenu(menu, menuInflater);
+        menuInflater.inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mHomeAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     //Formation of intent on clicking images
@@ -134,6 +156,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         }
         return url;
     }
+
+
 
     //this function is responsible for getting response from API
     public static String getResponseFromHttpUrl(URL url) throws IOException {

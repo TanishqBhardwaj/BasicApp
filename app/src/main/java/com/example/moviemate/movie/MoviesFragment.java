@@ -43,7 +43,8 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_movies, container, false);
         mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_movie);
@@ -77,7 +78,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         Intent detailIntent = new Intent(getActivity(), DetailActivity.class); //what does this mean
         MovieItem clickedItem = movieItemArrayList.get(position);
 
-        detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
+        detailIntent.putExtra("imageUrl", clickedItem.getImageUrl());
         detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
         detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
 

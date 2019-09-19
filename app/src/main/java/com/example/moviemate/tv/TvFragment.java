@@ -12,9 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.moviemate.main.DetailActivity;
-import com.example.moviemate.main.MovieItem;
 import com.example.moviemate.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,10 +30,11 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
     public final static String EXTRA_NAME = "name";
     public final static String EXTRA_POPULARITY = "popularity";
 
-    View v;
     private RecyclerView mRecyclerViewPopular;
     private RecyclerView mRecyclerViewTopRated;
     private TvAdapter mTvAdapter;
+
+    View v;
 
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/tv/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_TOP_RATED = "https://api.themoviedb.org/3/tv/top_rated?api_key=b8f745c2d43033fd65ce3af63180c3c3";
@@ -44,7 +42,8 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_tv, container, false);
         mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_tv);
@@ -87,6 +86,7 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
     public class queryTaskPopular extends AsyncTask<URL, Void, String> {
 
         private ArrayList<TvItem> mTvList = new ArrayList<>();
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {

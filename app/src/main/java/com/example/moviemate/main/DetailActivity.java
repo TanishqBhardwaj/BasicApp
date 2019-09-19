@@ -21,7 +21,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
-        String imageUrl = intent.getStringExtra(HomeFragment.EXTRA_IMAGE);
+        String imageUrl = intent.getStringExtra("imageUrl");
         String title = intent.getStringExtra(HomeFragment.EXTRA_TITLE);
         int popularity = intent.getIntExtra(HomeFragment.EXTRA_POPULARITY,0);
 
