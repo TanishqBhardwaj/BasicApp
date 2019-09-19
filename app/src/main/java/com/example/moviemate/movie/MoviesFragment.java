@@ -5,10 +5,14 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +39,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     private RecyclerView mRecyclerViewPopular;
     private RecyclerView mRecyclerViewTopRated;
     private MovieAdapter mMovieAdapter;
+    SearchView searchView;
 
     View v;
 
@@ -58,8 +63,29 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         mRecyclerViewTopRated.setHasFixedSize(true);
         mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+        setHasOptionsMenu(true);
         return v;
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        super.onCreateOptionsMenu(menu, menuInflater);
+        menuInflater.inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mMovieAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
