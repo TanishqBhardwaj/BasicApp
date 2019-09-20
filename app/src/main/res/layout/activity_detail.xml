@@ -1,41 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black"
-    tools:context="com.example.moviemate.main.DetailActivity">
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/image_view_detail"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        fresco:actualImageScaleType="none"
-        fresco:placeholderImage="@mipmap/ic_launcher"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        tools:context="com.example.moviemate.main.DetailActivity">
 
-    <TextView
-        android:id="@+id/text_view_title_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textColor="@android:color/white"
-        android:textSize="40sp"
-        android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_view_detail" />
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_view_popularity_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Popularity : "
-        android:textColor="@android:color/white"
-        android:textSize="40sp"
-        android:layout_margin="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_title_detail" />
+        <ImageButton
+            android:id="@+id/button_play"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@android:color/black"
+            android:src="@drawable/ic_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/video_view" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image_view_detail"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            app:actualImageScaleType="none"
+            app:layout_constraintTop_toBottomOf="@id/button_play"
+            app:placeholderImage="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/text_view_title_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Title"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_detail" />
+
+        <TextView
+            android:id="@+id/text_view_popularity_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Popularity : "
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title_detail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

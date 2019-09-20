@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     public final static String EXTRA_IMAGE = "imageUrl";
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_POPULARITY = "popularity";
+    public final static String EXTRA_ID = "id";
 
     final static String API_URL_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
@@ -95,6 +96,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
         detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
         detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
+        detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
 
         startActivity(detailIntent);
     }
@@ -143,7 +145,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
                     title = result.getString("name");
                 }
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                int id = result.getInt("id");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
             }
             mHomeAdapter = new HomeAdapter(getContext(), mMovieList);
             mRecyclerView.setAdapter(mHomeAdapter);

@@ -6,11 +6,13 @@ public class MovieItem {
     private String mImageUrl;
     private String mTitle;
     private int mPopularity;
+    private int mId;
 
-    public MovieItem(String imageUrl, String title, int popularity) {
+    public MovieItem(String imageUrl, String title, int popularity, int id) {
         mImageUrl = imageUrl;
         mTitle = title;
         mPopularity = popularity;
+        mId = id;
     }
 
     public String getImageUrl() {
@@ -24,4 +26,6 @@ public class MovieItem {
     public int getPopularity() {
         return mPopularity;
     }
+
+    public int getId() { return mId; }
 }

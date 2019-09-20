@@ -35,9 +35,8 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     public final static String EXTRA_IMAGE = "imageUrl";
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_POPULARITY = "popularity";
+    public final static String EXTRA_ID = "id";
 
-
-    private RecyclerView mRecyclerViewLatest;
     private RecyclerView mRecyclerViewUpcoming;
     private RecyclerView mRecyclerViewNowPlaying;
     private RecyclerView mRecyclerViewPopular;
@@ -50,7 +49,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     final static String API_URL_POPULAR = "https://api.themoviedb.org/3/movie/popular?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_NOW_PLAYING = "https://api.themoviedb.org/3/movie/now_playing?api_key=b8f745c2d43033fd65ce3af63180c3c3";
-
+    final static String API_URL_UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?api_key=b8f745c2d43033fd65ce3af63180c3c3";
 
 
 
@@ -91,6 +90,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         setHasOptionsMenu(true);
         return v;
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         super.onCreateOptionsMenu(menu, menuInflater);
@@ -110,7 +110,6 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
             }
         });
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,9 +135,10 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         Intent detailIntent = new Intent(getActivity(), DetailActivity.class); //what does this mean
         MovieItem clickedItem = movieItemArrayList.get(position);
 
-        detailIntent.putExtra("imageUrl", clickedItem.getImageUrl());
+        detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
         detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
         detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
+        detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
 
         startActivity(detailIntent);
     }
@@ -183,7 +183,8 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                int id = result.getInt("id");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewPopular.setAdapter(mMovieAdapter);
@@ -191,7 +192,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         }
     }
 
-    public class queryTaskTopRated extends AsyncTask<URL, Void, String>{
+    public class queryTaskTopRated extends AsyncTask<URL, Void, String> {
         private ArrayList<MovieItem> mMovieList = new ArrayList<>();
 
         //this function works in background thread
@@ -230,22 +231,14 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                int id = result.getInt("id");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewTopRated.setAdapter(mMovieAdapter);
             mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
         }
     }
-
-
-
-
-
-
-
-
-
 
     public class queryTaskUpcoming extends AsyncTask<URL, Void, String>{
 
@@ -287,21 +280,14 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                int id = result.getInt("id");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewUpcoming.setAdapter(mMovieAdapter);
             mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
         }
     }
-
-
-
-
-
-
-
-
 
     public class queryTaskNowPlaying extends AsyncTask<URL, Void, String>{
 
@@ -343,30 +329,14 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String title = result.getString("title");
                 int popularity = result.getInt("popularity");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity));
+                int id = result.getInt("id");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewNowPlaying.setAdapter(mMovieAdapter);
             mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //this function converts the API url into formatted url
     public static URL buildUrlPopular() {
@@ -394,7 +364,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
 
     public static URL buildUrlUpcoming() {
-        Uri builtUri = Uri.parse(API_URL_NOW_PLAYING);
+        Uri builtUri = Uri.parse(API_URL_UPCOMING);
         URL url = null;
         try {
             url = new URL(builtUri.toString());
