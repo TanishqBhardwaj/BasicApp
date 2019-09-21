@@ -32,7 +32,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 public class DetailActivity extends YouTubeBaseActivity {
 
-    public static final String DEVELOPER_KEY = "AIzaSyCeFPp30DTPY2amyGTRMbaPEDNZFaESMIM";
+//    public static final String DEVELOPER_KEY = "AIzaSyCeFPp30DTPY2amyGTRMbaPEDNZFaESMIM";
     ImageView mButtonPlay;
     String API_KEY = "b8f745c2d43033fd65ce3af63180c3c3";
     static String API_VIDEO;

@@ -6,11 +6,13 @@ public class TvItem {
     private String mImageUrl;
     private String mName;
     private int mPopularity;
+    private int mId;
 
-    public TvItem(String imageUrl, String name, int popularity) {
+    public TvItem(String imageUrl, String name, int popularity, int id) {
         mImageUrl = imageUrl;
         mName = name;
         mPopularity = popularity;
+        mId = id;
     }
 
     public String getImageUrl() { return mImageUrl; }
@@ -22,4 +24,6 @@ public class TvItem {
     public int getPopularity() {
         return mPopularity;
     }
+
+    public int getId() { return mId; }
 }

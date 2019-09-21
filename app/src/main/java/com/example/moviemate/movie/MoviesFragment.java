@@ -87,29 +87,29 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
 
 
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         return v;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-        super.onCreateOptionsMenu(menu, menuInflater);
-        menuInflater.inflate(R.menu.menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.search);
-        searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                mMovieAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+//        super.onCreateOptionsMenu(menu, menuInflater);
+//        menuInflater.inflate(R.menu.menu, menu);
+//        MenuItem searchItem = menu.findItem(R.id.search);
+//        searchView = (SearchView) searchItem.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                mMovieAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,7 +132,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     //Formation of intent on clicking images
     @Override
     public void onItemClick(int position, ArrayList<MovieItem> movieItemArrayList) {
-        Intent detailIntent = new Intent(getActivity(), DetailActivity.class); //what does this mean
+        Intent detailIntent = new Intent(getContext().getApplicationContext(), DetailActivity.class); //what does this mean
         MovieItem clickedItem = movieItemArrayList.get(position);
 
         detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
