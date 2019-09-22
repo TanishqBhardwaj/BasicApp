@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(launchWeb);
     }
     public void harryFacebookClick(View view) {
-        openUrl7("https://mail.google.com/mail/u/0/#inbox");
+        openUrl7("https://en-gb.facebook.com/login/");
     }
 
     private void openUrl7(String url) {
@@ -119,10 +119,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(launchWeb);
     }
     public void harryInstaClick(View view) {
-        openUrl8("https://mail.google.com/mail/u/0/#inbox");
+        openUrl8("https://www.instagram.com/accounts/login/?hl=en");
     }
 
     private void openUrl8(String url) {
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(launchWeb);
+    }
+
+    public void harryGmailClick(View view)
+    {
+        openUrl9("https://accounts.google.com/servicelogin/signinchooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
+    }
+
+    private void openUrl9(String url) {
         Uri uri = Uri.parse(url);
         Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);

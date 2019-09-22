@@ -25,6 +25,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:id="@+id/line5"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="301dp"
+            android:background="@color/colorhead"
+            app:layout_constraintBottom_toBottomOf="@+id/harryImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Account"
+            app:layout_constraintVertical_bias="1.0" />
+
         <ImageView
             android:id="@+id/harryImage"
             android:layout_width="match_parent"
@@ -41,10 +53,8 @@
 
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="73dp"
             android:layout_marginTop="370dp"
-            android:layout_marginEnd="341dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/profilelogo" />
@@ -53,19 +63,19 @@
             android:id="@+id/harryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="364dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="373dp"
             android:text="Harry Potter"
             android:textColor="@color/colorhead"
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/gmailicon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="73dp"
             android:layout_marginTop="16dp"
 
             app:layout_constraintStart_toStartOf="parent"
@@ -77,43 +87,43 @@
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="20dp"
             android:text="harrypotter77@gmail.com"
             android:textColor="@color/colorhead"
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/harryName" />
 
+
         <ImageView
             android:id="@+id/phoneicon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="11dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="73dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gmailicon"
+            app:layout_constraintTop_toBottomOf="@+id/gmailicon"
             app:srcCompat="@drawable/phonelogo" />
-
 
         <TextView
             android:id="@+id/contactNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="20dp"
             android:text="+44 7774532645"
             android:textColor="@color/colorhead"
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/email" />
 
         <ImageView
             android:id="@+id/locationaLogo"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="73dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/phoneicon"
             app:srcCompat="@drawable/locationlogo" />
@@ -122,12 +132,12 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="20dp"
             android:text="Hogwarts , UK"
 
             android:textColor="@color/colorhead"
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/contactNo" />
 
@@ -145,25 +155,24 @@
             android:id="@+id/addAccountLogo"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="73dp"
+            android:layout_marginTop="560dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/locationaLogo"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/addaccountlogo" />
 
         <TextView
             android:id="@+id/addAcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="130dp"
+
+            android:layout_marginTop="560dp"
             android:text="Add Account Using:"
-
             android:textColor="@color/colorhead"
-            android:textSize="25dp"
+            android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line4" />
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/insta1"
@@ -194,10 +203,34 @@
             android:layout_height="40dp"
             android:layout_marginStart="88dp"
             android:layout_marginTop="608dp"
-            android:onClick="sakshiGmailClick"
+            android:onClick="harryGmailClick"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/gmail" />
+
+        <Button
+            android:id="@+id/signUo"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="672dp"
+            android:background="@color/colorhead"
+            android:text="Sign UP"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="315dp"
+            android:layout_marginTop="672dp"
+            android:background="@color/colorhead"
+            android:text="Logout"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
