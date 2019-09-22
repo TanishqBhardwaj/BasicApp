@@ -42,12 +42,16 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
         TvItem tvItem = mTvList.get(position);
 
         String imageUrl = tvItem.getImageUrl();
+        String overview = tvItem.getOverview();
         String name = tvItem.getName();
         int popularity = tvItem.getPopularity();
+        int voteAverage = tvItem.getVoteAverage();
 
         holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
         holder.mTextViewName.setText(name);
-        holder.mTextViewPopularity.setText("Popularity: " + popularity);
+
+        holder.mTextViewVoteAverage.setText("Vote Average: " + voteAverage);
+        //holder.mTextViewPopularity.setText("Popularity: " + popularity);
     }
 
     @Override
@@ -60,13 +64,18 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
 
         public SimpleDraweeView mImageView;
         public TextView mTextViewName;
-        public TextView mTextViewPopularity;
+        public TextView mTextViewVoteAverage;
+      //  public TextView mTextViewPopularity;
+
 
         public TvViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view_tv);
             mTextViewName = itemView.findViewById(R.id.text_view_name_tv);
-            mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity_tv);
+           // mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity_tv);
+
+
+            mTextViewVoteAverage = itemView.findViewById(R.id.text_view_vote_average_tv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
 

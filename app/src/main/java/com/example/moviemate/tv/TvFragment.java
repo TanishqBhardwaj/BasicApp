@@ -29,7 +29,12 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
     public final static String EXTRA_IMAGE = "imageUrl";
     public final static String EXTRA_NAME = "name";
     public final static String EXTRA_POPULARITY = "popularity";
+    public final static String EXTRA_VOTE_AVERAGE = "voteAverage";
+    public final static String EXTRA_VOTE_COUNT = "voteCount";
     public final static String EXTRA_ID = "id";
+    public final static String EXTRA_OVERVIEW = "overview";
+    public final static String EXTRA_DATE = "date";
+
 
     private RecyclerView mRecyclerViewPopular;
     private RecyclerView mRecyclerViewTopRated;
@@ -104,7 +109,11 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
 
         detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
         detailIntent.putExtra(EXTRA_NAME, clickedItem.getName());
+        detailIntent.putExtra(EXTRA_DATE, clickedItem.getDate());
+        detailIntent.putExtra(EXTRA_OVERVIEW, clickedItem.getOverview());
         detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
+        detailIntent.putExtra(EXTRA_VOTE_AVERAGE, clickedItem.getVoteAverage());
+        detailIntent.putExtra(EXTRA_VOTE_COUNT, clickedItem.getVoteCount());
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
 
         startActivity(detailIntent);
@@ -149,9 +158,14 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
                 String name = result.getString("name");
+
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mTvList.add(new TvItem(imageUrl, name, popularity, id));
+               String overview = result.getString("overview");
+                int voteAverage = result.getInt("vote_average");
+                String date = result.getString("first_air_date");
+                int voteCount = result.getInt("vote_count");
+                mTvList.add(new TvItem(imageUrl, name,overview,date, popularity,voteAverage,voteCount, id));
             }
             mTvAdapter = new TvAdapter(getContext(), mTvList);
             mRecyclerViewPopular.setAdapter(mTvAdapter);
@@ -199,7 +213,11 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
                 String name = result.getString("name");
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mTvList.add(new TvItem(imageUrl, name, popularity, id));
+                String overview = result.getString("overview");
+                int voteAverage = result.getInt("vote_average");
+                String date = result.getString("first_air_date");
+                int voteCount = result.getInt("vote_count");
+                mTvList.add(new TvItem(imageUrl, name,overview,date, popularity,voteAverage,voteCount, id));
             }
             mTvAdapter = new TvAdapter(getContext(), mTvList);
             mRecyclerViewTopRated.setAdapter(mTvAdapter);
@@ -249,7 +267,11 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
                 String name = result.getString("name");
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mTvList.add(new TvItem(imageUrl, name, popularity, id));
+                String overview = result.getString("overview");
+                int voteAverage = result.getInt("vote_average");
+                String date = result.getString("first_air_date");
+                int voteCount = result.getInt("vote_count");
+                mTvList.add(new TvItem(imageUrl, name,overview,date, popularity,voteAverage,voteCount, id));
             }
             mTvAdapter = new TvAdapter(getContext(), mTvList);
             mRecyclerViewAiringToday.setAdapter(mTvAdapter);
@@ -311,7 +333,11 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
                 String name = result.getString("name");
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mTvList.add(new TvItem(imageUrl, name, popularity, id));
+                String overview = result.getString("overview");
+                int voteAverage = result.getInt("vote_average");
+                String date = result.getString("first_air_date");
+                int voteCount = result.getInt("vote_count");
+                mTvList.add(new TvItem(imageUrl, name,overview,date, popularity,voteAverage,voteCount, id));
             }
             mTvAdapter = new TvAdapter(getContext(), mTvList);
             mRecyclerViewLatest.setAdapter(mTvAdapter);

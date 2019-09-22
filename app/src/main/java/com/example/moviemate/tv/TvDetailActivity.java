@@ -59,16 +59,27 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         Intent intent = getIntent();
         String imageUrl = intent.getStringExtra(TvFragment.EXTRA_IMAGE);
         String title = intent.getStringExtra(TvFragment.EXTRA_NAME);
+        String overview = intent.getStringExtra(TvFragment.EXTRA_OVERVIEW);
+        String date = intent.getStringExtra(TvFragment.EXTRA_DATE);
         int popularity = intent.getIntExtra(TvFragment.EXTRA_POPULARITY,0);
         int id = intent.getIntExtra(TvFragment.EXTRA_ID, 0);
-
+        int voteAverage = intent.getIntExtra(TvFragment.EXTRA_VOTE_AVERAGE,0);
+        int voteCount = intent.getIntExtra(TvFragment.EXTRA_VOTE_COUNT,0);
         ImageView imageView = findViewById(R.id.image_view_detail_tv);
         TextView textViewTitle = findViewById(R.id.text_view_title_detail_tv);
+        TextView textViewOverview = findViewById(R.id.text_view_overview_detail_tv);
+        TextView textViewDate = findViewById(R.id.text_view_date_detail_tv);
         TextView textViewPopularity = findViewById(R.id.text_view_popularity_detail_tv);
+        TextView textViewVoteAverage = findViewById(R.id.text_view_vote_average_detail_tv);
+        TextView textViewVoteCount = findViewById(R.id.text_view_vote_count_detail_tv);
 
         imageView.setImageURI(Uri.parse(imageUrl));
         textViewTitle.setText(title);
+        textViewOverview.setText(overview);
+        textViewDate.setText("Release Date : " + date);
         textViewPopularity.setText("Popularity : " + popularity);
+        textViewVoteAverage.setText("Average Vote : " + voteAverage);
+        textViewVoteCount.setText("Total Votes : " + voteCount);
 
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")

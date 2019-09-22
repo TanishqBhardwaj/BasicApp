@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_profile:
                 fragment = new ProfileFragment();
-                Toast.makeText(this, "ABOUT US", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_about:
                 fragment = new DevelopersAbout();
