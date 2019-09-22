@@ -5,20 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorBackground"
+    android:background="#000000"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black"
+        android:background="#000000"
         tools:context="com.example.moviemate.main.DetailActivity">
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/video_view_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_height="300dp"
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,74 +32,113 @@
             app:layout_constraintTop_toBottomOf="@+id/video_view_tv" />
 
         <com.facebook.drawee.view.SimpleDraweeView
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
             android:id="@+id/image_view_detail_tv"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             app:actualImageScaleType="none"
-            app:layout_constraintTop_toBottomOf="@id/button_play_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title_detail_tv"
             app:placeholderImage="@mipmap/ic_launcher" />
 
         <TextView
+
             android:id="@+id/text_view_title_detail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="370dp"
+            android:gravity="fill_horizontal"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
             android:text="Title"
             android:textColor="@android:color/white"
-            android:textSize="40sp"
+
+            android:textSize="30sp"
+
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_overview_detail_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="Overview: "
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_view_detail_tv" />
 
         <TextView
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
             android:id="@+id/text_view_popularity_detail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Popularity : "
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_title_detail_tv" />
+            android:textColor="#a8a8a8"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/image_view_detail_tv"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_vote_count_detail_tv" />
+
         <TextView
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
             android:id="@+id/text_view_vote_average_detail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Popularity : "
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_popularity_detail_tv" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="vote average"
+            android:textColor="#a8a8a8"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/image_view_detail_tv"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title_detail_tv" />
+
         <TextView
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
             android:id="@+id/text_view_date_detail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Release Date : "
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_vote_average_detail_tv" />
+            android:textColor="#a8a8a8"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/image_view_detail_tv"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_popularity_detail_tv" />
+
         <TextView
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
             android:id="@+id/text_view_vote_count_detail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Release Date : "
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_date_detail_tv" />
-        <TextView
-            android:id="@+id/text_view_overview_detail_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Overview: "
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_vote_count_detail_tv" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Vote Count"
+            android:textColor="#a8a8a8"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/image_view_detail_tv"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_vote_average_detail_tv" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
