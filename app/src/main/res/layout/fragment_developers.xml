@@ -7,172 +7,309 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/SakshiImage"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/intro"
-        app:srcCompat="@drawable/sakshi" />
+        <TextView
+            android:id="@+id/developers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="Developers"
+            android:textColor="@color/colorhead"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/TanishqImage"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        <View
+            android:id="@+id/line6"
+            android:layout_width="160dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="301dp"
+            android:background="@color/colorhead"
+            app:layout_constraintBottom_toBottomOf="@+id/harryImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/developers"
+            app:layout_constraintVertical_bias="1.0" />
 
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/intro"
-        app:srcCompat="@drawable/sakshi" />
+        //Sakshi
 
-    <TextView
-        android:id="@+id/SakshiName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="4dp"
-        android:text="SAKSHI YADAV"
-        android:textColor="@color/colorhead"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SakshiImage" />
+        <ImageView
+            android:id="@+id/SakshiImage"
+            android:layout_width="125dp"
+            android:layout_height="134dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="136dp"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sakshi" />
 
-    <TextView
-        android:id="@+id/TanishqName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="31dp"
-        android:text="Tanishq Bharadwaj"
-        android:textColor="@color/colorhead"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TanishqImage" />
 
-    <TextView
-        android:id="@+id/intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="Forward-thinking developers offering near about one month of experience building, integrating, testing, and supporting Android applications for mobile and tablet devices on the Android platform seeks a position in SOFTWARE INCUBATORS of AKGEC.
+        <TextView
+            android:id="@+id/SakshiName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="136dp"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="SAKSHI YADAV"
+            android:textColor="@color/colorhead"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/SakshiImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/SakshiBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:paddingStart="4dp"
+
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="7th August 2000"
+            android:textColor="@color/colorhead"
+            app:layout_constraintStart_toEndOf="@+id/SakshiImage"
+            app:layout_constraintTop_toBottomOf="@+id/SakshiName" />
+
+        <TextView
+            android:id="@+id/SakshiPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:paddingStart="4dp"
+
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="Lucknow, Uttar Pradesh"
+            android:textColor="@color/colorhead"
+            app:layout_constraintStart_toEndOf="@+id/SakshiImage"
+            app:layout_constraintTop_toBottomOf="@+id/SakshiBirth" />
+
+        <ImageView
+            android:id="@+id/facebook1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:onClick="sakshiFacebookClick"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toEndOf="@+id/SakshiImage"
+            app:layout_constraintTop_toBottomOf="@+id/SakshiPlace"
+            app:srcCompat="@drawable/facebook" />
+
+        <ImageView
+            android:id="@+id/gmail1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="12dp"
+            android:onClick="sakshiGmailClick"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toEndOf="@+id/SakshiImage"
+            app:layout_constraintTop_toBottomOf="@+id/SakshiPlace"
+            app:srcCompat="@drawable/gmail" />
+
+        <ImageView
+            android:id="@+id/insta1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="15dp"
+            android:onClick="sakshiInstaClick"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toEndOf="@+id/SakshiImage"
+            app:layout_constraintTop_toBottomOf="@+id/SakshiPlace"
+            app:srcCompat="@drawable/insta" />
+
+
+        //Tanishq
+
+        <ImageView
+            android:id="@+id/TanishqImage"
+            android:layout_width="125dp"
+            android:layout_height="134dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="290dp"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/tanishq" />
+
+        <TextView
+            android:id="@+id/TanishqName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="296dp"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="Tanishq Bharadwaj"
+            android:textColor="@color/colorhead"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/TanishqImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TanishqBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="7th March 2000"
+            android:textColor="@color/colorhead"
+            app:layout_constraintStart_toEndOf="@+id/TanishqImage"
+            app:layout_constraintTop_toBottomOf="@+id/TanishqName" />
+
+        <TextView
+            android:id="@+id/TanishqPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:text="Kanpur, Uttar Pradesh"
+            android:textColor="@color/colorhead"
+            app:layout_constraintStart_toEndOf="@+id/TanishqImage"
+            app:layout_constraintTop_toBottomOf="@+id/TanishqBirth" />
+
+        <ImageView
+            android:id="@+id/facebook2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:onClick="tanishqFacebookClick"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toEndOf="@+id/TanishqImage"
+            app:layout_constraintTop_toBottomOf="@+id/TanishqPlace"
+            app:srcCompat="@drawable/facebook" />
+
+        <ImageView
+            android:id="@+id/gmail2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="12dp"
+            android:onClick="tanishqGmailClick"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toEndOf="@+id/TanishqImage"
+            app:layout_constraintTop_toBottomOf="@+id/TanishqPlace"
+            app:srcCompat="@drawable/gmail" />
+
+        <ImageView
+            android:id="@+id/insta2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="15dp"
+            android:onClick="tanishqInstaClick"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            app:layout_constraintStart_toEndOf="@+id/TanishqImage"
+            app:layout_constraintTop_toBottomOf="@+id/TanishqPlace"
+            app:srcCompat="@drawable/insta" />
+
+
+        <TextView
+            android:id="@+id/intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="448dp"
+            android:text="Forward-thinking developers offering near about one month of experience building, integrating, testing, and supporting Android applications for mobile and tablet devices on the Android platform seeks a position in SOFTWARE INCUBATORS of AKGEC.
 
 "
-        android:textColor="@color/colorhead"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/colorhead"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/insta1"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:onClick="sakshiInstaClick"
-        app:layout_constraintEnd_toStartOf="@+id/facebook1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SakshiName"
-        app:srcCompat="@drawable/insta" />
+        <TextView
+            android:id="@+id/core2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="560dp"
+            android:text="CORE QUALIFICATIONS"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorhead"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.536"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/facebook1"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="24dp"
+        <TextView
+            android:id="@+id/corematter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="4dp"
+            android:text="\nCreated 1 fully functional applications for Android devices.\nKnown for writing efficient, maintainable, and reusable code.\nProficient in design, data structures, problem-solving, and debugging.\nExpert in the interaction between various devices and versions of Android."
+            android:textColor="@color/colorhead"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/core2" />
 
-        android:onClick="sakshiFacebookClick"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SakshiName"
-        app:srcCompat="@drawable/facebook" />
-
-
-    <ImageView
-        android:id="@+id/gmail1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:onClick="sakshiGmailClick"
-        app:layout_constraintStart_toEndOf="@+id/facebook1"
-        app:layout_constraintTop_toBottomOf="@+id/SakshiName"
-        app:srcCompat="@drawable/gmail" />
-
-
-    <ImageView
-        android:id="@+id/insta2"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:onClick="tanishqInstaClick"
-        app:layout_constraintEnd_toStartOf="@+id/facebook2"
-        app:layout_constraintTop_toBottomOf="@+id/TanishqName"
-        app:srcCompat="@drawable/insta2" />
-
-    <ImageView
-        android:id="@+id/facebook2"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="303dp"
-        android:layout_marginTop="376dp"
-        android:onClick="tanishqFacebookClick"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/facebook2" />
-
-    <ImageView
-        android:id="@+id/gmail2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:onClick="tanishqGmailClick"
-        app:layout_constraintStart_toEndOf="@+id/facebook2"
-        app:layout_constraintTop_toBottomOf="@+id/TanishqName"
-        app:srcCompat="@drawable/gmail2" />
+        <TextView
+            android:id="@+id/education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:textStyle="bold"
+            android:text="Feel Free To Contact Us"
+            android:textColor="@color/colorhead"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/corematter" />
 
 
-    <TextView
-        android:id="@+id/core2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="448dp"
-        android:text="CORE QUALIFICATIONS"
-        android:textColor="@color/colorhead"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/corematter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="\nCreated 1 fully functional applications for Android devices.\nKnown for writing efficient, maintainable, and reusable code.\nProficient in design, data structures, problem-solving, and debugging.\nExpert in the interaction between various devices and versions of Android."
-        android:textColor="@color/colorhead"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/core2" />
-
-    <TextView
-        android:id="@+id/education"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Feel Free To Contact Us"
-        android:textColor="@color/colorhead"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/corematter" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

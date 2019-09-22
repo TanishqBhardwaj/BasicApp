@@ -27,7 +27,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#666666"
+            android:background="#191919"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,10 +47,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#404040"
-        app:itemTextColor="@android:color/white"
-        app:itemIconTint="@android:color/white"
+        android:background="#323232"
         app:headerLayout="@layout/nav_header"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white"
         app:menu="@menu/drawer_menu" />
 
 
