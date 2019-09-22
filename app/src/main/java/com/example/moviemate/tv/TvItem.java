@@ -4,6 +4,7 @@ package com.example.moviemate.tv;
 
 public class TvItem {
     private String mImageUrl;
+    private String mImageUrl2;
     private String mName;
     private String mOverview;
     private int mPopularity;
@@ -12,8 +13,10 @@ public class TvItem {
     private String mDate;
     private int mId;
 
-    public TvItem(String imageUrl, String name,String overview,String date, int popularity,int voteAverage,int voteCount,int id) {
+    public TvItem(String imageUrl,String imageUrl2, String name,String overview,String date, int popularity,int voteAverage,int voteCount,int id) {
         mImageUrl = imageUrl;
+        mImageUrl2 = imageUrl2;
+
         mName = name;
         mOverview=overview;
         mDate=date;
@@ -25,6 +28,7 @@ public class TvItem {
     }
 
     public String getImageUrl() { return mImageUrl; }
+    public String getImageUrl2() { return mImageUrl2; }
 
     public String getName() {
         return mName;

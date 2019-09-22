@@ -57,7 +57,8 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         mButtonPlay = findViewById(R.id.button_play_tv);
 
         Intent intent = getIntent();
-        String imageUrl = intent.getStringExtra(TvFragment.EXTRA_IMAGE);
+        String imageUrl2 = intent.getStringExtra(TvFragment.EXTRA_IMAGE2);
+       // String imageUrl2 = intent.getStringExtra(TvFragment.EXTRA_IMAGE2);
         String title = intent.getStringExtra(TvFragment.EXTRA_NAME);
         String overview = intent.getStringExtra(TvFragment.EXTRA_OVERVIEW);
         String date = intent.getStringExtra(TvFragment.EXTRA_DATE);
@@ -73,7 +74,7 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         TextView textViewVoteAverage = findViewById(R.id.text_view_vote_average_detail_tv);
         TextView textViewVoteCount = findViewById(R.id.text_view_vote_count_detail_tv);
 
-        imageView.setImageURI(Uri.parse(imageUrl));
+        imageView.setImageURI(Uri.parse(imageUrl2));
         textViewTitle.setText(title);
         textViewOverview.setText(overview);
         textViewDate.setText("Release Date : " + date);
