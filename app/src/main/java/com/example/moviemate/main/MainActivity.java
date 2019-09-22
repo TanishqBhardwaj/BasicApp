@@ -17,6 +17,7 @@ import com.example.moviemate.info.DevelopersAbout;
 import com.example.moviemate.info.DevelopersFragment;
 import com.example.moviemate.home.HomeFragment;
 import com.example.moviemate.R;
+import com.example.moviemate.info.ProfileFragment;
 import com.example.moviemate.tv.TvFragment;
 import com.example.moviemate.movie.MoviesFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -108,6 +109,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(launchWeb);
     }
+    public void harryFacebookClick(View view) {
+        openUrl7("https://mail.google.com/mail/u/0/#inbox");
+    }
+
+    private void openUrl7(String url) {
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(launchWeb);
+    }
+    public void harryInstaClick(View view) {
+        openUrl8("https://mail.google.com/mail/u/0/#inbox");
+    }
+
+    private void openUrl8(String url) {
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(launchWeb);
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -123,15 +142,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_TV_shows:
                 fragment = new TvFragment();
                 break;
-
+            case R.id.nav_profile:
+                fragment = new ProfileFragment();
+                Toast.makeText(this, "ABOUT US", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.nav_about:
                 fragment = new DevelopersAbout();
-                Toast.makeText(this, "ABOUT US", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "ABOUT US", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.nav_dev:
                 fragment = new DevelopersFragment();
-                Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "DEVELOPERS", Toast.LENGTH_SHORT).show();
                 break;
         }
 
