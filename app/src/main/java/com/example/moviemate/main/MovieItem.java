@@ -28,11 +28,17 @@ public class MovieItem {
         mType = type;
     }
 
-    public MovieItem(String imageUrl, String title, int popularity, int id) {
+    public MovieItem(String imageUrl, String title, int popularity, int id ,int rating, int voteCount, String overview,
+                     String releaseDate, String imageUrl2) {
         mImageUrl = imageUrl;
         mTitle = title;
         mPopularity = popularity;
         mId = id;
+        mRating = rating;
+        mVoteCount = voteCount;
+        mOverview = overview;
+        mReleaseDate = releaseDate;
+        mImageUrl2 = imageUrl2;
     }
 
     public String getImageUrl() {

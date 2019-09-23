@@ -65,7 +65,8 @@ public class DetailActivity extends YouTubeBaseActivity {
         String overview = intent.getStringExtra(HomeFragment.EXTRA_OVERVIEW);
         String releaseDate = intent.getStringExtra(HomeFragment.EXTRA_RELEASE_DATE);
         String imageUrl2 = intent.getStringExtra(HomeFragment.EXTRA_IMAGE2);
-        String type = intent.getStringExtra(HomeFragment.EXTRA_TYPE).toUpperCase();
+        String type = intent.getStringExtra(HomeFragment.EXTRA_TYPE);
+//        type = type.toUpperCase();
 
         ImageView imageView = findViewById(R.id.image_view_detail);
         TextView textViewTitle = findViewById(R.id.text_view_title_detail);

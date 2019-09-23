@@ -36,6 +36,12 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_POPULARITY = "popularity";
     public final static String EXTRA_ID = "id";
+    public final static String EXTRA_RATING = "vote_average";
+    public final static String EXTRA_VOTE_COUNT = "vote_count";
+    public final static String EXTRA_OVERVIEW = "overview";
+    public final static String EXTRA_RELEASE_DATE = "release_date";
+    public final static String EXTRA_IMAGE2 = "imageUrl2";
+    public final static String EXTRA_TYPE = "media_type";
 
     private RecyclerView mRecyclerViewUpcoming;
     private RecyclerView mRecyclerViewNowPlaying;
@@ -114,6 +120,12 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
         detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+        detailIntent.putExtra(EXTRA_RATING, clickedItem.getRating());
+        detailIntent.putExtra(EXTRA_VOTE_COUNT, clickedItem.getVoteCount());
+        detailIntent.putExtra(EXTRA_OVERVIEW, clickedItem.getOverview());
+        detailIntent.putExtra(EXTRA_RELEASE_DATE, clickedItem.getReleaseDate());
+        detailIntent.putExtra(EXTRA_IMAGE2, clickedItem.getImageUrl2());
+        detailIntent.putExtra(EXTRA_TYPE, clickedItem.getType());
 
         startActivity(detailIntent);
     }
@@ -150,16 +162,23 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
+            String title, releaseDate;
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String title = result.getString("title");
+                String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
+                    title = result.getString("title");
+                    releaseDate = result.getString("release_date");
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
+                int rating = result.getInt("vote_average");
+                int voteCount = result.getInt("vote_count");
+                String overview = result.getString("overview");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
+                        imageUrl2));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewPopular.setAdapter(mMovieAdapter);
@@ -198,16 +217,23 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
+            String title, releaseDate;
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String title = result.getString("title");
+                String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
+                    title = result.getString("title");
+                    releaseDate = result.getString("release_date");
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
+                int rating = result.getInt("vote_average");
+                int voteCount = result.getInt("vote_count");
+                String overview = result.getString("overview");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
+                        imageUrl2));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewTopRated.setAdapter(mMovieAdapter);
@@ -247,16 +273,23 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
+            String title, releaseDate;
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String title = result.getString("title");
+                String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
+                    title = result.getString("title");
+                    releaseDate = result.getString("release_date");
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
+                int rating = result.getInt("vote_average");
+                int voteCount = result.getInt("vote_count");
+                String overview = result.getString("overview");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
+                        imageUrl2));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewUpcoming.setAdapter(mMovieAdapter);
@@ -296,16 +329,24 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
+            String title, releaseDate;
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String title = result.getString("title");
+                String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
+                    title = result.getString("title");
+                    releaseDate = result.getString("release_date");
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
+                int rating = result.getInt("vote_average");
+                int voteCount = result.getInt("vote_count");
+                String overview = result.getString("overview");
+//                String type = result.getString("media_type");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
+                        imageUrl2));
             }
             mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
             mRecyclerViewNowPlaying.setAdapter(mMovieAdapter);
