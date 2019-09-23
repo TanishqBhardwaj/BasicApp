@@ -15,48 +15,12 @@ import com.example.moviemate.main.MovieItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>implements Filterable {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private Context mContext;
     private ArrayList<MovieItem> mMovieList;
     private ArrayList<MovieItem> mMovieListFull;
     private OnItemClickListener mListener;
-
-    @Override
-    public Filter getFilter() {
-        return movieFilter;
-    }
-
-    private Filter movieFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            ArrayList<MovieItem> filteredList = new ArrayList<>();
-
-            if(charSequence == null || charSequence.length() == 0) {
-                filteredList.addAll(mMovieListFull);
-            }
-            else {
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-
-                for(MovieItem movieItem : mMovieListFull) {
-                    if(movieItem.getTitle().toLowerCase().startsWith(filterPattern)) {
-                        filteredList.add(movieItem);
-                    }
-                }
-            }
-
-            FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredList;
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            mMovieList.clear();
-            mMovieList.addAll((ArrayList) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
 
     public interface OnItemClickListener {
         void onItemClick(int position, ArrayList<MovieItem> movieItemArrayList);

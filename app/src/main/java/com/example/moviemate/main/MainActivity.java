@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame, fragment).commit();
+        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragment_frame, fragment).commit();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

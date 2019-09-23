@@ -87,8 +87,13 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         onInitializedListener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo(key);
-                youTubePlayer.play();
+                if (!b) {
+                    View button = findViewById(R.id.button_play_tv);
+                    button.setVisibility(View.GONE);
+                    youTubePlayer.loadVideo(key);
+                    youTubePlayer.play();
+                    youTubePlayer.setShowFullscreenButton(false);
+                }
             }
 
             @Override

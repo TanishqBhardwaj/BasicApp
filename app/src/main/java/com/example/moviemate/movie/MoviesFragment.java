@@ -71,13 +71,11 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
 
-
         mRecyclerViewUpcoming = v.findViewById(R.id.recycler_view_upcoming_movie);
         // it fixes the size of recycler view, which is responsible for better performance
         mRecyclerViewUpcoming.setHasFixedSize(true);
         mRecyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-
 
         mRecyclerViewNowPlaying = v.findViewById(R.id.recycler_view_now_playing_movie);
         // it fixes the size of recycler view, which is responsible for better performance
@@ -85,31 +83,8 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         mRecyclerViewNowPlaying.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
 
-
-
-//        setHasOptionsMenu(true);
         return v;
     }
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-//        super.onCreateOptionsMenu(menu, menuInflater);
-//        menuInflater.inflate(R.menu.menu, menu);
-//        MenuItem searchItem = menu.findItem(R.id.search);
-//        searchView = (SearchView) searchItem.getActionView();
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                mMovieAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

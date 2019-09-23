@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp">
@@ -8,31 +9,125 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="#4d4d4d">
+        android:background="#4d4d4d"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_star"
+            fresco:layout_constraintStart_toStartOf="parent"
+            fresco:layout_constraintTop_toBottomOf="@+id/text_view_title" />
+
+        <ImageView
+            android:id="@+id/image_popularity"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_popularity"
+            fresco:layout_constraintEnd_toEndOf="parent"
+            fresco:layout_constraintTop_toBottomOf="@+id/text_view_title" />
+
+        <ImageView
+            android:id="@+id/image_release_date"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_release_date"
+            fresco:layout_constraintEnd_toStartOf="@+id/image_popularity"
+            fresco:layout_constraintStart_toEndOf="@+id/star"
+            fresco:layout_constraintTop_toBottomOf="@+id/text_view_title" />
+
+        <TextView
+            android:id="@+id/text_small_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Rating"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            fresco:layout_constraintEnd_toEndOf="@+id/star"
+            fresco:layout_constraintStart_toStartOf="@+id/star"
+            fresco:layout_constraintTop_toBottomOf="@+id/star" />
+
+        <TextView
+            android:id="@+id/text_small_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Release-Date"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            fresco:layout_constraintEnd_toEndOf="@+id/image_release_date"
+            fresco:layout_constraintStart_toStartOf="@+id/image_release_date"
+            fresco:layout_constraintTop_toBottomOf="@+id/image_release_date" />
+
+        <TextView
+            android:id="@+id/text_view_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Release-Date"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            fresco:layout_constraintEnd_toEndOf="@+id/image_release_date"
+            fresco:layout_constraintStart_toStartOf="@+id/image_release_date"
+            fresco:layout_constraintTop_toBottomOf="@+id/text_small_release_date" />
+
+        <TextView
+            android:id="@+id/text_small_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Popularity"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            fresco:layout_constraintEnd_toEndOf="@+id/image_popularity"
+            fresco:layout_constraintStart_toStartOf="@+id/image_popularity"
+            fresco:layout_constraintTop_toBottomOf="@+id/image_popularity" />
+
+        <TextView
+            android:id="@+id/text_view_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Popularity:"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            fresco:layout_constraintEnd_toEndOf="@+id/image_popularity"
+            fresco:layout_constraintStart_toStartOf="@+id/image_popularity"
+            fresco:layout_constraintTop_toBottomOf="@+id/text_small_popularity" />
 
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:text="Title:"
-            android:textSize="20sp"
             android:textColor="@android:color/white"
-            fresco:layout_constraintBottom_toTopOf="@+id/text_view_popularity"
-            fresco:layout_constraintStart_toStartOf="parent"
+            android:textSize="20sp"
+            fresco:layout_constraintEnd_toEndOf="@+id/image_view"
+            fresco:layout_constraintStart_toStartOf="@+id/image_view"
             fresco:layout_constraintTop_toBottomOf="@+id/image_view" />
 
         <TextView
-            android:id="@+id/text_view_popularity"
+            android:id="@+id/text_view_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Popularity: "
+            android:layout_marginTop="8dp"
+            android:text="Rating: "
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            fresco:layout_constraintBottom_toBottomOf="parent"
-            fresco:layout_constraintStart_toStartOf="parent" />
+            fresco:layout_constraintEnd_toEndOf="@+id/star"
+            fresco:layout_constraintStart_toStartOf="@+id/star"
+            fresco:layout_constraintTop_toBottomOf="@+id/text_small_rating" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image_view"
@@ -42,8 +137,8 @@
             fresco:layout_constraintEnd_toEndOf="parent"
             fresco:layout_constraintStart_toStartOf="parent"
             fresco:layout_constraintTop_toTopOf="parent"
-            fresco:roundedCornerRadius="4dp"
-            fresco:placeholderImage="@mipmap/ic_launcher" />
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            fresco:roundedCornerRadius="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

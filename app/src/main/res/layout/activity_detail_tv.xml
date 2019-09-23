@@ -30,6 +30,8 @@
             android:src="@drawable/ic_play"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/video_view_tv"
+            app:layout_constraintBottom_toBottomOf="@id/video_view_tv"
             app:layout_constraintTop_toBottomOf="@+id/video_view_tv" />
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -37,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             app:actualImageScaleType="none"
-            app:layout_constraintTop_toBottomOf="@id/button_play_tv"
+            app:layout_constraintTop_toBottomOf="@id/video_view_tv"
             app:placeholderImage="@mipmap/ic_launcher" />
 
         <TextView
