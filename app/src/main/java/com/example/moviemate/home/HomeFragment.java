@@ -10,14 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,14 +50,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     SearchView searchView;
     View v;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        URL searchURL = buildUrl();
-        new HomeFragment.queryTask().execute(searchURL);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,6 +61,8 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         mMovieList = new ArrayList<>();
         setHasOptionsMenu(true);
 
+        URL searchURL = buildUrl();
+        new HomeFragment.queryTask().execute(searchURL);
         return v;
     }
 
