@@ -10,9 +10,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +41,12 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     public final static String EXTRA_TITLE = "title";
     public final static String EXTRA_POPULARITY = "popularity";
     public final static String EXTRA_ID = "id";
+    public final static String EXTRA_RATING = "vote_average";
+    public final static String EXTRA_VOTE_COUNT = "vote_count";
+    public final static String EXTRA_OVERVIEW = "overview";
+    public final static String EXTRA_RELEASE_DATE = "release_date";
+    public final static String EXTRA_IMAGE2 = "imageUrl2";
+    public final static String EXTRA_TYPE = "media_type";
 
     final static String API_URL_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     private RecyclerView mRecyclerView;
@@ -61,7 +72,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         // it sets the layout of recycler view as linear
         mMovieList = new ArrayList<>();
-
         setHasOptionsMenu(true);
 
         return v;
@@ -97,6 +107,12 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
         detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+        detailIntent.putExtra(EXTRA_RATING, clickedItem.getRating());
+        detailIntent.putExtra(EXTRA_VOTE_COUNT, clickedItem.getVoteCount());
+        detailIntent.putExtra(EXTRA_OVERVIEW, clickedItem.getOverview());
+        detailIntent.putExtra(EXTRA_RELEASE_DATE, clickedItem.getReleaseDate());
+        detailIntent.putExtra(EXTRA_IMAGE2, clickedItem.getImageUrl2());
+        detailIntent.putExtra(EXTRA_TYPE, clickedItem.getType());
 
         startActivity(detailIntent);
     }
@@ -131,22 +147,34 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
-            String title;
+            String title, releaseDate;
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
 
+            mMovieList.clear();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject result = jsonArray.getJSONObject(i);
                 String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
+                String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
                 if(result.getString("media_type").equals("movie")) {
                     title = result.getString("title");
+                    releaseDate = result.getString("release_date");
+                }
+                else if(result.getString("media_type").equals("tv")) {
+                    title = result.getString("name");
+                    releaseDate = result.getString("first_air_date");
                 }
                 else {
-                    title = result.getString("name");
+                    continue;
                 }
                 int popularity = result.getInt("popularity");
                 int id = result.getInt("id");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity, id));
+                int rating = result.getInt("vote_average");
+                int voteCount = result.getInt("vote_count");
+                String overview = result.getString("overview");
+                String type = result.getString("media_type");
+                mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
+                        imageUrl2, type));
             }
             mHomeAdapter = new HomeAdapter(getContext(), mMovieList);
             mRecyclerView.setAdapter(mHomeAdapter);
