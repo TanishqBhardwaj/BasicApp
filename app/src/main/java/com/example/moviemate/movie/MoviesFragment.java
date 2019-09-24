@@ -1,6 +1,8 @@
 package com.example.moviemate.movie;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -29,6 +33,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClickListener {
 
@@ -57,58 +63,71 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     final static String API_URL_NOW_PLAYING = "https://api.themoviedb.org/3/movie/now_playing?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?api_key=b8f745c2d43033fd65ce3af63180c3c3";
 
-
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//
+//
+//
+//    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         v = inflater.inflate(R.layout.fragment_movies, container, false);
-        mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewPopular.setHasFixedSize(true);
-        mRecyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+        if(haveNetwork()) {
+            URL searchURLPopular = buildUrlPopular();
+            new MoviesFragment.queryTaskPopular().execute(searchURLPopular);
 
-        mRecyclerViewTopRated = v.findViewById(R.id.recycler_view_top_rated_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewTopRated.setHasFixedSize(true);
-        mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+            URL searchURLTopRated = buildUrlTopRated();
+            new MoviesFragment.queryTaskTopRated().execute(searchURLTopRated);
 
-        mRecyclerViewUpcoming = v.findViewById(R.id.recycler_view_upcoming_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewUpcoming.setHasFixedSize(true);
-        mRecyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+            URL searchURLUpcoming = buildUrlUpcoming();
+            new MoviesFragment.queryTaskUpcoming().execute(searchURLUpcoming);
 
-        mRecyclerViewNowPlaying = v.findViewById(R.id.recycler_view_now_playing_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewNowPlaying.setHasFixedSize(true);
-        mRecyclerViewNowPlaying.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+
+            URL searchURLNowPlaying = buildUrlNowPlaying();
+            new MoviesFragment.queryTaskNowPlaying().execute(searchURLNowPlaying);
+
+            mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewPopular.setHasFixedSize(true);
+            mRecyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+            mRecyclerViewTopRated = v.findViewById(R.id.recycler_view_top_rated_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewTopRated.setHasFixedSize(true);
+            mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+            mRecyclerViewUpcoming = v.findViewById(R.id.recycler_view_upcoming_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewUpcoming.setHasFixedSize(true);
+            mRecyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+
+            mRecyclerViewNowPlaying = v.findViewById(R.id.recycler_view_now_playing_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewNowPlaying.setHasFixedSize(true);
+            mRecyclerViewNowPlaying.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+
+        }
+
+        if(!haveNetwork()) {
+            Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_LONG).show();
+        }
+
+
+
 
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        URL searchURLPopular = buildUrlPopular();
-        new MoviesFragment.queryTaskPopular().execute(searchURLPopular);
-
-        URL searchURLTopRated = buildUrlTopRated();
-        new MoviesFragment.queryTaskTopRated().execute(searchURLTopRated);
-
-        URL searchURLUpcoming = buildUrlUpcoming();
-        new MoviesFragment.queryTaskUpcoming().execute(searchURLUpcoming);
-
-
-        URL searchURLNowPlaying = buildUrlNowPlaying();
-        new MoviesFragment.queryTaskNowPlaying().execute(searchURLNowPlaying);
-    }
 
     //Formation of intent on clicking images
     @Override
@@ -423,4 +442,22 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
             urlConnection.disconnect();
         }
     }
+    private boolean haveNetwork () {
+        boolean have_WIFI = false;
+        boolean have_MobileData = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo info : networkInfos) {
+            if (info.getTypeName().equalsIgnoreCase("WIFI"))
+                if (info.isConnected())
+                    have_WIFI = true;
+            if (info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (info.isConnected())
+                    have_WIFI = true;
+
+        }
+        return have_MobileData || have_WIFI;
+
+    }
+
 }

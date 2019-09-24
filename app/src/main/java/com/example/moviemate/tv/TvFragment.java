@@ -1,12 +1,16 @@
 package com.example.moviemate.tv;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,6 +27,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class TvFragment extends Fragment implements TvAdapter.OnItemClickListener {
 
@@ -49,7 +55,12 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
     final static String API_URL_TOP_RATED = "https://api.themoviedb.org/3/tv/top_rated?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_AIRING_TODAY = "https://api.themoviedb.org/3/tv/airing_today?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_LATEST = "https://api.themoviedb.org/3/tv/on_the_air?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+
+    }
 
     @Nullable
     @Override
@@ -57,51 +68,59 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
                              @Nullable Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_tv, container, false);
-        mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_tv);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewPopular.setHasFixedSize(true);
-        mRecyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
 
-        mRecyclerViewTopRated = v.findViewById(R.id.recycler_view_top_rated_tv);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewTopRated.setHasFixedSize(true);
-        mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+        if(haveNetwork()) {
+            URL searchURLPopular = buildUrlPopular();
+            URL searchURLTopRated = buildUrlTopRated();
+            URL searchURLLatest = buildUrlLatest();
+            URL searchURLAiringToday = buildUrlAiringToday();
 
 
-        mRecyclerViewAiringToday = v.findViewById(R.id.recycler_view_airing_today_tv);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewAiringToday.setHasFixedSize(true);
-        mRecyclerViewAiringToday.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+            new TvFragment.queryTaskPopular().execute(searchURLPopular);
+            new TvFragment.queryTaskTopRated().execute(searchURLTopRated);
+            new TvFragment.queryTaskAiringToday().execute(searchURLAiringToday);
+            new TvFragment.queryTaskLatest().execute(searchURLLatest);
+
+            mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_tv);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewPopular.setHasFixedSize(true);
+            mRecyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+            mRecyclerViewTopRated = v.findViewById(R.id.recycler_view_top_rated_tv);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewTopRated.setHasFixedSize(true);
+            mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
 
 
-        mRecyclerViewLatest = v.findViewById(R.id.recycler_view_latest_tv);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewLatest.setHasFixedSize(true);
-        mRecyclerViewLatest.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
+            mRecyclerViewAiringToday = v.findViewById(R.id.recycler_view_airing_today_tv);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewAiringToday.setHasFixedSize(true);
+            mRecyclerViewAiringToday.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+
+            mRecyclerViewLatest = v.findViewById(R.id.recycler_view_latest_tv);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewLatest.setHasFixedSize(true);
+            mRecyclerViewLatest.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+
+        }
+
+        if(!haveNetwork()) {
+            Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_LONG).show();
+        }
+
+
+
 
 
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        URL searchURLPopular = buildUrlPopular();
-        URL searchURLTopRated = buildUrlTopRated();
-        URL searchURLLatest = buildUrlLatest();
-        URL searchURLAiringToday = buildUrlAiringToday();
-
-
-        new TvFragment.queryTaskPopular().execute(searchURLPopular);
-        new TvFragment.queryTaskTopRated().execute(searchURLTopRated);
-        new TvFragment.queryTaskAiringToday().execute(searchURLAiringToday);
-        new TvFragment.queryTaskLatest().execute(searchURLLatest);
-    }
 
     @Override
     public void onItemClick(int position, ArrayList<TvItem> tvItemArrayList) {
@@ -417,4 +436,22 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
             urlConnection.disconnect();
         }
     }
+    private boolean haveNetwork () {
+        boolean have_WIFI = false;
+        boolean have_MobileData = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo info : networkInfos) {
+            if (info.getTypeName().equalsIgnoreCase("WIFI"))
+                if (info.isConnected())
+                    have_WIFI = true;
+            if (info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (info.isConnected())
+                    have_WIFI = true;
+
+        }
+        return have_MobileData || have_WIFI;
+
+    }
+
 }
