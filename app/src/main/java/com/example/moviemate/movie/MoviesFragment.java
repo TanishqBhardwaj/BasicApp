@@ -1,7 +1,9 @@
 package com.example.moviemate.movie;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.sip.SipSession;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -24,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -43,12 +48,16 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     public final static String EXTRA_IMAGE2 = "imageUrl2";
     public final static String EXTRA_TYPE = "media_type";
 
-    private RecyclerView mRecyclerViewUpcoming;
-    private RecyclerView mRecyclerViewNowPlaying;
-    private RecyclerView mRecyclerViewPopular;
-    private RecyclerView mRecyclerViewTopRated;
-    private MovieAdapter mMovieAdapter;
+    private static RecyclerView mRecyclerViewUpcoming;
+    private static RecyclerView mRecyclerViewNowPlaying;
+    private static RecyclerView mRecyclerViewPopular;
+    private static RecyclerView mRecyclerViewTopRated;
+    private static MovieAdapter mMovieAdapter;
     SearchView searchView;
+    ProgressBar progressBarPopular;
+    ProgressBar progressBarTopRated;
+    ProgressBar progressBarNowPlaying;
+    ProgressBar progressBarUpcoming;
 
     View v;
 
@@ -89,13 +98,6 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         mRecyclerViewNowPlaying.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
 
-        return v;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         URL searchURLPopular = buildUrlPopular();
         new MoviesFragment.queryTaskPopular().execute(searchURLPopular);
 
@@ -108,12 +110,21 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         URL searchURLNowPlaying = buildUrlNowPlaying();
         new MoviesFragment.queryTaskNowPlaying().execute(searchURLNowPlaying);
+
+        return v;
     }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//
+//    }
 
     //Formation of intent on clicking images
     @Override
     public void onItemClick(int position, ArrayList<MovieItem> movieItemArrayList) {
-        Intent detailIntent = new Intent(getContext().getApplicationContext(), DetailActivity.class); //what does this mean
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class); //what does this mean
         MovieItem clickedItem = movieItemArrayList.get(position);
 
         detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
@@ -134,6 +145,13 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         private ArrayList<MovieItem> mMovieList = new ArrayList<>();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarPopular = v.findViewById(R.id.progress_bar_popular_movie);
+            progressBarPopular.setVisibility(View.VISIBLE);
+        }
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -152,6 +170,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarPopular.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {
@@ -166,28 +185,35 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
             String initialImageUrl = "http://image.tmdb.org/t/p/original";
             JSONArray jsonArray = response.getJSONArray("results");
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject result = jsonArray.getJSONObject(i);
-                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject result = jsonArray.getJSONObject(i);
+                    String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
+                    String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
                     title = result.getString("title");
                     releaseDate = result.getString("release_date");
-                int popularity = result.getInt("popularity");
-                int id = result.getInt("id");
-                int rating = result.getInt("vote_average");
-                int voteCount = result.getInt("vote_count");
-                String overview = result.getString("overview");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
-                        imageUrl2));
-            }
-            mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
-            mRecyclerViewPopular.setAdapter(mMovieAdapter);
+                    int popularity = result.getInt("popularity");
+                    int id = result.getInt("id");
+                    int rating = result.getInt("vote_average");
+                    int voteCount = result.getInt("vote_count");
+                    String overview = result.getString("overview");
+                    mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
+                            imageUrl2));
+                }
+                mMovieAdapter = new MovieAdapter(getContext(), mMovieList);
+                mRecyclerViewPopular.setAdapter(mMovieAdapter);
             mMovieAdapter.setOnItemClickListener(MoviesFragment.this);
         }
     }
 
     public class queryTaskTopRated extends AsyncTask<URL, Void, String> {
         private ArrayList<MovieItem> mMovieList = new ArrayList<>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarTopRated = v.findViewById(R.id.progress_bar_top_rated_movie);
+            progressBarTopRated.setVisibility(View.VISIBLE);
+        }
 
         //this function works in background thread
         @Override
@@ -207,6 +233,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarTopRated.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {
@@ -245,6 +272,13 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         private ArrayList<MovieItem> mMovieList = new ArrayList<>();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarUpcoming = v.findViewById(R.id.progress_bar_upcoming_movie);
+            progressBarUpcoming.setVisibility(View.VISIBLE);
+        }
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -263,6 +297,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarUpcoming.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {
@@ -301,6 +336,13 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
 
         private ArrayList<MovieItem> mMovieList = new ArrayList<>();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarNowPlaying = v.findViewById(R.id.progress_bar_now_playing_movie);
+            progressBarNowPlaying.setVisibility(View.VISIBLE);
+        }
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -319,6 +361,7 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarNowPlaying.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {

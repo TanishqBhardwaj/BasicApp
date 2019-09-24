@@ -11,9 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.moviemate.R;
-import com.example.moviemate.home.HomeAdapter;
 import com.example.moviemate.home.HomeFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import org.json.JSONArray;
@@ -32,6 +30,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 public class DetailActivity extends YouTubeBaseActivity {
 
+    int flag = 0;
     ImageView mButtonPlay;
     String API_KEY = "b8f745c2d43033fd65ce3af63180c3c3";
     String GOOGLE_KEY = "AIzaSyCeFPp30DTPY2amyGTRMbaPEDNZFaESMIM";
@@ -106,18 +105,30 @@ public class DetailActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 if (!b) {
-                    View button = findViewById(R.id.button_play);
-                    button.setVisibility(View.GONE);
-                    View img = findViewById(R.id.image_view_detail2);
-                    img.setVisibility(View.GONE);
-                    youTubePlayer.loadVideo(key);
-                    youTubePlayer.play();
-                    youTubePlayer.setShowFullscreenButton(false);
+                    if(flag == 0) {
+                        if (key != null) {
+                            View button = findViewById(R.id.button_play);
+                            button.setVisibility(View.GONE);
+                            View img = findViewById(R.id.image_view_detail2);
+                            img.setVisibility(View.GONE);
+                            youTubePlayer.loadVideo(key);
+                            youTubePlayer.play();
+                            youTubePlayer.setShowFullscreenButton(false);
+                        }
+                        else {
+                            Toast.makeText(DetailActivity.this, "Network issues, Please try again.",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(DetailActivity.this, "Video do not exist", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
             @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+            public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                YouTubeInitializationResult youTubeInitializationResult) {
                 CharSequence fail = "Failured to Initialize!";
                 Toast.makeText(getApplicationContext(), fail, Toast.LENGTH_LONG).show();
             }
@@ -161,9 +172,16 @@ public class DetailActivity extends YouTubeBaseActivity {
 
             //this function is made to fetch values from API using JSON
             public void onResponse(JSONObject response) throws JSONException {
-                JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
-                JSONObject result = jsonArray.getJSONObject(0);
-                key = result.getString("key");
+                //puts api result array in json array named jsonArray
+                JSONArray jsonArray = response.getJSONArray("results");
+                if (jsonArray.length()!=0) {
+                    flag = 0;
+                    JSONObject result = jsonArray.getJSONObject(0);
+                    key = result.getString("key");
+                }
+                else {
+                    flag = 1;
+                }
 
                 Uri.Builder builder = new Uri.Builder();
                 builder.scheme("https")

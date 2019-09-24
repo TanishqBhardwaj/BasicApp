@@ -36,6 +36,17 @@
             app:layout_constraintTop_toBottomOf="@+id/text_popular_tv"
             tools:layout_editor_absoluteX="29dp" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar_popular_tv"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view_popular_tv"
+            app:layout_constraintEnd_toEndOf="@id/recycler_view_popular_tv"
+            app:layout_constraintStart_toStartOf="@id/recycler_view_popular_tv"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_popular_tv"
+            tools:ignore="MissingConstraints" />
+
         <TextView
             android:id="@+id/text_popularblank_tv"
             android:layout_width="match_parent"
@@ -71,6 +82,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_top_rated_tv" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar_top_rated_tv"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view_top_rated_tv"
+            app:layout_constraintEnd_toEndOf="@id/recycler_view_top_rated_tv"
+            app:layout_constraintStart_toStartOf="@id/recycler_view_top_rated_tv"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_top_rated_tv"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/text_topratedblank_tv"
@@ -104,6 +125,17 @@
             android:layout_height="300dp"
             android:background="#191919"
             app:layout_constraintTop_toBottomOf="@+id/text_airing_today_tv" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_airing_today_tv"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view_airing_today_tv"
+            app:layout_constraintEnd_toEndOf="@id/recycler_view_airing_today_tv"
+            app:layout_constraintStart_toStartOf="@id/recycler_view_airing_today_tv"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_airing_today_tv"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/text_airingtodayblank_tv"
@@ -140,6 +172,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_latest_tv" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_latest_tv"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_view_latest_tv"
+            app:layout_constraintEnd_toEndOf="@id/recycler_view_latest_tv"
+            app:layout_constraintStart_toStartOf="@id/recycler_view_latest_tv"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_latest_tv"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/text_latestblank_tv"

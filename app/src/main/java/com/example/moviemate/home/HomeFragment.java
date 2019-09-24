@@ -10,6 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -48,6 +50,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     private ArrayList<MovieItem> mMovieList;
     public HomeAdapter mHomeAdapter;
     SearchView searchView;
+    ProgressBar progressBar;
     View v;
 
     @Nullable
@@ -108,6 +111,13 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
     public class queryTask extends AsyncTask<URL, Void, String> { //<params, progress, result>
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar = v.findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -126,6 +136,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBar.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {
