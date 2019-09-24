@@ -1,6 +1,8 @@
 package com.example.moviemate.home;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,183 +38,210 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
+
 public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickListener {
 
-    public final static String EXTRA_IMAGE = "imageUrl";
-    public final static String EXTRA_TITLE = "title";
-    public final static String EXTRA_POPULARITY = "popularity";
-    public final static String EXTRA_ID = "id";
-    public final static String EXTRA_RATING = "vote_average";
-    public final static String EXTRA_VOTE_COUNT = "vote_count";
-    public final static String EXTRA_OVERVIEW = "overview";
-    public final static String EXTRA_RELEASE_DATE = "release_date";
-    public final static String EXTRA_IMAGE2 = "imageUrl2";
-    public final static String EXTRA_TYPE = "media_type";
+        public final static String EXTRA_IMAGE = "imageUrl";
+        public final static String EXTRA_TITLE = "title";
+        public final static String EXTRA_POPULARITY = "popularity";
+        public final static String EXTRA_ID = "id";
+        public final static String EXTRA_RATING = "vote_average";
+        public final static String EXTRA_VOTE_COUNT = "vote_count";
+        public final static String EXTRA_OVERVIEW = "overview";
+        public final static String EXTRA_RELEASE_DATE = "release_date";
+        public final static String EXTRA_IMAGE2 = "imageUrl2";
+        public final static String EXTRA_TYPE = "media_type";
 
-    final static String API_URL_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=b8f745c2d43033fd65ce3af63180c3c3";
-    private RecyclerView mRecyclerView;
-    private ArrayList<MovieItem> mMovieList;
-    public HomeAdapter mHomeAdapter;
-    SearchView searchView;
-    View v;
+        final static String API_URL_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+        private RecyclerView mRecyclerView;
+        private ArrayList<MovieItem> mMovieList;
+        public HomeAdapter mHomeAdapter;
+        SearchView searchView;
+        View v;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        URL searchURL = buildUrl();
-        new HomeFragment.queryTask().execute(searchURL);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_home, container, false);
-        mRecyclerView = v.findViewById(R.id.recycler_view_home);
-        mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        // it sets the layout of recycler view as linear
-        mMovieList = new ArrayList<>();
-        setHasOptionsMenu(true);
-
-        return v;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-        super.onCreateOptionsMenu(menu, menuInflater);
-        menuInflater.inflate(R.menu.menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.search);
-        searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                mHomeAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-    }
-
-    //Formation of intent on clicking images
-    @Override
-    public void onItemClick(int position) {
-        Intent detailIntent = new Intent(getActivity(), DetailActivity.class); //what does this mean
-        MovieItem clickedItem = mMovieList.get(position);
-
-        detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
-        detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
-        detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
-        detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
-        detailIntent.putExtra(EXTRA_RATING, clickedItem.getRating());
-        detailIntent.putExtra(EXTRA_VOTE_COUNT, clickedItem.getVoteCount());
-        detailIntent.putExtra(EXTRA_OVERVIEW, clickedItem.getOverview());
-        detailIntent.putExtra(EXTRA_RELEASE_DATE, clickedItem.getReleaseDate());
-        detailIntent.putExtra(EXTRA_IMAGE2, clickedItem.getImageUrl2());
-        detailIntent.putExtra(EXTRA_TYPE, clickedItem.getType());
-
-        startActivity(detailIntent);
-    }
-
-    public class queryTask extends AsyncTask<URL, Void, String> { //<params, progress, result>
-
-        //this function works in background thread
         @Override
-        protected String doInBackground(URL... urls) {
-            URL searchURL = urls[0]; // what does this mean
-            String searchResults = null;
-            try {
-                searchResults = getResponseFromHttpUrl(searchURL);
-            } catch (IOException e) {
-                e.printStackTrace();//what does this mean
+        public void onCreate (@Nullable Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            if(haveNetwork()) {
+
             }
-            return searchResults;
+
+            if(!haveNetwork()) {
+                Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_LONG).show();
+            }
+
+
+            URL searchURL = buildUrl();
+            new HomeFragment.queryTask().execute(searchURL);
         }
 
-        //this function works in main thread
+        @Nullable
         @Override
-        protected void onPostExecute(String s) {
-            if (s != null && !s.equals("")) {
+        public View onCreateView (@NonNull LayoutInflater inflater, @Nullable ViewGroup
+        container, @Nullable Bundle savedInstanceState){
+            v = inflater.inflate(R.layout.fragment_home, container, false);
+            mRecyclerView = v.findViewById(R.id.recycler_view_home);
+            mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            // it sets the layout of recycler view as linear
+            mMovieList = new ArrayList<>();
+            setHasOptionsMenu(true);
+
+            return v;
+        }
+
+        @Override
+        public void onCreateOptionsMenu (Menu menu, MenuInflater menuInflater){
+            super.onCreateOptionsMenu(menu, menuInflater);
+            menuInflater.inflate(R.menu.menu, menu);
+            MenuItem searchItem = menu.findItem(R.id.search);
+            searchView = (SearchView) searchItem.getActionView();
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    mHomeAdapter.getFilter().filter(newText);
+                    return false;
+                }
+            });
+        }
+
+        //Formation of intent on clicking images
+        @Override
+        public void onItemClick ( int position){
+            Intent detailIntent = new Intent(getActivity(), DetailActivity.class); //what does this mean
+            MovieItem clickedItem = mMovieList.get(position);
+
+            detailIntent.putExtra(EXTRA_IMAGE, clickedItem.getImageUrl());
+            detailIntent.putExtra(EXTRA_TITLE, clickedItem.getTitle());
+            detailIntent.putExtra(EXTRA_POPULARITY, clickedItem.getPopularity());
+            detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+            detailIntent.putExtra(EXTRA_RATING, clickedItem.getRating());
+            detailIntent.putExtra(EXTRA_VOTE_COUNT, clickedItem.getVoteCount());
+            detailIntent.putExtra(EXTRA_OVERVIEW, clickedItem.getOverview());
+            detailIntent.putExtra(EXTRA_RELEASE_DATE, clickedItem.getReleaseDate());
+            detailIntent.putExtra(EXTRA_IMAGE2, clickedItem.getImageUrl2());
+            detailIntent.putExtra(EXTRA_TYPE, clickedItem.getType());
+
+            startActivity(detailIntent);
+        }
+
+        public class queryTask extends AsyncTask<URL, Void, String> { //<params, progress, result>
+
+            //this function works in background thread
+            @Override
+            protected String doInBackground(URL... urls) {
+                URL searchURL = urls[0]; // what does this mean
+                String searchResults = null;
                 try {
-                    JSONObject ob = new JSONObject(s);
-                    onResponse(ob);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    searchResults = getResponseFromHttpUrl(searchURL);
+                } catch (IOException e) {
+                    e.printStackTrace();//what does this mean
                 }
+                return searchResults;
+            }
+
+            //this function works in main thread
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null && !s.equals("")) {
+                    try {
+                        JSONObject ob = new JSONObject(s);
+                        onResponse(ob);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            //this function is made to fetch values from API using JSON
+            public void onResponse(JSONObject response) throws JSONException {
+                String title, releaseDate;
+                String initialImageUrl = "http://image.tmdb.org/t/p/original";
+                JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
+
+                mMovieList.clear();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject result = jsonArray.getJSONObject(i);
+                    String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
+                    String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
+                    if (result.getString("media_type").equals("movie")) {
+                        title = result.getString("title");
+                        releaseDate = result.getString("release_date");
+                    } else if (result.getString("media_type").equals("tv")) {
+                        title = result.getString("name");
+                        releaseDate = result.getString("first_air_date");
+                    } else {
+                        continue;
+                    }
+                    int popularity = result.getInt("popularity");
+                    int id = result.getInt("id");
+                    int rating = result.getInt("vote_average");
+                    int voteCount = result.getInt("vote_count");
+                    String overview = result.getString("overview");
+                    String type = result.getString("media_type");
+                    mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
+                            imageUrl2, type));
+                }
+                mHomeAdapter = new HomeAdapter(getContext(), mMovieList);
+                mRecyclerView.setAdapter(mHomeAdapter);
+                mHomeAdapter.setOnItemClickListener(HomeFragment.this);
             }
         }
 
-        //this function is made to fetch values from API using JSON
-        public void onResponse(JSONObject response) throws JSONException {
-            String title, releaseDate;
-            String initialImageUrl = "http://image.tmdb.org/t/p/original";
-            JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
-
-            mMovieList.clear();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject result = jsonArray.getJSONObject(i);
-                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-                String imageUrl2 = initialImageUrl.concat(result.getString("backdrop_path"));
-                if(result.getString("media_type").equals("movie")) {
-                    title = result.getString("title");
-                    releaseDate = result.getString("release_date");
-                }
-                else if(result.getString("media_type").equals("tv")) {
-                    title = result.getString("name");
-                    releaseDate = result.getString("first_air_date");
-                }
-                else {
-                    continue;
-                }
-                int popularity = result.getInt("popularity");
-                int id = result.getInt("id");
-                int rating = result.getInt("vote_average");
-                int voteCount = result.getInt("vote_count");
-                String overview = result.getString("overview");
-                String type = result.getString("media_type");
-                mMovieList.add(new MovieItem(imageUrl, title, popularity, id, rating, voteCount, overview, releaseDate,
-                        imageUrl2, type));
-            }
-            mHomeAdapter = new HomeAdapter(getContext(), mMovieList);
-            mRecyclerView.setAdapter(mHomeAdapter);
-            mHomeAdapter.setOnItemClickListener(HomeFragment.this);
-        }
-    }
-
-    //this function converts the API url into formatted url
-    public static URL buildUrl() {
+        //this function converts the API url into formatted url
+        public static URL buildUrl () {
 //        Uri builtUri = Uri.parse(API_URL_POPULAR); //why do we convert string to URI
-        URL url = null;
-        try {
+            URL url = null;
+            try {
 //            url = new URL(builtUri.toString());
-            url = new URL(API_URL_TRENDING);
-        } catch (MalformedURLException e) {
-            e.printStackTrace(); // prints class name and error line of Throwable object
-        }
-        return url;
-    }
-
-
-
-    //this function is responsible for getting response from API
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();//what does this mean
-        try {
-            InputStream in = urlConnection.getInputStream();
-            Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");//what does this Delimiter mean
-            boolean hasInput = scanner.hasNext();
-            if (hasInput) {
-                return scanner.next();
-            } else {
-                return null;
+                url = new URL(API_URL_TRENDING);
+            } catch (MalformedURLException e) {
+                e.printStackTrace(); // prints class name and error line of Throwable object
             }
-        } finally {
-            urlConnection.disconnect();
+            return url;
         }
+
+
+        //this function is responsible for getting response from API
+        public static String getResponseFromHttpUrl (URL url) throws IOException {
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();//what does this mean
+            try {
+                InputStream in = urlConnection.getInputStream();
+                Scanner scanner = new Scanner(in);
+                scanner.useDelimiter("\\A");//what does this Delimiter mean
+                boolean hasInput = scanner.hasNext();
+                if (hasInput) {
+                    return scanner.next();
+                } else {
+                    return null;
+                }
+            } finally {
+                urlConnection.disconnect();
+            }
+        }
+        private boolean haveNetwork () {
+            boolean have_WIFI = false;
+            boolean have_MobileData = false;
+            ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+            for (NetworkInfo info : networkInfos) {
+                if (info.getTypeName().equalsIgnoreCase("WIFI"))
+                    if (info.isConnected())
+                        have_WIFI = true;
+                if (info.getTypeName().equalsIgnoreCase("MOBILE"))
+                    if (info.isConnected())
+                        have_WIFI = true;
+
+            }
+            return have_MobileData || have_WIFI;
+
+        }
+
     }
-}

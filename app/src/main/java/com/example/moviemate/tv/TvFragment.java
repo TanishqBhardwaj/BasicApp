@@ -1,12 +1,16 @@
 package com.example.moviemate.tv;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,6 +27,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class TvFragment extends Fragment implements TvAdapter.OnItemClickListener {
 
@@ -90,6 +96,15 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(haveNetwork()) {
+
+        }
+
+        if(!haveNetwork()) {
+            Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_LONG).show();
+        }
+
+
 
         URL searchURLPopular = buildUrlPopular();
         URL searchURLTopRated = buildUrlTopRated();
@@ -417,4 +432,22 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
             urlConnection.disconnect();
         }
     }
+    private boolean haveNetwork () {
+        boolean have_WIFI = false;
+        boolean have_MobileData = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo info : networkInfos) {
+            if (info.getTypeName().equalsIgnoreCase("WIFI"))
+                if (info.isConnected())
+                    have_WIFI = true;
+            if (info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (info.isConnected())
+                    have_WIFI = true;
+
+        }
+        return have_MobileData || have_WIFI;
+
+    }
+
 }
