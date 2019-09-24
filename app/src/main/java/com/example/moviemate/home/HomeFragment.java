@@ -60,12 +60,29 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         SearchView searchView;
         View v;
 
+//
+//        @Override
+//        public void onCreate (@Nullable Bundle savedInstanceState){
+//            super.onCreate(savedInstanceState);
+//
+//        }
 
+        @Nullable
         @Override
-        public void onCreate (@Nullable Bundle savedInstanceState){
-            super.onCreate(savedInstanceState);
-            if(haveNetwork()) {
+        public View onCreateView (@NonNull LayoutInflater inflater, @Nullable ViewGroup
+        container, @Nullable Bundle savedInstanceState){
+            v = inflater.inflate(R.layout.fragment_home, container, false);
 
+            if(haveNetwork()) {
+                URL searchURL = buildUrl();
+                new HomeFragment.queryTask().execute(searchURL);
+
+                mRecyclerView = v.findViewById(R.id.recycler_view_home);
+                mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                // it sets the layout of recycler view as linear
+                mMovieList = new ArrayList<>();
+                setHasOptionsMenu(true);
             }
 
             if(!haveNetwork()) {
@@ -73,21 +90,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
             }
 
 
-            URL searchURL = buildUrl();
-            new HomeFragment.queryTask().execute(searchURL);
-        }
 
-        @Nullable
-        @Override
-        public View onCreateView (@NonNull LayoutInflater inflater, @Nullable ViewGroup
-        container, @Nullable Bundle savedInstanceState){
-            v = inflater.inflate(R.layout.fragment_home, container, false);
-            mRecyclerView = v.findViewById(R.id.recycler_view_home);
-            mRecyclerView.setHasFixedSize(true); // it fixes the size of recycler view, which is responsible for better performance
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-            // it sets the layout of recycler view as linear
-            mMovieList = new ArrayList<>();
-            setHasOptionsMenu(true);
 
             return v;
         }

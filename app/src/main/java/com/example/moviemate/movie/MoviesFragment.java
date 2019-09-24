@@ -63,45 +63,57 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
     final static String API_URL_NOW_PLAYING = "https://api.themoviedb.org/3/movie/now_playing?api_key=b8f745c2d43033fd65ce3af63180c3c3";
     final static String API_URL_UPCOMING = "https://api.themoviedb.org/3/movie/upcoming?api_key=b8f745c2d43033fd65ce3af63180c3c3";
 
-
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//
+//
+//
+//    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         v = inflater.inflate(R.layout.fragment_movies, container, false);
-        mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewPopular.setHasFixedSize(true);
-        mRecyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
-
-        mRecyclerViewTopRated = v.findViewById(R.id.recycler_view_top_rated_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewTopRated.setHasFixedSize(true);
-        mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
-
-        mRecyclerViewUpcoming = v.findViewById(R.id.recycler_view_upcoming_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewUpcoming.setHasFixedSize(true);
-        mRecyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        mRecyclerViewNowPlaying = v.findViewById(R.id.recycler_view_now_playing_movie);
-        // it fixes the size of recycler view, which is responsible for better performance
-        mRecyclerViewNowPlaying.setHasFixedSize(true);
-        mRecyclerViewNowPlaying.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        return v;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if(haveNetwork()) {
+            URL searchURLPopular = buildUrlPopular();
+            new MoviesFragment.queryTaskPopular().execute(searchURLPopular);
+
+            URL searchURLTopRated = buildUrlTopRated();
+            new MoviesFragment.queryTaskTopRated().execute(searchURLTopRated);
+
+            URL searchURLUpcoming = buildUrlUpcoming();
+            new MoviesFragment.queryTaskUpcoming().execute(searchURLUpcoming);
+
+
+            URL searchURLNowPlaying = buildUrlNowPlaying();
+            new MoviesFragment.queryTaskNowPlaying().execute(searchURLNowPlaying);
+
+            mRecyclerViewPopular = v.findViewById(R.id.recycler_view_popular_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewPopular.setHasFixedSize(true);
+            mRecyclerViewPopular.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+            mRecyclerViewTopRated = v.findViewById(R.id.recycler_view_top_rated_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewTopRated.setHasFixedSize(true);
+            mRecyclerViewTopRated.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));// it sets the layout of recycler view as linear
+
+            mRecyclerViewUpcoming = v.findViewById(R.id.recycler_view_upcoming_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewUpcoming.setHasFixedSize(true);
+            mRecyclerViewUpcoming.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+
+            mRecyclerViewNowPlaying = v.findViewById(R.id.recycler_view_now_playing_movie);
+            // it fixes the size of recycler view, which is responsible for better performance
+            mRecyclerViewNowPlaying.setHasFixedSize(true);
+            mRecyclerViewNowPlaying.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
 
         }
 
@@ -110,19 +122,12 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClick
         }
 
 
-        URL searchURLPopular = buildUrlPopular();
-        new MoviesFragment.queryTaskPopular().execute(searchURLPopular);
-
-        URL searchURLTopRated = buildUrlTopRated();
-        new MoviesFragment.queryTaskTopRated().execute(searchURLTopRated);
-
-        URL searchURLUpcoming = buildUrlUpcoming();
-        new MoviesFragment.queryTaskUpcoming().execute(searchURLUpcoming);
 
 
-        URL searchURLNowPlaying = buildUrlNowPlaying();
-        new MoviesFragment.queryTaskNowPlaying().execute(searchURLNowPlaying);
+        return v;
     }
+
+
 
     //Formation of intent on clicking images
     @Override
