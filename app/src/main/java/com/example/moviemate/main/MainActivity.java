@@ -139,6 +139,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(launchWeb);
     }
 
+    public void moviemateInstaClick(View view) {
+        openUrl10("https://www.instagram.com/_movie_mate_/");
+    }
+
+    private void openUrl10(String url) {
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(launchWeb);
+    }
+
+    public void moviemateFacebookClick(View view) {
+        openUrl11("https://www.facebook.com/movie.mate.75?ref=bookmarks");
+    }
+
+    private void openUrl11(String url) {
+        Uri uri = Uri.parse(url);
+        Intent launchWeb = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(launchWeb);
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
