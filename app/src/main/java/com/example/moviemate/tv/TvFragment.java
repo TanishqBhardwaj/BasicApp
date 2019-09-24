@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -42,12 +44,16 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
     public final static String EXTRA_OVERVIEW = "overview";
     public final static String EXTRA_DATE = "date";
 
-
     private RecyclerView mRecyclerViewPopular;
     private RecyclerView mRecyclerViewTopRated;
     private RecyclerView mRecyclerViewAiringToday;
     private RecyclerView mRecyclerViewLatest;
     private TvAdapter mTvAdapter;
+
+    ProgressBar progressBarPopularTv;
+    ProgressBar progressBarTopRatedTv;
+    ProgressBar progressBarAiringTodayTv;
+    ProgressBar progressBarLatestTv;
 
     View v;
 
@@ -144,6 +150,13 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
 
         private ArrayList<TvItem> mTvList = new ArrayList<>();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarPopularTv = v.findViewById(R.id.progress_bar_popular_tv);
+            progressBarPopularTv.setVisibility(View.VISIBLE);
+        }
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -162,6 +175,7 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarPopularTv.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {
@@ -200,6 +214,13 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
     public class queryTaskTopRated extends AsyncTask<URL, Void, String> {
         private ArrayList<TvItem> mTvList = new ArrayList<>();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarTopRatedTv = v.findViewById(R.id.progress_bar_top_rated_tv);
+            progressBarTopRatedTv.setVisibility(View.VISIBLE);
+        }
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -218,6 +239,7 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarTopRatedTv.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {
@@ -256,6 +278,14 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
 
         private ArrayList<TvItem> mTvList = new ArrayList<>();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarAiringTodayTv = v.findViewById(R.id.progress_bar_airing_today_tv);
+            progressBarAiringTodayTv.setVisibility(View.VISIBLE);
+        }
+
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -274,6 +304,7 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarAiringTodayTv.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {
@@ -324,6 +355,14 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
 
         private ArrayList<TvItem> mTvList = new ArrayList<>();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBarLatestTv = v.findViewById(R.id.progress_bar_latest_tv);
+            progressBarLatestTv.setVisibility(View.VISIBLE);
+        }
+
+
         //this function works in background thread
         @Override
         protected String doInBackground(URL... urls) {
@@ -342,6 +381,7 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
         protected void onPostExecute(String s) {
             if (s != null && !s.equals("")) {
                 try {
+                    progressBarLatestTv.setVisibility(View.GONE);
                     JSONObject ob = new JSONObject(s);
                     onResponse(ob);
                 } catch (JSONException e) {

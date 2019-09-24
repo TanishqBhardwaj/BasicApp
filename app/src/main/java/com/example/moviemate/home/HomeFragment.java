@@ -16,6 +16,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -51,12 +53,13 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
         public final static String EXTRA_IMAGE2 = "imageUrl2";
         public final static String EXTRA_TYPE = "media_type";
 
-        final static String API_URL_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=b8f745c2d43033fd65ce3af63180c3c3";
-        private RecyclerView mRecyclerView;
-        private ArrayList<MovieItem> mMovieList;
-        public HomeAdapter mHomeAdapter;
-        SearchView searchView;
-        View v;
+    final static String API_URL_TRENDING = "https://api.themoviedb.org/3/trending/all/day?api_key=b8f745c2d43033fd65ce3af63180c3c3";
+    private RecyclerView mRecyclerView;
+    private ArrayList<MovieItem> mMovieList;
+    public HomeAdapter mHomeAdapter;
+    SearchView searchView;
+    ProgressBar progressBar;
+    View v;
 
 //
 //        @Override
@@ -135,31 +138,39 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
 
         public class queryTask extends AsyncTask<URL, Void, String> { //<params, progress, result>
 
-            //this function works in background thread
-            @Override
-            protected String doInBackground(URL... urls) {
-                URL searchURL = urls[0]; // what does this mean
-                String searchResults = null;
-                try {
-                    searchResults = getResponseFromHttpUrl(searchURL);
-                } catch (IOException e) {
-                    e.printStackTrace();//what does this mean
-                }
-                return searchResults;
-            }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar = v.findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
-            //this function works in main thread
-            @Override
-            protected void onPostExecute(String s) {
-                if (s != null && !s.equals("")) {
-                    try {
-                        JSONObject ob = new JSONObject(s);
-                        onResponse(ob);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        //this function works in background thread
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL searchURL = urls[0]; // what does this mean
+            String searchResults = null;
+            try {
+                searchResults = getResponseFromHttpUrl(searchURL);
+            } catch (IOException e) {
+                e.printStackTrace();//what does this mean
+            }
+            return searchResults;
+        }
+
+        //this function works in main thread
+        @Override
+        protected void onPostExecute(String s) {
+            if (s != null && !s.equals("")) {
+                try {
+                    progressBar.setVisibility(View.GONE);
+                    JSONObject ob = new JSONObject(s);
+                    onResponse(ob);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
+        }
 
             //this function is made to fetch values from API using JSON
             public void onResponse(JSONObject response) throws JSONException {

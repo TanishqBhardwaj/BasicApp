@@ -11,6 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.moviemate.R;
 import com.example.moviemate.home.HomeFragment;
 import com.example.moviemate.main.DetailActivity;
@@ -33,6 +35,7 @@ import java.util.Scanner;
 
 public class TvDetailActivity extends YouTubeBaseActivity {
 
+    int flag = 0;
     ImageView mButtonPlay;
     String API_KEY = "b8f745c2d43033fd65ce3af63180c3c3";
     static String API_VIDEO;
@@ -100,11 +103,21 @@ public class TvDetailActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 if (!b) {
-                    View button = findViewById(R.id.button_play_tv);
-                    button.setVisibility(View.GONE);
-                    youTubePlayer.loadVideo(key);
-                    youTubePlayer.play();
-                    youTubePlayer.setShowFullscreenButton(false);
+                    if(flag == 0) {
+                        if(key != null) {
+                            View button = findViewById(R.id.button_play_tv);
+                            button.setVisibility(View.GONE);
+                            youTubePlayer.loadVideo(key);
+                            youTubePlayer.play();
+                            youTubePlayer.setShowFullscreenButton(false);
+                        }
+                        else {
+                            Toast.makeText(TvDetailActivity.this, "Network issues, Please try again.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(TvDetailActivity.this, "Video do not exist", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
@@ -155,8 +168,14 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         //this function is made to fetch values from API using JSON
         public void onResponse(JSONObject response) throws JSONException {
             JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
-            JSONObject result = jsonArray.getJSONObject(0);
-            key = result.getString("key");
+            if(jsonArray.length()!=0) {
+                flag = 0;
+                JSONObject result = jsonArray.getJSONObject(0);
+                key = result.getString("key");
+            }
+            else {
+                flag = 1;
+            }
 
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("https")
