@@ -1,5 +1,8 @@
 package com.example.moviemate.tv;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -75,7 +78,8 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
 
         v = inflater.inflate(R.layout.fragment_tv, container, false);
 
-        if(haveNetwork()) {
+        if(!isConnected(getActivity())){ buildDialog(getActivity()).show();}
+        else {
             URL searchURLPopular = buildUrlPopular();
             URL searchURLTopRated = buildUrlTopRated();
             URL searchURLLatest = buildUrlLatest();
@@ -113,12 +117,8 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
             mRecyclerViewLatest.setLayoutManager(new LinearLayoutManager(getContext(),
                     LinearLayoutManager.HORIZONTAL, false));
 
-        }
 
-        if(!haveNetwork()) {
-            Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_LONG).show();
         }
-
 
 
 
@@ -476,22 +476,37 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
             urlConnection.disconnect();
         }
     }
-    private boolean haveNetwork () {
-        boolean have_WIFI = false;
-        boolean have_MobileData = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
-        for (NetworkInfo info : networkInfos) {
-            if (info.getTypeName().equalsIgnoreCase("WIFI"))
-                if (info.isConnected())
-                    have_WIFI = true;
-            if (info.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (info.isConnected())
-                    have_WIFI = true;
+    public boolean isConnected(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netinfo = cm.getActiveNetworkInfo();
 
-        }
-        return have_MobileData || have_WIFI;
+        if (netinfo != null && netinfo.isConnectedOrConnecting()) {
+            android.net.NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            android.net.NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
+            if((mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting())) return true;
+            else return false;
+        } else
+            return false;
     }
+
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("No Internet Connection");
+        builder.setMessage("You need to have Mobile Data or wifi to access this. Press ok to Dismiss.");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        return builder;
+    }
+
+
 
 }
