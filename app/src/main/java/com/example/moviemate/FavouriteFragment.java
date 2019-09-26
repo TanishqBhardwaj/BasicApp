@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
 
@@ -33,6 +32,7 @@ public class FavouriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        Fresco.initialize(getContext());
         return inflater.inflate(R.layout.favourite, container, false);
 
     }
@@ -44,7 +44,7 @@ public class FavouriteFragment extends Fragment {
         fav_list = getView().findViewById(R.id.recycler_view_fav);
         fav_list.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        favAdapter = new FavouriteAdapter(fav_collection);
+        favAdapter = new FavouriteAdapter(getActivity(),fav_collection);
         fav_list.setAdapter(favAdapter);
     }
 

@@ -15,20 +15,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moviemate.FavouriteActivity;
 import com.example.moviemate.FavouriteFragment;
 import com.example.moviemate.FavouriteItem;
 import com.example.moviemate.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
-
 public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
-
+public   TextView fav_name;
+public TextView fav_date;
     private Context mContext;
     private ArrayList<TvItem> mTvList;
     private OnItemClickListener mListener;
-    ArrayList<FavouriteItem> myfav = new ArrayList<>();
+    static ArrayList<FavouriteItem> myfav = new ArrayList<>();
     public ArrayList<TvItem> data;
 
     public interface OnItemClickListener {
@@ -51,15 +50,16 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
         return new TvViewHolder(v);
     }
     @Override
-    public void onBindViewHolder(@NonNull TvViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TvViewHolder holder, final int position) {
         TvItem tvItem = mTvList.get(position);
-
+      // final TvItem teleItem  = data.get(position);
         String imageUrl = tvItem.getImageUrl();
         String overview = tvItem.getOverview();
         String name = tvItem.getName();
         int popularity = tvItem.getPopularity();
         int voteAverage = tvItem.getVoteAverage();
-
+//holder.set_fav_name(teleItem.getName());
+//       holder.set_fav_date(teleItem.getDate());
         holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
         holder.mTextViewName.setText(name);
 
@@ -81,22 +81,29 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
 
 
     }
-    private void openDialog(final int position) {
+    public void openDialog(final int position) {
         AlertDialog.Builder  builder = new AlertDialog.Builder(mContext);
-        builder.setNegativeButton("ADD TO CART" , new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("ADD TO Favourites" , new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                FavouriteItem value = new FavouriteItem();
+                try {
+                    FavouriteItem value = new FavouriteItem();
 
-                value.setFName(data.get(position).getName());
+                    value.setFName(mTvList.get(position).getName());
+                    value.setFDate(mTvList.get(position).getDate());
+                    Log.d(value.getFName(), "onClick: ");
+                    Log.d(value.getFDate(), "onClick: ");
+                    myfav.add(value);
+                    new FavouriteFragment(myfav);
 
-                value.setFDate(data.get(position).getDate());
-                Log.d(value.getFName(), "onClick: ");
-                Log.d(value.getFDate(), "onClick: ");
-                myfav.add(value);
-                new FavouriteFragment(myfav);
-              //  Toast.makeText(getContext() , "Item Added To Cart" , Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+//                    Toast.makeText( , "Item Added To Cart" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+                catch(NullPointerException e){
+                    e.printStackTrace();
+
+                }
             }
         });
 
@@ -135,18 +142,10 @@ public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
 
             mTextViewVoteAverage = itemView.findViewById(R.id.text_view_vote_average_tv);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    if(mListener != null) {
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION) {
-                            mListener.onItemClick(position, mTvList);
-                        }
-                    }
-                }
-            });
+
+
         }
+
     }
 }

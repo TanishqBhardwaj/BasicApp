@@ -30,6 +30,12 @@
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_person_pin_"
                 android:title="Profile" />
+
+
+            <item
+                android:id="@+id/nav_fav"
+                android:icon="@drawable/ic_person_pin_"
+                android:title="Favourite" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_people_black_24dp"

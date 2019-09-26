@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".main.DetailActivity"></activity>
+        <activity android:name=".FavouriteActivity"></activity>
         <activity android:name=".tv.TvDetailActivity"></activity>
         <activity android:name=".main.MainActivity" />
         <activity android:name=".main.SplashActivity">
