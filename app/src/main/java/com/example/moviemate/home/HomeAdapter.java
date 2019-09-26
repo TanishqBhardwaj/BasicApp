@@ -1,15 +1,24 @@
 package com.example.moviemate.home;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.moviemate.FavouriteFragment;
+import com.example.moviemate.FavouriteItem;
 import com.example.moviemate.R;
 import com.example.moviemate.main.MovieItem;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -26,6 +35,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
     String API_KEY = "b8f745c2d43033fd65ce3af63180c3c3";
     HomeAdapter mHomeAdapter;
     RecyclerView mRecyclerView;
+    static ArrayList<FavouriteItem> myfav = new ArrayList<>();
 
     @Override
     public Filter getFilter() {
@@ -40,12 +50,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
             if (charSequence == null || charSequence.length() == 0) {
 //                mMovieList.clear();
                 filteredList.addAll(mMovieListFull);
-            }
-            else {
+            } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
-                for(MovieItem movieItem : mMovieListFull) {
-                    if(movieItem.getTitle().toLowerCase().startsWith(filterPattern)) {
+                for (MovieItem movieItem : mMovieListFull) {
+                    if (movieItem.getTitle().toLowerCase().startsWith(filterPattern)) {
                         filteredList.add(movieItem);
                     }
                 }
@@ -54,30 +63,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
             FilterResults filterResults = new FilterResults();
             filterResults.values = filteredList;
 
-//            else {
-//                String filterPattern = charSequence.toString().toLowerCase().trim();
-//
-//                Uri.Builder builder = new Uri.Builder();
-//                builder.scheme("https")
-//                        .authority("api.themoviedb.org")
-//                        .appendPath("3")
-//                        .appendPath("search")
-//                        .appendPath("multi")
-//                        .appendQueryParameter("api_key", API_KEY)
-//                        .appendQueryParameter("query", filterPattern);
-//
-//                API_LINK = builder.build().toString();
-//                URL searchURL = buildUrl();
-//                new HomeAdapter.queryTask().execute(searchURL);
-//                mMovieList.clear();
-//                mMovieList.addAll(mMovieListTemp);
-//            }
-//
-//                FilterResults filterResults = new FilterResults();
-//                filterResults.values = mMovieList;
-//                mMovieListTemp.clear();
-                return filterResults;
-            }
+            return filterResults;
+        }
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
@@ -116,20 +103,69 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
 
     //this function actually sets values from API to XML file
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolderMain holder, int position) {
-        MovieItem movieItem = mMovieList.get(position);
+    public void onBindViewHolder(@NonNull MovieViewHolderMain holder, final int position) {
+        try {
+            MovieItem movieItem = mMovieList.get(position);
 
-        String imageUrl = movieItem.getImageUrl();
-        String title = movieItem.getTitle();
-        int popularity = movieItem.getPopularity();
-        int rating = movieItem.getRating();
-        String releaseDate = movieItem.getReleaseDate();
+            String imageUrl = movieItem.getImageUrl();
+            String title = movieItem.getTitle();
+            int popularity = movieItem.getPopularity();
+            int rating = movieItem.getRating();
+            String releaseDate = movieItem.getReleaseDate();
 
-        holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
-        holder.mTextViewTitle.setText(title);
-        holder.mTextViewRating.setText(rating + "/10");
-        holder.mTextViewPopularity.setText(String.valueOf(popularity));
-        holder.mTextViewReleaseDate.setText(releaseDate);
+            holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
+            holder.mTextViewTitle.setText(title);
+            holder.mTextViewRating.setText(rating + "/10");
+            holder.mTextViewPopularity.setText(String.valueOf(popularity));
+            holder.mTextViewReleaseDate.setText(releaseDate);
+            holder.mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            holder.plus3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openDialog(position);
+                }
+            });
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void openDialog(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setNegativeButton("ADD TO Favourites", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                try {
+                    FavouriteItem value = new FavouriteItem();
+                    value.setFImageUrl(mMovieList.get(position).getImageUrl());
+                    value.setFName(mMovieList.get(position).getTitle());
+                    value.setFDate(mMovieList.get(position).getReleaseDate());
+                    value.setFOverview(mMovieList.get(position).getOverview());
+                    // Log.d(value.getFImageUrl()), "onClick: ");
+                    Log.d(value.getFName(), "onClick: ");
+                    Log.d(value.getFDate(), "onClick: ");
+                    Log.d(value.getFOverview(), "onClick: ");
+                    myfav.add(value);
+                    new FavouriteFragment(myfav);
+
+
+                    Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        });
+
+
+        builder.show();
     }
 
     @Override
@@ -145,6 +181,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
         public TextView mTextViewRating;
         public TextView mTextViewPopularity;
         public TextView mTextViewReleaseDate;
+        ImageView plus3;
 
         public MovieViewHolderMain(@NonNull View itemView) {
             super(itemView);
@@ -153,14 +190,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
             mTextViewRating = itemView.findViewById(R.id.text_view_rating);
             mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity);
             mTextViewReleaseDate = itemView.findViewById(R.id.text_view_release_date);
-
+            plus3 = itemView.findViewById(R.id.plus3);
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    if(mListener != null) {
+                    if (mListener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION) {
+                        if (position != RecyclerView.NO_POSITION) {
                             mListener.onItemClick(position);
                         }
                     }
@@ -168,93 +205,4 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
             });
         }
     }
-
-//    public class queryTask extends AsyncTask<URL, Void, String> { //<params, progress, result>
-//
-//        //this function works in background thread
-//        @Override
-//        protected String doInBackground(URL... urls) {
-//            URL searchURL = urls[0]; // what does this mean
-//            String searchResults = null;
-//            try {
-//                searchResults = getResponseFromHttpUrl(searchURL);
-//            } catch (IOException e) {
-//                e.printStackTrace();//what does this mean
-//            }
-//            return searchResults;
-//        }
-//
-//        //this function works in main thread
-//        @Override
-//        protected void onPostExecute(String s) {
-//            if (s != null && !s.equals("")) {
-//                try {
-//                    JSONObject ob = new JSONObject(s);
-//                    onResponse(ob);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        //this function is made to fetch values from API using JSON
-//        public void onResponse(JSONObject response) throws JSONException {
-//            String title;
-//            String initialImageUrl = "http://image.tmdb.org/t/p/original";
-//            JSONArray jsonArray = response.getJSONArray("results");//puts api result array in jason array named jsonArray
-//
-//            mMovieListTemp.clear();
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject result = jsonArray.getJSONObject(i);
-//                String imageUrl = initialImageUrl.concat(result.getString("poster_path"));
-//                if(result.getString("media_type").equals("movie")) {
-//                    title = result.getString("title");
-//                }
-//                else if(result.getString("media_type").equals("tv")){
-//                    title = result.getString("name");
-//                }
-//                else {
-//                    continue;
-//                }
-//                int popularity = result.getInt("popularity");
-//                int id = result.getInt("id");
-//                mMovieListTemp.add(new MovieItem(imageUrl, title, popularity, id));
-//            }
-//            mHomeAdapter = new HomeAdapter(mMovieListTemp);
-////            mHomeAdapter = new HomeAdapter(getContext(), mMovieList);
-////            mRecyclerView.setAdapter(mHomeAdapter);
-////            mHomeAdapter.setOnItemClickListener(HomeFragment.this);
-//        }
-//    }
-//
-//    //this function converts the API url into formatted url
-//    public static URL buildUrl() {
-//        URL url = null;
-//        try {
-//            url = new URL(API_LINK);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace(); // prints class name and error line of Throwable object
-//        }
-//        return url;
-//    }
-//
-//
-//
-//    //this function is responsible for getting response from API
-//    public static String getResponseFromHttpUrl(URL url) throws IOException {
-//        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();//what does this mean
-//        try {
-//            InputStream in = urlConnection.getInputStream();
-//            Scanner scanner = new Scanner(in);
-//            scanner.useDelimiter("\\A");//what does this Delimiter mean
-//            boolean hasInput = scanner.hasNext();
-//            if (hasInput) {
-//                return scanner.next();
-//            } else {
-//                return null;
-//            }
-//        } finally {
-//            urlConnection.disconnect();
-//        }
-//    }
 }

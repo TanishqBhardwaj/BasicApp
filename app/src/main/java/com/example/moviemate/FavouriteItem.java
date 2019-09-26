@@ -6,6 +6,7 @@ public class FavouriteItem {
     private String mName;
     private String mImageUrl;
     private String mDate;
+    private String mOverview;
 
     public String getFImageUrl() { return mImageUrl; }
 
@@ -28,5 +29,6 @@ public class FavouriteItem {
         this.mDate = mDate;
     }
 
-
+    public String getFOverview() { return mOverview; }
+    public void setFOverview(String mOverview){ this.mOverview = mOverview;}
 }

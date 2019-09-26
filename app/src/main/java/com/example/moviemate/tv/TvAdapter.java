@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class TvAdapter extends RecyclerView.Adapter<TvAdapter.TvViewHolder> {
 public   TextView fav_name;
 public TextView fav_date;
+    public TextView fav_overview;
     private Context mContext;
     private ArrayList<TvItem> mTvList;
     private OnItemClickListener mListener;
@@ -52,15 +53,12 @@ public TextView fav_date;
     @Override
     public void onBindViewHolder(@NonNull TvViewHolder holder, final int position) {
         TvItem tvItem = mTvList.get(position);
-      // final TvItem teleItem  = data.get(position);
+
         String imageUrl = tvItem.getImageUrl();
-        String overview = tvItem.getOverview();
         String name = tvItem.getName();
-        int popularity = tvItem.getPopularity();
         int voteAverage = tvItem.getVoteAverage();
-//holder.set_fav_name(teleItem.getName());
-//       holder.set_fav_date(teleItem.getDate());
-        holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
+
+       holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
         holder.mTextViewName.setText(name);
 
         holder.mTextViewVoteAverage.setText("Vote Average: " + voteAverage);
@@ -88,16 +86,19 @@ public TextView fav_date;
             public void onClick(DialogInterface dialog, int which) {
                 try {
                     FavouriteItem value = new FavouriteItem();
-
+                   value.setFImageUrl(mTvList.get(position).getImageUrl());
                     value.setFName(mTvList.get(position).getName());
                     value.setFDate(mTvList.get(position).getDate());
+                    value.setFOverview(mTvList.get(position).getOverview());
+                   // Log.d(value.getFImageUrl()), "onClick: ");
                     Log.d(value.getFName(), "onClick: ");
                     Log.d(value.getFDate(), "onClick: ");
+                    Log.d(value.getFOverview(), "onClick: ");
                     myfav.add(value);
                     new FavouriteFragment(myfav);
 
-//                    Toast.makeText( , "Item Added To Cart" , Toast.LENGTH_SHORT).show();
-                    Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
                 catch(NullPointerException e){
@@ -128,6 +129,7 @@ public TextView fav_date;
 
         public SimpleDraweeView mImageView;
         public TextView mTextViewName;
+
         public TextView mTextViewVoteAverage;
         ImageView plus;
         //  public TextView mTextViewPopularity;
@@ -137,6 +139,7 @@ public TextView fav_date;
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view_tv);
             mTextViewName = itemView.findViewById(R.id.text_view_name_tv);
+
            // mTextViewPopularity = itemView.findViewById(R.id.text_view_popularity_tv);
             plus = itemView.findViewById(R.id.plus);
 
@@ -144,7 +147,18 @@ public TextView fav_date;
 
 
 
+            itemView.setOnClickListener(new View.OnClickListener() {
 
+                @Override
+                public void onClick(View v) {
+                    if(mListener != null) {
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            mListener.onItemClick(position, mTvList);
+                        }
+                    }
+                }
+            });
         }
 
     }
