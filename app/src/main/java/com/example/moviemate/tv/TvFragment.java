@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviemate.R;
+import com.example.moviemate.main.DetailActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,11 +119,7 @@ public class TvFragment extends Fragment implements TvAdapter.OnItemClickListene
             mRecyclerViewLatest.setLayoutManager(new LinearLayoutManager(getContext(),
                     LinearLayoutManager.HORIZONTAL, false));
 
-
         }
-
-
-
 
         return v;
     }
