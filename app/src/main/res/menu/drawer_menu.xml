@@ -34,7 +34,7 @@
 
             <item
                 android:id="@+id/nav_fav"
-                android:icon="@drawable/ic_person_pin_"
+                android:icon="@drawable/plus_circle"
                 android:title="Favourite" />
             <item
                 android:id="@+id/nav_about"

@@ -4,42 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp">
+    android:layout_marginTop="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#191919"
         android:paddingLeft="16dp"
-        android:paddingTop="16dp"
+        android:paddingTop="20dp"
         android:paddingRight="16dp"
         android:paddingBottom="16dp">
 
         <ImageView
             android:id="@+id/star"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_star"
             fresco:layout_constraintStart_toStartOf="parent"
             fresco:layout_constraintTop_toBottomOf="@+id/text_view_title" />
 
         <ImageView
             android:id="@+id/image_popularity"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
             android:src="@drawable/ic_popularity"
             fresco:layout_constraintEnd_toEndOf="parent"
             fresco:layout_constraintTop_toBottomOf="@+id/text_view_title" />
 
         <ImageView
             android:id="@+id/image_release_date"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_release_date"
             fresco:layout_constraintEnd_toStartOf="@+id/image_popularity"
             fresco:layout_constraintStart_toEndOf="@+id/star"
@@ -76,7 +76,7 @@
             android:layout_marginTop="8dp"
             android:text="Release-Date"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             fresco:layout_constraintEnd_toEndOf="@+id/image_release_date"
             fresco:layout_constraintStart_toStartOf="@+id/image_release_date"
             fresco:layout_constraintTop_toBottomOf="@+id/text_small_release_date" />
@@ -100,7 +100,7 @@
             android:layout_marginTop="8dp"
             android:text="Popularity:"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             fresco:layout_constraintEnd_toEndOf="@+id/image_popularity"
             fresco:layout_constraintStart_toStartOf="@+id/image_popularity"
             fresco:layout_constraintTop_toBottomOf="@+id/text_small_popularity" />
@@ -112,7 +112,7 @@
             android:layout_marginTop="8dp"
             android:text="Title:"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="22sp"
             fresco:layout_constraintEnd_toEndOf="@+id/image_view"
             fresco:layout_constraintStart_toStartOf="@+id/image_view"
             fresco:layout_constraintTop_toBottomOf="@+id/image_view" />
@@ -124,7 +124,7 @@
             android:layout_marginTop="8dp"
             android:text="Rating: "
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="18dp"
             fresco:layout_constraintEnd_toEndOf="@+id/star"
             fresco:layout_constraintStart_toStartOf="@+id/star"
             fresco:layout_constraintTop_toBottomOf="@+id/text_small_rating" />
@@ -142,15 +142,11 @@
 
         <ImageView
             android:id="@+id/plus3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="320dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
             android:src="@drawable/plus"
-            fresco:layout_constraintBottom_toBottomOf="parent"
-            fresco:layout_constraintStart_toStartOf="parent"
-            fresco:layout_constraintTop_toBottomOf="@id/image_view"
-            fresco:layout_constraintVertical_bias="0.0" />
+            fresco:layout_constraintStart_toStartOf="@+id/image_view"
+            fresco:layout_constraintTop_toTopOf="@+id/image_view" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

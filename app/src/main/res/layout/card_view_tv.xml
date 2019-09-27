@@ -27,9 +27,10 @@
 
         <TextView
             android:id="@+id/text_view_name_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:gravity="center"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="NAME:"
@@ -42,15 +43,15 @@
             android:id="@+id/text_view_vote_average_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="Average Vote: "
+            android:layout_marginBottom="23dp"
+
+            android:text="1"
             android:textColor="@android:color/white"
             android:textSize="15sp"
-            fresco:layout_constraintStart_toStartOf="parent"
-            fresco:layout_constraintTop_toBottomOf="@id/text_view_name_tv" />
+            fresco:layout_constraintBottom_toBottomOf="parent"
+            fresco:layout_constraintEnd_toEndOf="parent"
+            fresco:layout_constraintHorizontal_bias="0.192"
+            fresco:layout_constraintStart_toEndOf="@+id/star_tv" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image_view_tv"
@@ -66,13 +67,23 @@
 
         <ImageView
             android:id="@+id/plus"
+            android:layout_width="37dp"
+            android:layout_height="47dp"
+
+            android:src="@drawable/plus"
+            fresco:layout_constraintStart_toStartOf="@+id/image_view_tv"
+            fresco:layout_constraintTop_toTopOf="@+id/image_view_tv" />
+
+        <ImageView
+            android:id="@+id/star_tv"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="254dp"
-            android:src="@drawable/plus"
-            fresco:layout_constraintStart_toStartOf="parent"
-            fresco:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_star"
+            fresco:layout_constraintBottom_toBottomOf="parent"
+            fresco:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

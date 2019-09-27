@@ -137,10 +137,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
     }
 
     public void openDialog(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setNegativeButton("ADD TO Favourites", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+
                 try {
                     FavouriteItem value = new FavouriteItem();
                     value.setFImageUrl(mMovieList.get(position).getImageUrl());
@@ -156,17 +153,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
 
 
                     Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
+
                 } catch (NullPointerException e) {
                     e.printStackTrace();
 
                 }
             }
-        });
 
-
-        builder.show();
-    }
 
     @Override
     public int getItemCount() {

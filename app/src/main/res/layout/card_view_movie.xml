@@ -9,23 +9,26 @@
     android:layout_marginLeft="12dp"
     fresco:cardCornerRadius="4dp">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="#323232">
 
         <TextView
-            android:id="@+id/text_view_popularity_movie"
+
+            android:id="@+id/text_view_rating_movie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="Popularity: "
+            android:layout_marginBottom="23dp"
+
+            android:text="1"
             android:textColor="@android:color/white"
             android:textSize="15sp"
-            fresco:layout_constraintStart_toStartOf="parent"
-            fresco:layout_constraintTop_toBottomOf="@id/text_view_title_movie" />
+            fresco:layout_constraintBottom_toBottomOf="parent"
+            fresco:layout_constraintEnd_toEndOf="parent"
+            fresco:layout_constraintHorizontal_bias="0.192"
+            fresco:layout_constraintStart_toEndOf="@+id/star_movie" />
 
         <TextView
             android:id="@+id/text_view_title_movie"
@@ -55,14 +58,22 @@
 
         <ImageView
             android:id="@+id/plus2"
+            android:layout_width="37dp"
+            android:layout_height="47dp"
+
+            android:src="@drawable/plus"
+            fresco:layout_constraintStart_toStartOf="@+id/image_view_movie"
+            fresco:layout_constraintTop_toTopOf="@+id/image_view_movie" />
+        <ImageView
+            android:id="@+id/star_movie"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/plus"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_star"
             fresco:layout_constraintBottom_toBottomOf="parent"
-            fresco:layout_constraintStart_toStartOf="parent"
-            fresco:layout_constraintTop_toBottomOf="@+id/text_view_popularity_movie" />
+            fresco:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

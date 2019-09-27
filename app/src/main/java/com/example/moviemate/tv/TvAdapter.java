@@ -61,7 +61,7 @@ public TextView fav_date;
        holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
         holder.mTextViewName.setText(name);
 
-        holder.mTextViewVoteAverage.setText("Vote Average: " + voteAverage);
+        holder.mTextViewVoteAverage.setText("" + voteAverage);
         //holder.mTextViewPopularity.setText("Popularity: " + popularity);
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,38 +80,36 @@ public TextView fav_date;
 
     }
     public void openDialog(final int position) {
-        AlertDialog.Builder  builder = new AlertDialog.Builder(mContext);
-        builder.setNegativeButton("ADD TO Favourites" , new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+
                 try {
                     FavouriteItem value = new FavouriteItem();
-                   value.setFImageUrl(mTvList.get(position).getImageUrl());
-                    value.setFName(mTvList.get(position).getName());
-                    value.setFDate(mTvList.get(position).getDate());
-                    value.setFOverview(mTvList.get(position).getOverview());
-                   // Log.d(value.getFImageUrl()), "onClick: ");
-                    Log.d(value.getFName(), "onClick: ");
-                    Log.d(value.getFDate(), "onClick: ");
-                    Log.d(value.getFOverview(), "onClick: ");
-                    myfav.add(value);
-                    new FavouriteFragment(myfav);
+
+                        value.setFImageUrl(mTvList.get(position).getImageUrl());
+                        value.setFName(mTvList.get(position).getName());
+                        value.setFDate(mTvList.get(position).getDate());
+                        value.setFOverview(mTvList.get(position).getOverview());
+                        // Log.d(value.getFImageUrl()), "onClick: ");
+                        Log.d(value.getFName(), "onClick: ");
+                        Log.d(value.getFDate(), "onClick: ");
+                        Log.d(value.getFOverview(), "onClick: ");
+
+                        myfav.add(value);
+                        new FavouriteFragment(myfav);
 
 
                     Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
+
                 }
                 catch(NullPointerException e){
                     e.printStackTrace();
 
                 }
             }
-        });
 
 
 
-        builder.show();
-    }
+
+
 
 
 
