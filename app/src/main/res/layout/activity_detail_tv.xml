@@ -139,7 +139,6 @@
             app:layout_constraintStart_toEndOf="@+id/image_view_detail_tv"
             app:layout_constraintTop_toBottomOf="@+id/text_view_vote_average_detail_tv" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.moviemate.R;
@@ -65,11 +66,18 @@ public class DetailActivity extends YouTubeBaseActivity {
         String releaseDate = intent.getStringExtra(HomeFragment.EXTRA_RELEASE_DATE);
         String imageUrl2 = intent.getStringExtra(HomeFragment.EXTRA_IMAGE2);
         String type = intent.getStringExtra(HomeFragment.EXTRA_TYPE);
-//        type = type.toUpperCase();
+        try {
+            type = type.toUpperCase();
+
+        }
+        catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        String finalRating = rating + "/10";
 
         ImageView imageView = findViewById(R.id.image_view_detail);
         TextView textViewTitle = findViewById(R.id.text_view_title_detail);
-//        TextView textViewPopularity = findViewById(R.id.text_view_popularity_detail);
+        TextView textViewPopularity = findViewById(R.id.text_view_popularity_detail);
         ImageView imageView2 = findViewById(R.id.image_view_detail2);
         TextView ratingDetail = findViewById(R.id.text_view_rating_detail);
         TextView voteCountDetail = findViewById(R.id.text_view_vote_count_detail);
@@ -80,10 +88,10 @@ public class DetailActivity extends YouTubeBaseActivity {
         imageView.setImageURI(Uri.parse(imageUrl));
         imageView2.setImageURI(Uri.parse(imageUrl2));
         textViewTitle.setText(title);
-//        textViewPopularity.setText("Popularity : " + popularity);
-        ratingDetail.setText(rating + "/10");
-        voteCountDetail.setText(String.valueOf(voteCount));
-        releaseDateDetail.setText(releaseDate);
+        textViewPopularity.setText("Popularity : " + popularity);
+        ratingDetail.setText("Rating : " + finalRating);
+        voteCountDetail.setText("Vote Count : " + voteCount);
+        releaseDateDetail.setText("Release : " + releaseDate);
         overviewDetail.setText(overview);
         typeDetail.setText(type);
 
@@ -105,6 +113,7 @@ public class DetailActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 if (!b) {
+
                     if(flag == 0) {
                         if (key != null) {
                             View button = findViewById(R.id.button_play);
@@ -190,6 +199,7 @@ public class DetailActivity extends YouTubeBaseActivity {
                         .appendQueryParameter("v", key)
                         .appendQueryParameter("feature", "youtu.be");
                 videoLink = builder.build().toString();
+//                progressBar.setVisibility(View.GONE);
                 Log.d(videoLink, "onResponse: ");
             }
         }

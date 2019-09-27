@@ -53,15 +53,15 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_detail_tv);
+        setContentView(R.layout.activity_detail_tv_sample);
 
         youTubePlayerView = findViewById(R.id.video_view_tv);
 
         mButtonPlay = findViewById(R.id.button_play_tv);
 
         Intent intent = getIntent();
+        String imageUrl = intent.getStringExtra(TvFragment.EXTRA_IMAGE);
         String imageUrl2 = intent.getStringExtra(TvFragment.EXTRA_IMAGE2);
-       // String imageUrl2 = intent.getStringExtra(TvFragment.EXTRA_IMAGE2);
         String title = intent.getStringExtra(TvFragment.EXTRA_NAME);
         String overview = intent.getStringExtra(TvFragment.EXTRA_OVERVIEW);
         String date = intent.getStringExtra(TvFragment.EXTRA_DATE);
@@ -69,7 +69,9 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         int id = intent.getIntExtra(TvFragment.EXTRA_ID, 0);
         int voteAverage = intent.getIntExtra(TvFragment.EXTRA_VOTE_AVERAGE,0);
         int voteCount = intent.getIntExtra(TvFragment.EXTRA_VOTE_COUNT,0);
+
         ImageView imageView = findViewById(R.id.image_view_detail_tv);
+        ImageView imageView2 = findViewById(R.id.image_view_detail2_tv);
         TextView textViewTitle = findViewById(R.id.text_view_title_detail_tv);
         TextView textViewOverview = findViewById(R.id.text_view_overview_detail_tv);
         TextView textViewDate = findViewById(R.id.text_view_date_detail_tv);
@@ -77,13 +79,14 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         TextView textViewVoteAverage = findViewById(R.id.text_view_vote_average_detail_tv);
         TextView textViewVoteCount = findViewById(R.id.text_view_vote_count_detail_tv);
 
-        imageView.setImageURI(Uri.parse(imageUrl2));
+        imageView.setImageURI(Uri.parse(imageUrl));
+        imageView2.setImageURI(Uri.parse(imageUrl2));
         textViewTitle.setText(title);
         textViewOverview.setText(overview);
-        textViewDate.setText("Release Date : " + date);
+        textViewDate.setText("Release : " + date);
         textViewPopularity.setText("Popularity : " + popularity);
-        textViewVoteAverage.setText("Average Vote : " + voteAverage);
-        textViewVoteCount.setText("Total Votes : " + voteCount);
+        textViewVoteAverage.setText("Rating : " + voteAverage + "/10");
+        textViewVoteCount.setText("Vote Count : " + voteCount);
 
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
@@ -107,6 +110,8 @@ public class TvDetailActivity extends YouTubeBaseActivity {
                         if(key != null) {
                             View button = findViewById(R.id.button_play_tv);
                             button.setVisibility(View.GONE);
+                            View img = findViewById(R.id.image_view_detail2_tv);
+                            img.setVisibility(View.GONE);
                             youTubePlayer.loadVideo(key);
                             youTubePlayer.play();
                             youTubePlayer.setShowFullscreenButton(false);
@@ -123,7 +128,8 @@ public class TvDetailActivity extends YouTubeBaseActivity {
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
+                CharSequence fail = "Failured to Initialize!";
+                Toast.makeText(getApplicationContext(), fail, Toast.LENGTH_LONG).show();
             }
         };
 

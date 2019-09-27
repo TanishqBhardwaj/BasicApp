@@ -13,10 +13,10 @@ public class TvItem {
     private String mDate;
     private int mId;
 
-    public TvItem(String imageUrl,String imageUrl2, String name,String overview,String date, int popularity,int voteAverage,int voteCount,int id) {
+    public TvItem(String imageUrl,String imageUrl2, String name,String overview,String date,
+                  int popularity,int voteAverage,int voteCount,int id) {
         mImageUrl = imageUrl;
         mImageUrl2 = imageUrl2;
-
         mName = name;
         mOverview=overview;
         mDate=date;
