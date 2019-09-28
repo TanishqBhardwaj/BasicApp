@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".tv.TvDetailActivity"></activity>
-        <activity android:name=".main.DetailActivity"></activity>
-        <activity android:name=".main.MainActivity" />
-        <activity android:name=".main.SplashActivity">
+        <activity android:name=".tv.UI.TvDetailActivity"></activity>
+        <activity android:name=".main.UI.DetailActivity"></activity>
+        <activity android:name=".main.UI.MainActivity" />
+        <activity android:name=".main.UI.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

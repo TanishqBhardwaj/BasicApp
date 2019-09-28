@@ -1,4 +1,4 @@
-package com.example.moviemate.movie;
+package com.example.moviemate.movie.UI;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,16 +7,11 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.sip.SipSession;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import android.widget.ProgressBar;
 
@@ -26,22 +21,21 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.moviemate.main.DetailActivity;
-import com.example.moviemate.main.MovieItem;
+import com.example.moviemate.main.UI.DetailActivity;
+import com.example.moviemate.main.Model.MovieItem;
 import com.example.moviemate.R;
+import com.example.moviemate.movie.Adapter.MovieAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class MoviesFragment extends Fragment implements MovieAdapter.OnItemClickListener {
 
