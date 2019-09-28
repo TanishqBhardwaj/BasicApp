@@ -40,14 +40,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame,
-                new HomeFragment()).commit();  //replaces fragment frame with home fragment
+if(savedInstanceState==null) {
 
-        navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(MainActivity.this); //it will trigger the items click on navigation view
+    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_frame,
+            new HomeFragment()).commit();  //replaces fragment frame with home fragment}
+}
+            navigationView = findViewById(R.id.navigation_view);
+            navigationView.setNavigationItemSelectedListener(MainActivity.this); //it will trigger the items click on navigation view
 
-        setUpToolBar();
-    }
+            setUpToolBar();
+        }
 
     public void sakshiInstaClick(View view) {
         openUrl1("https://www.instagram.com/sakshi_yadav_77/");
@@ -201,12 +203,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void setUpToolBar() {
+    private void   setUpToolBar() {
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, toolbar
-                , R.string.navigation_drawer_open, R.string.navigation_drawer_close);//it ties together drawer layout and toolbar
+                , R.string.navigation_drawer_open, R.string.navigation_drawer_close);//it's instance ties together drawer layout and toolbar
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();//setting up hamburger icon
     }

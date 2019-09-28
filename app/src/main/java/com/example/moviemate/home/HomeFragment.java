@@ -64,12 +64,6 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickLis
     ProgressBar progressBar;
     View v;
 
-//
-//        @Override
-//        public void onCreate (@Nullable Bundle savedInstanceState){
-//            super.onCreate(savedInstanceState);
-//
-//        }
 
         @Nullable
         @Override

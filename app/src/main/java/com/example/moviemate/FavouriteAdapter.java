@@ -40,27 +40,16 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         FavouriteItem favouriteItem = mFavouriteList.get(position);
 
 try {
-
-    // holder.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
-//        holder.set_fav_item_name(favouriteItem.getFName());
-//        holder.set_fav_item_date(favouriteItem.getFDate());
-
-
     String imageUrl = favouriteItem.getFImageUrl();
-    // String overview = tvItem.getOverview();
     String name = favouriteItem.getFName();
     String date = favouriteItem.getFDate();
     String overview = favouriteItem.getFOverview();
-    // int popularity = tvItem.getPopularity();
-    // int voteAverage = tvItem.getVoteAverage();
-//holder.set_fav_name(teleItem.getName());
-//       holder.set_fav_date(teleItem.getDate());
+
     holder.mImageView.setImageURI(Uri.parse(imageUrl)); //property of Fresco used
     holder.mTextViewName.setText(name);
     holder.mTextViewDate.setText(date);
 holder.mTextViewOverview.setText(overview);
-    //holder.mTextViewVoteAverage.setText("Vote Average: " + voteAverage);
-    //holder.mTextViewPopularity.setText("Popularity: " + popularity);
+
 }catch (NullPointerException e){
     e.printStackTrace();
 }

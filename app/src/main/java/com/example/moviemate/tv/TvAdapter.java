@@ -88,17 +88,26 @@ public TextView fav_date;
                         value.setFName(mTvList.get(position).getName());
                         value.setFDate(mTvList.get(position).getDate());
                         value.setFOverview(mTvList.get(position).getOverview());
-                        // Log.d(value.getFImageUrl()), "onClick: ");
+
                         Log.d(value.getFName(), "onClick: ");
                         Log.d(value.getFDate(), "onClick: ");
                         Log.d(value.getFOverview(), "onClick: ");
+try{ int l=myfav.size();
+    int flag=0;
+    for(int i=0;i<l;i++)
+    {
+    if(myfav.get(i).getFName()==mTvList.get(position).getName()) { flag=1;
+    }
+        }if(flag!=1){
+            myfav.add(value);
+            new FavouriteFragment(myfav);
 
-                        myfav.add(value);
-                        new FavouriteFragment(myfav);
 
 
+                }}catch (IndexOutOfBoundsException e) {
+    e.printStackTrace();
+}
                     Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_SHORT).show();
-
                 }
                 catch(NullPointerException e){
                     e.printStackTrace();

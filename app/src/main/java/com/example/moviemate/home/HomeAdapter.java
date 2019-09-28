@@ -148,17 +148,26 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MovieViewHolde
                     Log.d(value.getFName(), "onClick: ");
                     Log.d(value.getFDate(), "onClick: ");
                     Log.d(value.getFOverview(), "onClick: ");
-                    myfav.add(value);
-                    new FavouriteFragment(myfav);
+                    try{ int l=myfav.size();
+                        int flag=0;
+                        for(int i=0;i<l;i++)
+                        {
+                            if(myfav.get(i).getFName()==mMovieList.get(position).getTitle()) { flag=1;
+                            }
+                        }if(flag!=1){
+                            myfav.add(value);
+                            new FavouriteFragment(myfav);
 
-
+                        }}catch (IndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(mContext, "Added To Favourites", Toast.LENGTH_SHORT).show();
-
-                } catch (NullPointerException e) {
+                }
+                catch(NullPointerException e){
                     e.printStackTrace();
 
                 }
-            }
+    }
 
 
     @Override

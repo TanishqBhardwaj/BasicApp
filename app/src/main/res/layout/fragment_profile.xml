@@ -29,23 +29,21 @@
             android:id="@+id/line5"
             android:layout_width="100dp"
             android:layout_height="1dp"
-            android:layout_marginBottom="301dp"
+            android:layout_marginTop="7dp"
             android:background="@color/colorhead"
-            app:layout_constraintBottom_toBottomOf="@+id/harryImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Account"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/Account" />
 
         <ImageView
             android:id="@+id/harryImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line5"
             app:srcCompat="@drawable/harry" />
 
         <ImageView
@@ -54,9 +52,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="73dp"
-            android:layout_marginTop="370dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/harryImage"
             app:srcCompat="@drawable/profilelogo" />
 
         <TextView
@@ -64,12 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="110dp"
-            android:layout_marginTop="373dp"
             android:text="Harry Potter"
             android:textColor="@color/colorhead"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/harryImage" />
 
         <ImageView
             android:id="@+id/gmailicon"
@@ -145,9 +141,9 @@
             android:id="@+id/line4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="538dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorhead"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationaLogo"
             tools:layout_editor_absoluteX="0dp" />
 
 
@@ -156,9 +152,9 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="73dp"
-            android:layout_marginTop="560dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line4"
             app:srcCompat="@drawable/addaccountlogo" />
 
         <TextView
@@ -167,24 +163,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="130dp"
 
-            android:layout_marginTop="560dp"
+            android:layout_marginTop="10dp"
             android:text="Add Account Using:"
             android:textColor="@color/colorhead"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/line4" />
 
         <ImageView
             android:id="@+id/insta1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="256dp"
-            android:layout_marginTop="608dp"
+            android:layout_marginTop="14dp"
             android:layout_marginBottom="15dp"
             android:onClick="harryInstaClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addAcount"
             app:srcCompat="@drawable/insta" />
 
         <ImageView
@@ -193,12 +189,12 @@
             android:layout_height="50dp"
 
             android:layout_marginStart="164dp"
-            android:layout_marginTop="602dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="15dp"
             android:onClick="harryFacebookClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addAcount"
             app:srcCompat="@drawable/facebook" />
 
         <ImageView
@@ -206,12 +202,12 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="88dp"
-            android:layout_marginTop="608dp"
+            android:layout_marginTop="14dp"
             android:layout_marginBottom="15dp"
             android:onClick="harryGmailClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addAcount"
             app:srcCompat="@drawable/gmail" />
 
 

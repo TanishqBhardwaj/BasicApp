@@ -252,9 +252,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="448dp"
-            android:text="Forward-thinking developers offering near about one month of experience building, integrating, testing, and supporting Android applications for mobile and tablet devices on the Android platform seeks a position in SOFTWARE INCUBATORS of AKGEC.
-
-"
+            android:text="Forward-thinking developers offering near about one month of experience building, integrating, testing, and supporting Android applications for mobile and tablet devices on the Android platform seeks a position in SOFTWARE INCUBATORS of AKGEC."
             android:textColor="@color/colorhead"
             android:paddingStart="4dp"
             android:paddingTop="4dp"
@@ -262,6 +260,21 @@
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/corematter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="4dp"
+            android:text="Created 1 fully functional applications for Android devices.Known for writing efficient, maintainable, and reusable code.Proficient in design, data structures, problem-solving, and debugging.Expert in the interaction between various devices and versions of Android."
+            android:textColor="@color/colorhead"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/core2" />
+
 
         <TextView
             android:id="@+id/core2"
@@ -279,19 +292,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/corematter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:gravity="center"
-            android:paddingStart="4dp"
-            android:paddingTop="0dp"
-            android:paddingEnd="4dp"
-            android:text="\nCreated 1 fully functional applications for Android devices.\nKnown for writing efficient, maintainable, and reusable code.\nProficient in design, data structures, problem-solving, and debugging.\nExpert in the interaction between various devices and versions of Android."
-            android:textColor="@color/colorhead"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/core2" />
 
         <TextView
             android:id="@+id/education"
