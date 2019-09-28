@@ -42,7 +42,7 @@ public class TvDetailActivity extends YouTubeBaseActivity {
     String videoLink;
     String key;
     private YouTubePlayerView youTubePlayerView;
-    private static final int RECOVERY_DIALOG_REQUEST = 1;
+
     YouTubePlayer.OnInitializedListener onInitializedListener;
 
     @Override
@@ -53,7 +53,7 @@ public class TvDetailActivity extends YouTubeBaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_detail_tv_sample);
+        setContentView(R.layout.activity_detail_tv);
 
         youTubePlayerView = findViewById(R.id.video_view_tv);
 
@@ -153,7 +153,7 @@ public class TvDetailActivity extends YouTubeBaseActivity {
             try {
                 searchResults = getResponseFromHttpUrl(searchURL);
             } catch (IOException e) {
-                e.printStackTrace();//what does this mean
+                e.printStackTrace();
             }
             return searchResults;
         }
@@ -196,10 +196,9 @@ public class TvDetailActivity extends YouTubeBaseActivity {
 
     //this function converts the API url into formatted url
     public static URL buildUrl() {
-//        Uri builtUri = Uri.parse(API_URL_POPULAR); //why do we convert string to URI
         URL url = null;
         try {
-//            url = new URL(builtUri.toString());
+
             url = new URL(API_VIDEO);
         } catch (MalformedURLException e) {
             e.printStackTrace(); // prints class name and error line of Throwable object
