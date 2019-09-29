@@ -1,4 +1,4 @@
-package com.example.moviemate.tv;
+package com.example.moviemate.tv.UI;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import android.widget.ProgressBar;
 
@@ -22,7 +21,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviemate.R;
-import com.example.moviemate.main.DetailActivity;
+import com.example.moviemate.tv.Adapter.TvAdapter;
+import com.example.moviemate.tv.Model.TvItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,8 +34,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class TvFragment extends Fragment implements TvAdapter.OnItemClickListener {
 

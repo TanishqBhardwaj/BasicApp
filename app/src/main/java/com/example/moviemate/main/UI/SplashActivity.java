@@ -1,6 +1,6 @@
 //This class is made for connecting and forming Splash screen
 
-package com.example.moviemate.main;
+package com.example.moviemate.main.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 

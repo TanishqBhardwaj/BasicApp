@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#262626"
-        tools:context="com.example.moviemate.main.DetailActivity">
+        tools:context="com.example.moviemate.main.UI.DetailActivity">
 
             <TextView
                 android:id="@+id/text_view_popularity_detail"

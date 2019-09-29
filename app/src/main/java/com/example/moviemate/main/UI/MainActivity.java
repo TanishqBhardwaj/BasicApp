@@ -1,4 +1,4 @@
-package com.example.moviemate.main;
+package com.example.moviemate.main.UI;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,14 +15,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.moviemate.FavouriteFragment;
+import com.example.moviemate.favourite.UI.FavouriteFragment;
 import com.example.moviemate.R;
-import com.example.moviemate.home.HomeFragment;
+import com.example.moviemate.home.UI.HomeFragment;
 import com.example.moviemate.info.DevelopersAbout;
 import com.example.moviemate.info.DevelopersFragment;
 import com.example.moviemate.info.ProfileFragment;
-import com.example.moviemate.movie.MoviesFragment;
-import com.example.moviemate.tv.TvFragment;
+import com.example.moviemate.movie.UI.MoviesFragment;
+import com.example.moviemate.tv.UI.TvFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.navigation.NavigationView;
 

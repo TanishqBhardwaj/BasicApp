@@ -1,4 +1,4 @@
-package com.example.moviemate.main;
+package com.example.moviemate.main.UI;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,11 +9,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.moviemate.R;
-import com.example.moviemate.home.HomeFragment;
+import com.example.moviemate.home.UI.HomeFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,13 +65,14 @@ public class DetailActivity extends YouTubeBaseActivity {
         String releaseDate = intent.getStringExtra(HomeFragment.EXTRA_RELEASE_DATE);
         String imageUrl2 = intent.getStringExtra(HomeFragment.EXTRA_IMAGE2);
         String type = intent.getStringExtra(HomeFragment.EXTRA_TYPE);
+
         try {
             type = type.toUpperCase();
-
         }
         catch (NullPointerException e) {
             e.printStackTrace();
         }
+
         String finalRating = rating + "/10";
 
         ImageView imageView = findViewById(R.id.image_view_detail);

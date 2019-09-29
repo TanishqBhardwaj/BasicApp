@@ -1,10 +1,7 @@
-package com.example.moviemate.tv;
+package com.example.moviemate.tv.Adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moviemate.FavouriteFragment;
-import com.example.moviemate.FavouriteItem;
+import com.example.moviemate.favourite.UI.FavouriteFragment;
+import com.example.moviemate.favourite.Model.FavouriteItemTv;
 import com.example.moviemate.R;
+import com.example.moviemate.tv.Model.TvItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public TextView fav_date;
     private Context mContext;
     private ArrayList<TvItem> mTvList;
     private OnItemClickListener mListener;
-    static ArrayList<FavouriteItem> myfav = new ArrayList<>();
+    static ArrayList<FavouriteItemTv> myfav = new ArrayList<>();
     public ArrayList<TvItem> data;
 
     public interface OnItemClickListener {
@@ -82,21 +80,38 @@ public TextView fav_date;
     public void openDialog(final int position) {
 
                 try {
-                    FavouriteItem value = new FavouriteItem();
+                    FavouriteItemTv value = new FavouriteItemTv();
 
-                        value.setFImageUrl(mTvList.get(position).getImageUrl());
-                        value.setFName(mTvList.get(position).getName());
-                        value.setFDate(mTvList.get(position).getDate());
-                        value.setFOverview(mTvList.get(position).getOverview());
+                        value.setmImageUrl(mTvList.get(position).getImageUrl());
+                        value.setmImageUrl2(mTvList.get(position).getImageUrl2());
+                        value.setmName(mTvList.get(position).getName());
+                        value.setmOverview(mTvList.get(position).getOverview());
+                        value.setmPopularity(mTvList.get(position).getPopularity());
+                        value.setmVoteAverage(mTvList.get(position).getVoteAverage());
+                        value.setmVoteCount(mTvList.get(position).getVoteCount());
+                        value.setmDate(mTvList.get(position).getDate());
+                        value.setmId(mTvList.get(position).getId());
+                        value.setmType("tv");
+                        // Log.d(value.getFImageUrl()), "onClick: ");
+//                        Log.d(value.getFName(), "onClick: ");
+//                        Log.d(value.getFDate(), "onClick: ");
+//                        Log.d(value.getFOverview(), "onClick: ");
 
-                        Log.d(value.getFName(), "onClick: ");
-                        Log.d(value.getFDate(), "onClick: ");
-                        Log.d(value.getFOverview(), "onClick: ");
+//                        myfav.add(value);
+//                        new FavouriteFragment(myfav);
+//                        value.setFImageUrl(mTvList.get(position).getImageUrl());
+//                        value.setFName(mTvList.get(position).getName());
+//                        value.setFDate(mTvList.get(position).getDate());
+//                        value.setFOverview(mTvList.get(position).getOverview());
+//
+//                        Log.d(value.getFName(), "onClick: ");
+//                        Log.d(value.getFDate(), "onClick: ");
+//                        Log.d(value.getFOverview(), "onClick: ");
 try{ int l=myfav.size();
     int flag=0;
     for(int i=0;i<l;i++)
     {
-    if(myfav.get(i).getFName()==mTvList.get(position).getName()) { flag=1;
+    if(myfav.get(i).getmName()==mTvList.get(position).getName()) { flag=1;
     }
         }if(flag!=1){
             myfav.add(value);

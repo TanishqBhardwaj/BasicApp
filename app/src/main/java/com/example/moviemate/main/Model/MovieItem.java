@@ -1,6 +1,6 @@
 //This class is made for making Getters for values of API
 
-package com.example.moviemate.main;
+package com.example.moviemate.main.Model;
 
 public class MovieItem {
     private String mImageUrl;

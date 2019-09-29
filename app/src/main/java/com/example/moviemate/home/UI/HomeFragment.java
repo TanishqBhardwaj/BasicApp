@@ -1,4 +1,4 @@
-package com.example.moviemate.home;
+package com.example.moviemate.home.UI;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,9 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.Toast;
 
 import android.widget.ProgressBar;
 
@@ -28,8 +24,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviemate.R;
-import com.example.moviemate.main.DetailActivity;
-import com.example.moviemate.main.MovieItem;
+import com.example.moviemate.home.Adapter.HomeAdapter;
+import com.example.moviemate.main.UI.DetailActivity;
+import com.example.moviemate.main.Model.MovieItem;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,8 +37,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class HomeFragment extends Fragment implements HomeAdapter.OnItemClickListener {
 

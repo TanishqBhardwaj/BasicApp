@@ -1,15 +1,10 @@
-package com.example.moviemate.movie;
+package com.example.moviemate.movie.Adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,10 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moviemate.FavouriteFragment;
-import com.example.moviemate.FavouriteItem;
+import com.example.moviemate.favourite.UI.FavouriteFragment;
+import com.example.moviemate.favourite.Model.FavouriteItemTv;
 import com.example.moviemate.R;
-import com.example.moviemate.main.MovieItem;
+import com.example.moviemate.main.Model.MovieItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 
@@ -30,7 +25,7 @@ private ImageView plus2;
     private ArrayList<MovieItem> mMovieList;
     private ArrayList<MovieItem> mMovieListFull;
     private OnItemClickListener mListener;
-    static ArrayList<FavouriteItem> myfav = new ArrayList<>();
+    static ArrayList<FavouriteItemTv> myfav = new ArrayList<>();
 
     public interface OnItemClickListener {
         void onItemClick(int position, ArrayList<MovieItem> movieItemArrayList);
@@ -91,20 +86,26 @@ private ImageView plus2;
     public void openDialog(final int position) {
 
         try {
-            FavouriteItem value = new FavouriteItem();
-            value.setFImageUrl(mMovieList.get(position).getImageUrl());
-            value.setFName(mMovieList.get(position).getTitle());
-            value.setFDate(mMovieList.get(position).getReleaseDate());
-            value.setFOverview(mMovieList.get(position).getOverview());
+            FavouriteItemTv value = new FavouriteItemTv();
+            value.setmImageUrl(mMovieList.get(position).getImageUrl());
+            value.setmImageUrl2(mMovieList.get(position).getImageUrl2());
+            value.setmName(mMovieList.get(position).getTitle());
+            value.setmOverview(mMovieList.get(position).getOverview());
+            value.setmPopularity(mMovieList.get(position).getPopularity());
+            value.setmVoteAverage(mMovieList.get(position).getRating());
+            value.setmVoteCount(mMovieList.get(position).getVoteCount());
+            value.setmDate(mMovieList.get(position).getReleaseDate());
+            value.setmId(mMovieList.get(position).getId());
+            value.setmType("movie");
             // Log.d(value.getFImageUrl()), "onClick: ");
-            Log.d(value.getFName(), "onClick: ");
-            Log.d(value.getFDate(), "onClick: ");
-            Log.d(value.getFOverview(), "onClick: ");
+//            Log.d(value.getFName(), "onClick: ");
+//            Log.d(value.getFDate(), "onClick: ");
+//            Log.d(value.getFOverview(), "onClick: ");
             try{ int l=myfav.size();
                 int flag=0;
                 for(int i=0;i<l;i++)
                 {
-                    if(myfav.get(i).getFName()==mMovieList.get(position).getTitle()) { flag=1;
+                    if(myfav.get(i).getmName()==mMovieList.get(position).getTitle()) { flag=1;
                     }
                 }if(flag!=1){
                     myfav.add(value);
